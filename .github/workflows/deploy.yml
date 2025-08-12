@@ -19,9 +19,11 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+        working-directory: noureddinecode
 
       - name: Build project
         run: npm run build
+        working-directory: noureddinecode
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
