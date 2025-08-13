@@ -7,7 +7,7 @@ export default defineConfig({
   base: '/noureddine-portfolio/', // <-- move here!
   build: {
     outDir: "build",
-    chunkSizeWarningLimit: 2000,
+    chunkSizeWarningLimit: 3000,
   },
   plugins: [tsconfigPaths(), react(), tagger()],
   server: {
