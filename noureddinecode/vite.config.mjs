@@ -10,6 +10,7 @@ export default defineConfig({
   build: {
     outDir: "build",
     chunkSizeWarningLimit: 2000,
+    base: '/noureddine-portfolio/', // <-- set this to your repo name
   },
   plugins: [tsconfigPaths(), react(), tagger()],
   server: {
