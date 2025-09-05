@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Icon from '../../../components/AppIcon';
 import Image from '../../../components/AppImage';
 import Button from '../../../components/ui/Button';
 
 const FeaturedProjects = ({ onViewProject }) => {
+  const [activeCategory, setActiveCategory] = useState('All');
+
   const featuredProjects = [
     {
       id: 'automotive-ecu',
@@ -25,7 +27,8 @@ const FeaturedProjects = ({ onViewProject }) => {
       ],
       complexity: 'Advanced',
       duration: '18 months',
-      teamSize: 8
+      teamSize: 8,
+      github: 'https://github.com/Nourreddine1920/automotive-ecu-project'
     },
     {
       id: 'iot-smart-city',
@@ -47,173 +50,168 @@ const FeaturedProjects = ({ onViewProject }) => {
       ],
       complexity: 'Advanced',
       duration: '12 months',
-      teamSize: 6
+      teamSize: 6,
+      github: 'https://github.com/Nourreddine1920/iot-smart-city'
     },
     {
-      id: 'industrial-automation',
-      title: 'Industrial Process Controller',
-      description: 'High-precision control system for manufacturing automation with machine learning optimization.',
-      image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&h=600&fit=crop',
-      category: 'Industrial',
-      technologies: ['ARM Cortex-M7', 'Modbus', 'EtherCAT', 'Python'],
+      id: 'autonomous-robot',
+      title: 'Autonomous Mobile Robot',
+      description: 'Self-navigating robot platform with computer vision and obstacle avoidance capabilities.',
+      image: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&h=600&fit=crop',
+      category: 'Robotics',
+      technologies: ['ROS2', 'Python', 'OpenCV', 'TensorFlow'],
       metrics: {
-        precision: '±0.1%',
-        throughput: '+35%',
-        downtime: '-60%'
+        accuracy: '95%',
+        speed: '2m/s',
+        battery: '8hrs'
       },
       highlights: [
-        'Sub-millisecond response time',
-        'Adaptive control algorithms',
-        'Predictive quality control',
-        'Remote monitoring dashboard'
+        'SLAM-based navigation',
+        'Real-time object detection',
+        'Dynamic path planning',
+        'Remote monitoring interface'
+      ],
+      complexity: 'Intermediate',
+      duration: '9 months',
+      teamSize: 4,
+      github: 'https://github.com/Nourreddine1920/autonomous-robot'
+    },
+    {
+      id: 'industrial-monitoring',
+      title: 'Industrial IoT Monitoring System',
+      description: 'Real-time monitoring and predictive maintenance system for industrial equipment.',
+      image: 'https://images.unsplash.com/photo-1581091226825-c6a89e7e4801?w=800&h=600&fit=crop',
+      category: 'IoT',
+      technologies: ['Node.js', 'MQTT', 'InfluxDB', 'Docker'],
+      metrics: {
+        devices: '200+',
+        dataPoints: '10K/s',
+        accuracy: '99%'
+      },
+      highlights: [
+        'Real-time equipment monitoring',
+        'Predictive maintenance alerts',
+        'Energy consumption optimization',
+        'Custom dashboard interface'
       ],
       complexity: 'Advanced',
       duration: '15 months',
-      teamSize: 5
+      teamSize: 5,
+      github: 'https://github.com/Nourreddine1920/industrial-monitoring'
     }
   ];
 
-  return (
-    <div className="mb-12">
-      <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-text-primary mb-4">Featured Projects</h2>
-        <p className="text-text-secondary max-w-2xl mx-auto">
-          Showcase of complex embedded systems projects demonstrating expertise in automotive, IoT, and industrial applications
-        </p>
-      </div>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {featuredProjects?.map((project, index) => (
-          <div
-            key={project?.id}
-            className="group bg-white rounded-xl border border-border shadow-card hover:shadow-elevated transition-all duration-300 overflow-hidden"
-          >
-            {/* Project Image */}
-            <div className="relative h-48 overflow-hidden">
-              <Image
-                src={project?.image}
-                alt={project?.title}
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-              
-              {/* Category Badge */}
-              <div className="absolute top-4 left-4">
-                <span className="px-3 py-1.5 bg-white/90 backdrop-blur-sm text-brand-primary text-sm font-semibold rounded-full">
-                  {project?.category}
-                </span>
-              </div>
+  const categories = ['All', ...new Set(featuredProjects.map(project => project.category))];
 
-              {/* Complexity Badge */}
-              <div className="absolute top-4 right-4">
-                <span className="px-3 py-1.5 bg-red-500/90 backdrop-blur-sm text-white text-sm font-semibold rounded-full">
-                  {project?.complexity}
-                </span>
+  const filteredProjects = activeCategory === 'All'
+    ? featuredProjects
+    : featuredProjects.filter(project => project.category === activeCategory);
+
+  const getComplexityColor = (complexity) => {
+    switch (complexity.toLowerCase()) {
+      case 'basic': return 'text-green-600 bg-green-100';
+      case 'intermediate': return 'text-blue-600 bg-blue-100';
+      case 'advanced': return 'text-purple-600 bg-purple-100';
+      default: return 'text-gray-600 bg-gray-100';
+    }
+  };
+
+  return (
+    <div className="space-y-8">
+      {/* Category Filter */}
+      <div className="flex flex-wrap gap-2">
+        {categories.map(category => (
+          <button
+            key={category}
+            onClick={() => setActiveCategory(category)}
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+              activeCategory === category
+                ? 'bg-brand-primary text-white'
+                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+            }`}
+          >
+            {category}
+          </button>
+        ))}
+      </div>
+
+      {/* Projects Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {filteredProjects.map(project => (
+          <div
+            key={project.id}
+            className="bg-white rounded-xl border border-border shadow-card overflow-hidden hover:shadow-lg transition-shadow"
+          >
+            <div className="aspect-w-16 aspect-h-9 relative">
+              <Image
+                src={project.image}
+                alt={project.title}
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+              <div className="absolute bottom-4 left-4 right-4">
+                <h3 className="text-xl font-bold text-white mb-2">{project.title}</h3>
+                <div className="flex flex-wrap gap-2">
+                  {project.technologies.slice(0, 3).map(tech => (
+                    <span
+                      key={tech}
+                      className="px-2 py-1 rounded-md bg-white/20 text-white text-xs font-medium backdrop-blur-sm"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                  {project.technologies.length > 3 && (
+                    <span className="px-2 py-1 rounded-md bg-white/20 text-white text-xs font-medium backdrop-blur-sm">
+                      +{project.technologies.length - 3} more
+                    </span>
+                  )}
+                </div>
               </div>
             </div>
 
-            {/* Project Content */}
             <div className="p-6">
-              <h3 className="text-xl font-bold text-text-primary mb-2 group-hover:text-brand-primary transition-colors duration-200">
-                {project?.title}
-              </h3>
-              <p className="text-text-secondary text-sm mb-4 line-clamp-3">
-                {project?.description}
-              </p>
+              <p className="text-text-secondary mb-4">{project.description}</p>
 
-              {/* Key Metrics */}
-              <div className="grid grid-cols-3 gap-3 mb-4">
-                {Object.entries(project?.metrics)?.map(([key, value], metricIndex) => (
-                  <div key={metricIndex} className="text-center p-2 bg-brand-surface rounded-lg">
-                    <div className="text-lg font-bold text-brand-primary">{value}</div>
-                    <div className="text-xs text-text-secondary capitalize">{key}</div>
+              <div className="grid grid-cols-3 gap-4 mb-6">
+                <div className="text-center p-3 bg-gray-50 rounded-lg">
+                  <div className="text-sm font-medium text-text-secondary mb-1">Duration</div>
+                  <div className="text-brand-primary font-bold">{project.duration}</div>
+                </div>
+                <div className="text-center p-3 bg-gray-50 rounded-lg">
+                  <div className="text-sm font-medium text-text-secondary mb-1">Team</div>
+                  <div className="text-brand-primary font-bold">{project.teamSize} devs</div>
+                </div>
+                <div className="text-center p-3 bg-gray-50 rounded-lg">
+                  <div className="text-sm font-medium text-text-secondary mb-1">Level</div>
+                  <div className={`text-sm font-medium ${getComplexityColor(project.complexity)}`}>
+                    {project.complexity}
                   </div>
-                ))}
-              </div>
-
-              {/* Technology Stack */}
-              <div className="flex flex-wrap gap-2 mb-4">
-                {project?.technologies?.slice(0, 3)?.map((tech, techIndex) => (
-                  <span
-                    key={techIndex}
-                    className="px-2 py-1 bg-gray-100 text-gray-700 text-xs font-medium rounded-md"
-                  >
-                    {tech}
-                  </span>
-                ))}
-                {project?.technologies?.length > 3 && (
-                  <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded-md">
-                    +{project?.technologies?.length - 3}
-                  </span>
-                )}
-              </div>
-
-              {/* Key Highlights */}
-              <div className="mb-4">
-                <h4 className="text-sm font-semibold text-text-primary mb-2">Key Highlights:</h4>
-                <ul className="space-y-1">
-                  {project?.highlights?.slice(0, 2)?.map((highlight, highlightIndex) => (
-                    <li key={highlightIndex} className="flex items-start space-x-2 text-xs text-text-secondary">
-                      <Icon name="CheckCircle" size={12} className="text-success mt-0.5 flex-shrink-0" />
-                      <span>{highlight}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Project Stats */}
-              <div className="flex items-center justify-between text-xs text-text-secondary mb-4 pt-3 border-t border-border">
-                <div className="flex items-center space-x-1">
-                  <Icon name="Clock" size={12} />
-                  <span>{project?.duration}</span>
-                </div>
-                <div className="flex items-center space-x-1">
-                  <Icon name="Users" size={12} />
-                  <span>{project?.teamSize} members</span>
                 </div>
               </div>
 
-              {/* Action Buttons */}
               <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-2">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    iconName="Github"
-                    className="text-text-secondary hover:text-text-primary p-1"
-                  />
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    iconName="ExternalLink"
-                    className="text-text-secondary hover:text-text-primary p-1"
-                  />
-                </div>
                 <Button
-                  variant="default"
-                  size="sm"
-                  iconName="ArrowRight"
-                  iconPosition="right"
+                  variant="primary"
                   onClick={() => onViewProject(project)}
-                  className="bg-brand-primary hover:bg-brand-primary/90"
+                  className="flex items-center space-x-2"
                 >
-                  View Details
+                  <span>View Details</span>
+                  <Icon name="ArrowRight" size={16} />
                 </Button>
+                {project.github && (
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2 text-gray-500 hover:text-gray-700 transition-colors"
+                  >
+                    <Icon name="Github" size={24} />
+                  </a>
+                )}
               </div>
             </div>
           </div>
         ))}
-      </div>
-      {/* View All Projects Button */}
-      <div className="text-center mt-8">
-        <Button
-          variant="outline"
-          size="lg"
-          iconName="Grid3X3"
-          iconPosition="left"
-          className="text-brand-primary border-brand-primary hover:bg-brand-primary hover:text-white"
-        >
-          View All Projects
-        </Button>
       </div>
     </div>
   );
