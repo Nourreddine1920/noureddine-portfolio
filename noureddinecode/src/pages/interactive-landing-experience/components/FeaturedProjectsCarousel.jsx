@@ -13,7 +13,7 @@ const FeaturedProjectsCarousel = () => {
       title: "Linux Kernel Driver",
       category: "Embedded Systems",
       description: "Custom Linux kernel driver development for embedded systems, focusing on hardware abstraction and performance optimization.",
-      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Tux.svg/512px-Tux.svg.png", // PNG Linux mascot
+      image: "https://raw.githubusercontent.com/torvalds/linux/master/Documentation/logo.gif", // Linux kernel logo
       technologies: ["Linux", "Kernel", "C", "Embedded"],
       metrics: {
         performance: "Low-latency IO",
@@ -45,7 +45,7 @@ const FeaturedProjectsCarousel = () => {
       title: "MQTT Broker on STM32 & SIM7600",
       category: "IoT Connectivity",
       description: "MQTT broker implementation on STM32 microcontroller with SIM7600 for cellular IoT connectivity and remote device management.",
-      image: "https://www.st.com/resource/en/product-image/stm32f4discovery.jpg", // STM32 board official image
+      image: "https://raw.githubusercontent.com/stm32duino/Arduino_Core_STM32/main/CI/logo/STM32_LOGO.png", // STM32 logo
       technologies: ["STM32", "SIM7600", "MQTT", "C"],
       metrics: {
         connectivity: "Cellular IoT",
@@ -61,7 +61,7 @@ const FeaturedProjectsCarousel = () => {
       title: "I2C Configuration with Registers",
       category: "Embedded Communication",
       description: "I2C configuration and register management for embedded devices, enabling flexible communication and device control.",
-      image: "https://www.electronics-tutorials.ws/wp-content/uploads/2018/05/i2c-bus-fig1.png", // I2C bus diagram PNG
+      image: "https://raw.githubusercontent.com/raspberrypi/documentation/master/documentation/asciidoc/computers/i2c/i2c-example.png", // I2C diagram from Raspberry Pi docs
       technologies: ["I2C", "Registers", "C", "Embedded"],
       metrics: {
         flexibility: "Configurable Registers",
