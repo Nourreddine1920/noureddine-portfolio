@@ -4,7 +4,7 @@ import tsconfigPaths from "vite-tsconfig-paths";
 import tagger from "@dhiwise/component-tagger";
 
 export default defineConfig({
-  base: '/noureddine-portfolio/', // <-- move here!
+  // base: '/noureddine-portfolio/',
   build: {
     outDir: "build",
     chunkSizeWarningLimit: 3000,
