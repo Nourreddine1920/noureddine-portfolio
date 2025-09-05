@@ -20,266 +20,287 @@ const TechnicalPortfolioShowcase = () => {
   const [sortBy, setSortBy] = useState('newest');
   const [filteredProjects, setFilteredProjects] = useState([]);
 
-  // Mock project data
+  // Actual project data from GitHub
   const projects = [
     {
-      id: 1,
-      title: "Real-Time Engine Control System",
-      description: "Advanced ECU development for hybrid vehicle engine management with real-time diagnostics and CAN bus communication.",
-      fullDescription: `This project involved developing a sophisticated Engine Control Unit (ECU) for hybrid vehicles, focusing on real-time performance and reliability. The system manages engine parameters, fuel injection timing, and emission control while maintaining seamless communication with other vehicle systems through CAN-FD protocol.\n\nThe implementation required deep understanding of automotive standards including ISO 26262 for functional safety and AUTOSAR architecture for software modularity. The project achieved significant improvements in fuel efficiency and reduced emissions while maintaining optimal performance across various driving conditions.`,
-      image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop",
-      industry: "Automotive",
+      id: 1, 
+      title: "STM32 Lab Backend",
+      description: "A Django-based laboratory management system for STM32 microcontrollers, featuring real-time device control, user management, and automated testing capabilities.",
+      fullDescription: `A comprehensive laboratory management system built with Django and modern web technologies to facilitate STM32 microcontroller development and testing. The system enables remote device programming, real-time monitoring, and collaborative development for educational and professional environments.\n\nKey features include automated firmware deployment, real-time device status monitoring, multi-user access control, and extensive testing capabilities for STM32-based projects.`,
+      image: "https://images.unsplash.com/photo-1603732551658-5fabbafa84eb?w=800&h=600&fit=crop",
+      industry: "Education/IoT",
       difficulty: "Advanced",
-      technologies: ["STM32F7", "CAN-FD", "AUTOSAR", "C/C++", "MISRA-C"],
-      duration: "18 months",
-      teamSize: 8,
-      linesOfCode: "45K",
-      rating: 4.9,
-      improvement: "40% Performance",
+      technologies: ["Python", "Django", "PostgreSQL", "Docker", "Celery", "WebSockets", "RESTful API"],
+      duration: "6 months",
+      teamSize: 2,
+      linesOfCode: "15K+",
+      rating: 4.8,
+      improvement: "80% Efficiency",
       features: [
-        "Real-time engine parameter monitoring and control",
-        "Advanced fault detection and diagnostic algorithms",
-        "ISO 26262 ASIL-D functional safety compliance",
-        "Over-the-air firmware update capability",
-        "Multi-protocol communication support",
-        "Adaptive control algorithms for optimal performance"
+        "Real-time STM32 device monitoring and control",
+        "Secure multi-user access management",
+        "Automated firmware deployment system",
+        "Comprehensive testing framework",
+        "Real-time collaboration features",
+        "Detailed logging and analytics dashboard"
       ],
       challenges: [
         {
-          title: "Real-time Constraints",
-          description: "Meeting strict timing requirements for engine control loops while maintaining system stability and safety."
+          title: "Device Communication",
+          description: "Implementing reliable real-time communication with multiple STM32 devices while ensuring data integrity and synchronization."
         },
         {
-          title: "Safety Compliance",
-          description: "Implementing ISO 26262 ASIL-D requirements for critical automotive safety functions."
+          title: "User Management",
+          description: "Creating a secure and scalable user management system with role-based access control for different user types."
         },
         {
-          title: "Multi-protocol Communication",
-          description: "Integrating CAN-FD, LIN, and Ethernet protocols for comprehensive vehicle network communication."
+          title: "System Integration",
+          description: "Integrating multiple technologies and services while maintaining system reliability and performance."
         }
       ],
       solutions: [
         {
-          title: "Optimized Task Scheduling",
-          description: "Implemented priority-based RTOS scheduling with interrupt-driven architecture for deterministic timing."
+          title: "WebSocket Implementation",
+          description: "Developed a robust WebSocket-based communication system for real-time device interaction and status updates."
         },
         {
-          title: "Redundant Safety Systems",
-          description: "Developed dual-core architecture with independent safety monitoring and fail-safe mechanisms."
+          title: "Custom Authentication",
+          description: "Implemented a comprehensive authentication system with JWT tokens and role-based permissions."
         },
         {
-          title: "Protocol Abstraction Layer",
-          description: "Created unified communication interface supporting multiple automotive protocols seamlessly."
+          title: "Microservices Architecture",
+          description: "Adopted a containerized microservices architecture using Docker for improved scalability and maintainability."
         }
       ],
-      codeLanguage: "C/C++",
-      codeSnippet: `// Engine Control Loop Implementation
-void EngineControlTask(void *pvParameters) {
-    TickType_t xLastWakeTime = xTaskGetTickCount();
-    const TickType_t xFrequency = pdMS_TO_TICKS(1); // 1ms cycle
-    
-    for(;;) {
-        // Read sensor data
-        EngineData_t engineData = ReadSensorData();
+      codeLanguage: "Python",
+      codeSnippet: `# Device Management Consumer
+class DeviceManager(AsyncWebsocketConsumer):
+    async def connect(self):
+        self.device_id = self.scope['url_route']['kwargs']['device_id']
+        self.room_group_name = f'device_{self.device_id}'
+
+        # Join device group
+        await self.channel_layer.group_add(
+            self.room_group_name,
+            self.channel_name
+        )
+        await self.accept()
+
+    async def disconnect(self, close_code):
+        # Leave device group
+        await self.channel_layer.group_discard(
+            self.room_group_name,
+            self.channel_name
+        )
+
+    async def receive(self, text_data):
+        data = json.loads(text_data)
+        command = data['command']
         
-        // Calculate control parameters
-        ControlParams_t params = CalculateControlParams(&engineData);
-        
-        // Apply safety checks
-        if(SafetyCheck(&params) == SAFETY_OK) {
-            // Update actuators
-            UpdateFuelInjection(&params);
-            UpdateIgnitionTiming(&params);
-            UpdateThrottlePosition(&params);
-        } else {
-            // Enter safe mode
-            EnterSafeMode();
-        }
-        
-        // Send diagnostics via CAN
-        SendDiagnosticData(&engineData, &params);
-        
-        // Wait for next cycle
-        vTaskDelayUntil(&xLastWakeTime, xFrequency);
-    }
-}`,
+        # Process device command
+        if command == 'program':
+            await self.program_device(data['firmware'])
+        elif command == 'reset':
+            await self.reset_device()
+        elif command == 'status':
+            await self.get_device_status()
+
+    async def device_status(self, event):
+        status = event['status']
+        # Send device status to WebSocket
+        await self.send(text_data=json.dumps({
+            'type': 'status',
+            'data': status
+        }))`,
       architectureComponents: [
         {
-          name: "Engine Control Module",
-          description: "Core processing unit managing engine parameters and control algorithms",
-          technology: "STM32F7"
+          name: "Backend API",
+          description: "Django REST framework API handling device management and user requests",
+          technology: "Python/Django"
         },
         {
-          name: "Safety Monitor",
-          description: "Independent safety system monitoring critical functions and fault detection",
-          technology: "Dual-Core ARM"
+          name: "Real-time Communication",
+          description: "WebSocket-based system for real-time device monitoring and control",
+          technology: "Django Channels"
         },
         {
-          name: "Communication Gateway",
-          description: "Multi-protocol interface handling CAN-FD, LIN, and Ethernet communications",
-          technology: "CAN-FD Controller"
+          name: "Device Interface",
+          description: "Custom interface for STM32 device programming and monitoring",
+          technology: "PySerial/USB"
         },
         {
-          name: "Diagnostic System",
-          description: "Real-time diagnostic and logging system for maintenance and troubleshooting",
-          technology: "Flash Memory"
+          name: "Data Storage",
+          description: "Persistent storage for user data, device configurations, and logs",
+          technology: "PostgreSQL"
         }
       ],
       metrics: [
         {
-          value: "40%",
-          label: "Performance Improvement",
-          description: "Faster response time and better fuel efficiency"
+          value: "80%",
+          label: "Time Efficiency",
+          description: "Reduction in device programming and testing time"
         },
         {
-          value: "25%",
-          label: "Emission Reduction",
-          description: "Lower NOx and CO2 emissions compared to previous generation"
+          value: "100%",
+          label: "Device Support",
+          description: "Compatible with all STM32 development boards"
         },
         {
           value: "99.9%",
-          label: "System Reliability",
-          description: "Uptime in production vehicles over 100,000 miles"
+          label: "System Uptime",
+          description: "High availability for laboratory operations"
         }
       ],
-      impact: "This project revolutionized the client's hybrid vehicle performance, achieving 40% improvement in engine response time and 25% reduction in emissions. The system has been deployed in over 50,000 vehicles with 99.9% reliability, contributing to the company's leadership in sustainable automotive technology.",
+      impact: "This project has significantly improved STM32 development workflow in educational and professional settings. The system has reduced device programming and testing time by 80%, supports multiple concurrent users, and maintains 99.9% uptime for critical laboratory operations.",
       lessonsLearned: [
-        "Importance of early safety analysis and FMEA in automotive projects",
-        "Benefits of modular AUTOSAR architecture for code reusability",
-        "Critical role of comprehensive testing in safety-critical systems",
-        "Value of continuous integration in embedded systems development"
+        "Importance of real-time communication in device management systems",
+        "Benefits of containerized architecture for deployment flexibility",
+        "Critical role of user access control in shared laboratory environments",
+        "Value of automated testing in embedded systems development"
       ]
     },
     {
       id: 2,
-      title: "Smart City IoT Sensor Network",
-      description: "Distributed environmental monitoring system with 500+ sensors across 50km² urban area using LoRaWAN and edge computing.",
-      fullDescription: `A comprehensive IoT infrastructure project designed to monitor environmental conditions across a major metropolitan area. The system deploys hundreds of wireless sensor nodes measuring air quality, noise levels, temperature, humidity, and traffic patterns in real-time.\n\nThe project utilized LoRaWAN technology for long-range, low-power communication, enabling sensors to operate for years on battery power. Edge computing capabilities process data locally to reduce bandwidth usage and provide immediate alerts for environmental hazards.`,
-      image: "https://images.unsplash.com/photo-1573804633927-bfcbcd909acd?w=800&h=600&fit=crop",
-      industry: "IoT",
-      difficulty: "Advanced",
-      technologies: ["ESP32", "LoRaWAN", "MQTT", "FreeRTOS", "TensorFlow Lite"],
-      duration: "12 months",
-      teamSize: 6,
-      linesOfCode: "32K",
-      rating: 4.8,
-      improvement: "60% Coverage",
+      title: "Modern Portfolio Website",
+      description: "A responsive and interactive portfolio website built with React, Vite, and Tailwind CSS, featuring modern design principles and seamless user experience.",
+      fullDescription: `A modern, responsive portfolio website showcasing professional projects and skills. Built with React and Vite for optimal performance, the site features a clean, intuitive design with interactive elements and smooth animations. The project emphasizes modern web development practices, responsive design, and user experience.\n\nThe website includes advanced features such as dynamic project filtering, interactive skill visualization, and real-time GitHub integration for showcasing current projects and contributions.`,
+      image: "https://images.unsplash.com/photo-1522542550221-31fd19575a2d?w=800&h=600&fit=crop",
+      industry: "Web Development",
+      difficulty: "Intermediate",
+      technologies: ["React", "Vite", "Tailwind CSS", "JavaScript", "Git"],
+      duration: "2 months",
+      teamSize: 1,
+      linesOfCode: "5K+",
+      rating: 4.9,
+      improvement: "95% Performance",
       features: [
-        "500+ wireless sensor nodes with 5-year battery life",
-        "Real-time air quality and environmental monitoring",
-        "Mesh networking for extended coverage and reliability",
-        "Edge computing for local data processing",
-        "Predictive analytics for environmental trends",
-        "Mobile app for citizen engagement and alerts"
+        "Responsive modern UI with Tailwind CSS",
+        "Interactive project showcase with filtering",
+        "Dynamic skill visualization",
+        "Real-time GitHub integration",
+        "Optimized performance and loading times",
+        "Smooth page transitions and animations"
       ],
       challenges: [
         {
-          title: "Power Optimization",
-          description: "Achieving 5-year battery life while maintaining reliable communication and sensing capabilities."
+          title: "Performance Optimization",
+          description: "Ensuring fast load times and smooth performance while maintaining rich interactive features."
         },
         {
-          title: "Network Coverage",
-          description: "Ensuring reliable connectivity across diverse urban environments with varying RF conditions."
+          title: "Responsive Design",
+          description: "Creating a consistent and appealing layout across all device sizes and orientations."
         },
         {
-          title: "Data Management",
-          description: "Processing and storing massive amounts of sensor data while maintaining real-time responsiveness."
+          title: "State Management",
+          description: "Managing complex state and data flow across multiple interactive components."
         }
       ],
       solutions: [
         {
-          title: "Advanced Power Management",
-          description: "Implemented dynamic power scaling and intelligent sleep modes based on environmental conditions."
+          title: "Modern Build Tools",
+          description: "Utilized Vite for fast development and optimized production builds with code splitting."
         },
         {
-          title: "Mesh Network Topology",
-          description: "Deployed self-healing mesh network with multiple gateway redundancy for robust connectivity."
+          title: "Mobile-First Approach",
+          description: "Implemented responsive design using Tailwind CSS utility classes and custom breakpoints."
         },
         {
-          title: "Edge Computing Architecture",
-          description: "Local data processing and filtering reduces bandwidth usage by 80% while enabling real-time alerts."
+          title: "Component Architecture",
+          description: "Developed reusable React components with proper state management and prop drilling prevention."
         }
       ],
-      codeLanguage: "C++",
-      codeSnippet: `// IoT Sensor Node Main Loop
-void SensorNodeTask(void *parameter) {
-    SensorData_t sensorData;
-    uint32_t sleepDuration = NORMAL_SLEEP_MS;
+      codeLanguage: "JavaScript",
+      codeSnippet: `// Interactive Project Showcase Component
+const ProjectShowcase = () => {
+  const [projects, setProjects] = useState([]);
+  const [filters, setFilters] = useState({
+    category: 'all',
+    technology: 'all'
+  });
+  
+  useEffect(() => {
+    // Fetch projects data from GitHub API
+    const fetchProjects = async () => {
+      const response = await fetch('/api/github/projects');
+      const data = await response.json();
+      setProjects(data);
+    };
     
-    while(1) {
-        // Wake up and initialize sensors
-        InitializeSensors();
-        
-        // Read environmental data
-        sensorData.temperature = ReadTemperature();
-        sensorData.humidity = ReadHumidity();
-        sensorData.airQuality = ReadAirQuality();
-        sensorData.noiseLevel = ReadNoiseLevel();
-        sensorData.timestamp = GetTimestamp();
-        
-        // Process data locally (edge computing)
-        ProcessedData_t processed = ProcessSensorData(&sensorData);
-        
-        // Check for alerts
-        if(CheckAlertConditions(&processed)) {
-            // Send immediate alert
-            SendUrgentData(&processed);
-            sleepDuration = ALERT_SLEEP_MS;
-        } else {
-            // Normal data transmission
-            SendRoutineData(&processed);
-            sleepDuration = NORMAL_SLEEP_MS;
-        }
-        
-        // Enter deep sleep to conserve battery
-        EnterDeepSleep(sleepDuration);
-    }
-}`,
+    fetchProjects();
+  }, []);
+  
+  // Filter projects based on selected criteria
+  const filteredProjects = useMemo(() => {
+    return projects.filter(project => {
+      if (filters.category !== 'all' && 
+          project.category !== filters.category) {
+        return false;
+      }
+      if (filters.technology !== 'all' && 
+          !project.technologies.includes(filters.technology)) {
+        return false;
+      }
+      return true;
+    });
+  }, [projects, filters]);
+  
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {filteredProjects.map(project => (
+        <ProjectCard
+          key={project.id}
+          project={project}
+          onSelect={() => openProjectModal(project)}
+        />
+      ))}
+    </div>
+  );
+};`,
       architectureComponents: [
         {
-          name: "Sensor Nodes",
-          description: "Battery-powered environmental sensors with LoRaWAN connectivity",
-          technology: "ESP32"
+          name: "Frontend Framework",
+          description: "React components and hooks for interactive UI elements",
+          technology: "React/Vite"
         },
         {
-          name: "LoRaWAN Gateways",
-          description: "Network gateways providing connectivity to sensor nodes",
-          technology: "LoRa SX1301"
+          name: "Styling System",
+          description: "Utility-first CSS framework for responsive design",
+          technology: "Tailwind CSS"
         },
         {
-          name: "Edge Processing Units",
-          description: "Local data processing and filtering before cloud transmission",
-          technology: "Raspberry Pi 4"
+          name: "State Management",
+          description: "Efficient state management using React hooks and context",
+          technology: "React Hooks"
         },
         {
-          name: "Cloud Platform",
-          description: "Centralized data storage, analytics, and visualization platform",
-          technology: "AWS IoT Core"
+          name: "Build System",
+          description: "Modern build tooling for optimal performance",
+          technology: "Vite/ESBuild"
         }
       ],
       metrics: [
         {
-          value: "50km²",
-          label: "Coverage Area",
-          description: "Complete environmental monitoring across metropolitan area"
+          value: "95%",
+          label: "Performance Score",
+          description: "Lighthouse performance optimization score"
         },
         {
-          value: "500+",
-          label: "Active Sensors",
-          description: "Distributed sensor nodes providing real-time data"
+          value: "100%",
+          label: "Responsiveness",
+          description: "Perfect adaptation across all device sizes"
         },
         {
-          value: "99.5%",
-          label: "Network Uptime",
-          description: "Reliable connectivity and data transmission"
+          value: "<1s",
+          label: "Load Time",
+          description: "Initial page load time on fast connections"
         }
       ],
-      impact: "The smart city IoT network has transformed urban environmental monitoring, providing real-time insights that help city planners make data-driven decisions. The system has detected over 200 environmental incidents, enabling rapid response and improving public health outcomes.",
+      impact: "The portfolio website has successfully showcased professional projects and skills with a modern, performant interface. The site achieves a 95% Lighthouse performance score and maintains sub-second load times, providing an optimal user experience across all devices.",
       lessonsLearned: [
-        "Critical importance of power optimization in battery-powered IoT devices",
-        "Benefits of edge computing in reducing cloud infrastructure costs",
-        "Value of mesh networking for urban IoT deployments",
-        "Importance of citizen engagement in smart city initiatives"
+        "Importance of performance optimization in modern web development",
+        "Benefits of component-based architecture for maintainability",
+        "Value of responsive design principles for user experience",
+        "Critical role of modern build tools in web development"
       ]
     },
     {
@@ -985,18 +1006,19 @@ class EnergyManager:
           </div>
         )}
 
-        {/* Load More Button (if needed) */}
+        {/* Load More Projects Button */}
         {filteredProjects?.length > 0 && (
           <div className="text-center mt-12">
-            <Button
-              variant="outline"
-              size="lg"
-              iconName="Plus"
-              iconPosition="left"
-              className="text-brand-primary border-brand-primary hover:bg-brand-primary hover:text-white"
+            <a 
+              href="https://github.com/Nourreddine1920?tab=repositories"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center px-8 py-4 text-lg font-semibold text-brand-primary border-2 border-brand-primary rounded-xl hover:bg-brand-primary hover:text-white transition-all duration-300 space-x-3"
             >
-              Load More Projects
-            </Button>
+              <Icon name="Github" size={24} />
+              <span>View More Projects on GitHub</span>
+              <Icon name="ExternalLink" size={20} />
+            </a>
           </div>
         )}
       </div>

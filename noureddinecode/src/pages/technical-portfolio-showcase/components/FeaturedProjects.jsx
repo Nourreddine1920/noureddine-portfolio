@@ -1,118 +1,112 @@
-import React, { useState } from 'react';
-import Icon from '../../../components/AppIcon';
-import Image from '../../../components/AppImage';
-import Button from '../../../components/ui/Button';
+import React, { useState } from "react";
+import Icon from "../../../components/AppIcon";
+import Image from "../../../components/AppImage";
+import Button from "../../../components/ui/Button";
 
 const FeaturedProjects = ({ onViewProject }) => {
-  const [activeCategory, setActiveCategory] = useState('All');
+  const [activeCategory, setActiveCategory] = useState("All");
 
   const featuredProjects = [
     {
-      id: 'automotive-ecu',
-      title: 'Automotive ECU Development',
-      description: 'Advanced Engine Control Unit with real-time diagnostics and CAN bus communication for hybrid vehicles.',
-      image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop',
-      category: 'Automotive',
-      technologies: ['STM32F7', 'CAN-FD', 'AUTOSAR', 'C/C++'],
+      id: "stm32-lab",
+      title: "STM32 Lab Management System",
+      description:
+        "A full-stack lab management system for STM32 microcontrollers with backend automation and frontend dashboard.",
+      image:
+        "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&h=600",
+      category: "Embedded Systems",
+      technologies: ["STM32", "Python", "React", "C"],
       metrics: {
-        performance: '+40%',
-        efficiency: '+25%',
-        reliability: '99.9%'
+        features: "15+",
+        coverage: "100%",
+        reliability: "99.9%",
       },
       highlights: [
-        'Real-time engine parameter monitoring',
-        'Advanced fault detection algorithms',
-        'ISO 26262 functional safety compliance',
-        'Over-the-air update capability'
+        "Lab automation system",
+        "Real-time diagnostics",
+        "Interactive dashboard",
+        "Hardware integration",
       ],
-      complexity: 'Advanced',
-      duration: '18 months',
-      teamSize: 8,
-      github: 'https://github.com/Nourreddine1920/automotive-ecu-project'
+      complexity: "Advanced",
+      duration: "6 months",
+      teamSize: 2,
+      github: "https://github.com/Nourreddine1920/STM32_LAB_Backend",
     },
     {
-      id: 'iot-smart-city',
-      title: 'Smart City IoT Infrastructure',
-      description: 'Distributed sensor network for environmental monitoring with edge computing and cloud integration.',
-      image: 'https://images.unsplash.com/photo-1573804633927-bfcbcd909acd?w=800&h=600&fit=crop',
-      category: 'IoT',
-      technologies: ['ESP32', 'LoRaWAN', 'MQTT', 'FreeRTOS'],
+      id: "mqtt-broker",
+      title: "MQTT Broker with STM32 & SIM7600",
+      description:
+        "Custom MQTT broker implementation on STM32 microcontroller with cellular connectivity using SIM7600 module.",
+      image:
+        "https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?auto=format&fit=crop&w=800&h=600",
+      category: "IoT",
+      technologies: ["STM32", "SIM7600", "MQTT", "C"],
       metrics: {
-        coverage: '50km²',
-        sensors: '500+',
-        uptime: '99.5%'
+        protocol: "MQTT 3.1.1",
+        stability: "99.9%",
+        performance: "High",
       },
       highlights: [
-        'Low-power sensor nodes with 5-year battery life',
-        'Mesh networking for extended coverage',
-        'Real-time air quality monitoring',
-        'Predictive maintenance algorithms'
+        "Cellular IoT connectivity",
+        "MQTT protocol stack",
+        "Power optimization",
+        "Remote management",
       ],
-      complexity: 'Advanced',
-      duration: '12 months',
-      teamSize: 6,
-      github: 'https://github.com/Nourreddine1920/iot-smart-city'
+      complexity: "Advanced",
+      duration: "4 months",
+      teamSize: 1,
+      github: "https://github.com/Nourreddine1920/MQTT-Brocker-STM32-SIM7600",
     },
     {
-      id: 'autonomous-robot',
-      title: 'Autonomous Mobile Robot',
-      description: 'Self-navigating robot platform with computer vision and obstacle avoidance capabilities.',
-      image: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&h=600&fit=crop',
-      category: 'Robotics',
-      technologies: ['ROS2', 'Python', 'OpenCV', 'TensorFlow'],
+      id: "i2c-config",
+      title: "I2C Configuration Manager",
+      description:
+        "Advanced I2C protocol implementation with register-level configuration for embedded systems communication.",
+      image:
+        "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&h=600",
+      category: "Embedded Systems",
+      technologies: ["I2C", "C", "Embedded", "Hardware"],
       metrics: {
-        accuracy: '95%',
-        speed: '2m/s',
-        battery: '8hrs'
+        speed: "1MHz+",
+        reliability: "99.9%",
+        compatibility: "Multi-device",
       },
       highlights: [
-        'SLAM-based navigation',
-        'Real-time object detection',
-        'Dynamic path planning',
-        'Remote monitoring interface'
+        "Register management",
+        "Multi-device support",
+        "Low-level configuration",
+        "Error handling",
       ],
-      complexity: 'Intermediate',
-      duration: '9 months',
-      teamSize: 4,
-      github: 'https://github.com/Nourreddine1920/autonomous-robot'
+      complexity: "Intermediate",
+      duration: "3 months",
+      teamSize: 1,
+      github:
+        "https://github.com/Nourreddine1920/I2C-Configuration-with-Registres",
     },
-    {
-      id: 'industrial-monitoring',
-      title: 'Industrial IoT Monitoring System',
-      description: 'Real-time monitoring and predictive maintenance system for industrial equipment.',
-      image: 'https://images.unsplash.com/photo-1581091226825-c6a89e7e4801?w=800&h=600&fit=crop',
-      category: 'IoT',
-      technologies: ['Node.js', 'MQTT', 'InfluxDB', 'Docker'],
-      metrics: {
-        devices: '200+',
-        dataPoints: '10K/s',
-        accuracy: '99%'
-      },
-      highlights: [
-        'Real-time equipment monitoring',
-        'Predictive maintenance alerts',
-        'Energy consumption optimization',
-        'Custom dashboard interface'
-      ],
-      complexity: 'Advanced',
-      duration: '15 months',
-      teamSize: 5,
-      github: 'https://github.com/Nourreddine1920/industrial-monitoring'
-    }
   ];
 
-  const categories = ['All', ...new Set(featuredProjects.map(project => project.category))];
+  const categories = [
+    "All",
+    ...new Set(featuredProjects.map((project) => project.category)),
+  ];
 
-  const filteredProjects = activeCategory === 'All'
-    ? featuredProjects
-    : featuredProjects.filter(project => project.category === activeCategory);
+  const filteredProjects =
+    activeCategory === "All"
+      ? featuredProjects
+      : featuredProjects.filter(
+          (project) => project.category === activeCategory
+        );
 
   const getComplexityColor = (complexity) => {
     switch (complexity.toLowerCase()) {
-      case 'basic': return 'text-green-600 bg-green-100';
-      case 'intermediate': return 'text-blue-600 bg-blue-100';
-      case 'advanced': return 'text-purple-600 bg-purple-100';
-      default: return 'text-gray-600 bg-gray-100';
+      case "basic":
+        return "text-green-600 bg-green-100";
+      case "intermediate":
+        return "text-blue-600 bg-blue-100";
+      case "advanced":
+        return "text-purple-600 bg-purple-100";
+      default:
+        return "text-gray-600 bg-gray-100";
     }
   };
 
@@ -120,14 +114,14 @@ const FeaturedProjects = ({ onViewProject }) => {
     <div className="space-y-8">
       {/* Category Filter */}
       <div className="flex flex-wrap gap-2">
-        {categories.map(category => (
+        {categories.map((category) => (
           <button
             key={category}
             onClick={() => setActiveCategory(category)}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
               activeCategory === category
-                ? 'bg-brand-primary text-white'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                ? "bg-brand-primary text-white"
+                : "bg-gray-100 text-gray-600 hover:bg-gray-200"
             }`}
           >
             {category}
@@ -136,32 +130,35 @@ const FeaturedProjects = ({ onViewProject }) => {
       </div>
 
       {/* Projects Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {filteredProjects.map(project => (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+        {filteredProjects.map((project) => (
           <div
             key={project.id}
-            className="bg-white rounded-xl border border-border shadow-card overflow-hidden hover:shadow-lg transition-shadow"
+            className="bg-white rounded-2xl border border-border shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
           >
             <div className="aspect-w-16 aspect-h-9 relative">
               <Image
                 src={project.image}
                 alt={project.title}
-                className="object-cover"
+                className="object-cover w-full h-full object-center"
+                style={{ aspectRatio: "16/9" }}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-              <div className="absolute bottom-4 left-4 right-4">
-                <h3 className="text-xl font-bold text-white mb-2">{project.title}</h3>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/50 to-transparent" />
+              <div className="absolute bottom-6 left-6 right-6">
+                <h3 className="text-2xl font-bold text-white mb-3">
+                  {project.title}
+                </h3>
                 <div className="flex flex-wrap gap-2">
-                  {project.technologies.slice(0, 3).map(tech => (
+                  {project.technologies.slice(0, 3).map((tech) => (
                     <span
                       key={tech}
-                      className="px-2 py-1 rounded-md bg-white/20 text-white text-xs font-medium backdrop-blur-sm"
+                      className="px-3 py-1.5 rounded-full bg-white/25 text-white text-sm font-medium backdrop-blur-sm hover:bg-white/30 transition-colors"
                     >
                       {tech}
                     </span>
                   ))}
                   {project.technologies.length > 3 && (
-                    <span className="px-2 py-1 rounded-md bg-white/20 text-white text-xs font-medium backdrop-blur-sm">
+                    <span className="px-3 py-1.5 rounded-full bg-white/25 text-white text-sm font-medium backdrop-blur-sm">
                       +{project.technologies.length - 3} more
                     </span>
                   )}
@@ -169,43 +166,84 @@ const FeaturedProjects = ({ onViewProject }) => {
               </div>
             </div>
 
-            <div className="p-6">
-              <p className="text-text-secondary mb-4">{project.description}</p>
+            <div className="p-8">
+              <p className="text-text-secondary text-lg mb-6 leading-relaxed">
+                {project.description}
+              </p>
 
-              <div className="grid grid-cols-3 gap-4 mb-6">
-                <div className="text-center p-3 bg-gray-50 rounded-lg">
-                  <div className="text-sm font-medium text-text-secondary mb-1">Duration</div>
-                  <div className="text-brand-primary font-bold">{project.duration}</div>
-                </div>
-                <div className="text-center p-3 bg-gray-50 rounded-lg">
-                  <div className="text-sm font-medium text-text-secondary mb-1">Team</div>
-                  <div className="text-brand-primary font-bold">{project.teamSize} devs</div>
-                </div>
-                <div className="text-center p-3 bg-gray-50 rounded-lg">
-                  <div className="text-sm font-medium text-text-secondary mb-1">Level</div>
-                  <div className={`text-sm font-medium ${getComplexityColor(project.complexity)}`}>
-                    {project.complexity}
+              {/* Project Metrics */}
+              <div className="bg-gray-50 rounded-xl p-6 mb-8">
+                <div className="grid grid-cols-3 gap-6">
+                  <div className="text-center">
+                    <div className="text-sm font-medium text-text-secondary mb-2">
+                      Duration
+                    </div>
+                    <div className="text-brand-primary text-lg font-bold">
+                      {project.duration}
+                    </div>
+                  </div>
+                  <div className="text-center border-x border-gray-200">
+                    <div className="text-sm font-medium text-text-secondary mb-2">
+                      Team
+                    </div>
+                    <div className="text-brand-primary text-lg font-bold">
+                      {project.teamSize} devs
+                    </div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-sm font-medium text-text-secondary mb-2">
+                      Level
+                    </div>
+                    <div
+                      className={`text-sm font-semibold px-3 py-1 rounded-full inline-block ${getComplexityColor(
+                        project.complexity
+                      )}`}
+                    >
+                      {project.complexity}
+                    </div>
                   </div>
                 </div>
               </div>
 
-              <div className="flex items-center justify-between">
+              {/* Highlights */}
+              <div className="mb-8">
+                <h4 className="text-lg font-semibold text-text-primary mb-4">
+                  Key Highlights
+                </h4>
+                <ul className="space-y-3">
+                  {project.highlights.map((highlight, index) => (
+                    <li
+                      key={index}
+                      className="flex items-center text-text-secondary"
+                    >
+                      <Icon
+                        name="CheckCircle"
+                        size={18}
+                        className="text-success mr-2"
+                      />
+                      {highlight}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="flex items-center justify-between pt-4 border-t border-gray-100">
                 <Button
                   variant="primary"
                   onClick={() => onViewProject(project)}
-                  className="flex items-center space-x-2"
+                  className="flex items-center space-x-3 px-6 py-3 text-base"
                 >
                   <span>View Details</span>
-                  <Icon name="ArrowRight" size={16} />
+                  <Icon name="ArrowRight" size={18} />
                 </Button>
                 {project.github && (
                   <a
                     href={project.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 text-gray-500 hover:text-gray-700 transition-colors"
+                    className="p-3 text-gray-500 hover:text-brand-primary transition-colors"
                   >
-                    <Icon name="Github" size={24} />
+                    <Icon name="Github" size={28} />
                   </a>
                 )}
               </div>
@@ -213,6 +251,24 @@ const FeaturedProjects = ({ onViewProject }) => {
           </div>
         ))}
       </div>
+
+      {/* See All Projects Button */}
+      <div className="border-t border-gray-200 mt-12"></div>
+
+      <div className="flex justify-center mt-12 mb-16">
+        <a
+          href="https://github.com/Nourreddine1920?tab=repositories"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center space-x-3 px-10 py-5 bg-gray-900 hover:bg-gray-800 text-white rounded-xl font-semibold transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
+        >
+          <Icon name="Github" size={24} />
+          <span className="text-lg">Explore More Projects</span>
+          <Icon name="ExternalLink" size={20} />
+        </a>
+      </div>
+            <div className="border-t border-gray-200 mt-12"></div>
+
     </div>
   );
 };
