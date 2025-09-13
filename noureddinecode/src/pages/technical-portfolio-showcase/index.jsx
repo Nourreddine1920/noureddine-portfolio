@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import Header from '../../components/ui/Header';
-import Icon from '../../components/AppIcon';
-import Button from '../../components/ui/Button';
-import ProjectCard from './components/ProjectCard';
-import ProjectFilter from './components/ProjectFilter';
-import ProjectModal from './components/ProjectModal';
-import GitHubStats from './components/GitHubStats';
-import FeaturedProjects from './components/FeaturedProjects';
+import React, { useState, useEffect } from "react";
+import Header from "../../components/ui/Header";
+import Icon from "../../components/AppIcon";
+import Button from "../../components/ui/Button";
+import ProjectCard from "./components/ProjectCard";
+import ProjectFilter from "./components/ProjectFilter";
+import ProjectModal from "./components/ProjectModal";
+import GitHubStats from "./components/GitHubStats";
+import FeaturedProjects from "./components/FeaturedProjects";
 
 const TechnicalPortfolioShowcase = () => {
   const [selectedProject, setSelectedProject] = useState(null);
@@ -14,23 +14,33 @@ const TechnicalPortfolioShowcase = () => {
   const [activeFilters, setActiveFilters] = useState({
     industry: [],
     technology: [],
-    difficulty: []
+    difficulty: [],
   });
-  const [searchQuery, setSearchQuery] = useState('');
-  const [sortBy, setSortBy] = useState('newest');
+  const [searchQuery, setSearchQuery] = useState("");
+  const [sortBy, setSortBy] = useState("newest");
   const [filteredProjects, setFilteredProjects] = useState([]);
 
   // Actual project data from GitHub
   const projects = [
     {
-      id: 1, 
+      id: 1,
       title: "STM32 Lab Backend",
-      description: "A Django-based laboratory management system for STM32 microcontrollers, featuring real-time device control, user management, and automated testing capabilities.",
+      description:
+        "A Django-based laboratory management system for STM32 microcontrollers, featuring real-time device control, user management, and automated testing capabilities.",
       fullDescription: `A comprehensive laboratory management system built with Django and modern web technologies to facilitate STM32 microcontroller development and testing. The system enables remote device programming, real-time monitoring, and collaborative development for educational and professional environments.\n\nKey features include automated firmware deployment, real-time device status monitoring, multi-user access control, and extensive testing capabilities for STM32-based projects.`,
-      image: "https://images.unsplash.com/photo-1603732551658-5fabbafa84eb?w=800&h=600&fit=crop",
+      image:
+        "https://images.unsplash.com/photo-1603732551658-5fabbafa84eb?w=800&h=600&fit=crop",
       industry: "Education/IoT",
       difficulty: "Advanced",
-      technologies: ["Python", "Django", "PostgreSQL", "Docker", "Celery", "WebSockets", "RESTful API"],
+      technologies: [
+        "Python",
+        "Django",
+        "PostgreSQL",
+        "Docker",
+        "Celery",
+        "WebSockets",
+        "RESTful API",
+      ],
       duration: "6 months",
       teamSize: 2,
       linesOfCode: "15K+",
@@ -42,35 +52,41 @@ const TechnicalPortfolioShowcase = () => {
         "Automated firmware deployment system",
         "Comprehensive testing framework",
         "Real-time collaboration features",
-        "Detailed logging and analytics dashboard"
+        "Detailed logging and analytics dashboard",
       ],
       challenges: [
         {
           title: "Device Communication",
-          description: "Implementing reliable real-time communication with multiple STM32 devices while ensuring data integrity and synchronization."
+          description:
+            "Implementing reliable real-time communication with multiple STM32 devices while ensuring data integrity and synchronization.",
         },
         {
           title: "User Management",
-          description: "Creating a secure and scalable user management system with role-based access control for different user types."
+          description:
+            "Creating a secure and scalable user management system with role-based access control for different user types.",
         },
         {
           title: "System Integration",
-          description: "Integrating multiple technologies and services while maintaining system reliability and performance."
-        }
+          description:
+            "Integrating multiple technologies and services while maintaining system reliability and performance.",
+        },
       ],
       solutions: [
         {
           title: "WebSocket Implementation",
-          description: "Developed a robust WebSocket-based communication system for real-time device interaction and status updates."
+          description:
+            "Developed a robust WebSocket-based communication system for real-time device interaction and status updates.",
         },
         {
           title: "Custom Authentication",
-          description: "Implemented a comprehensive authentication system with JWT tokens and role-based permissions."
+          description:
+            "Implemented a comprehensive authentication system with JWT tokens and role-based permissions.",
         },
         {
           title: "Microservices Architecture",
-          description: "Adopted a containerized microservices architecture using Docker for improved scalability and maintainability."
-        }
+          description:
+            "Adopted a containerized microservices architecture using Docker for improved scalability and maintainability.",
+        },
       ],
       codeLanguage: "Python",
       codeSnippet: `# Device Management Consumer
@@ -115,56 +131,63 @@ class DeviceManager(AsyncWebsocketConsumer):
       architectureComponents: [
         {
           name: "Backend API",
-          description: "Django REST framework API handling device management and user requests",
-          technology: "Python/Django"
+          description:
+            "Django REST framework API handling device management and user requests",
+          technology: "Python/Django",
         },
         {
           name: "Real-time Communication",
-          description: "WebSocket-based system for real-time device monitoring and control",
-          technology: "Django Channels"
+          description:
+            "WebSocket-based system for real-time device monitoring and control",
+          technology: "Django Channels",
         },
         {
           name: "Device Interface",
-          description: "Custom interface for STM32 device programming and monitoring",
-          technology: "PySerial/USB"
+          description:
+            "Custom interface for STM32 device programming and monitoring",
+          technology: "PySerial/USB",
         },
         {
           name: "Data Storage",
-          description: "Persistent storage for user data, device configurations, and logs",
-          technology: "PostgreSQL"
-        }
+          description:
+            "Persistent storage for user data, device configurations, and logs",
+          technology: "PostgreSQL",
+        },
       ],
       metrics: [
         {
           value: "80%",
           label: "Time Efficiency",
-          description: "Reduction in device programming and testing time"
+          description: "Reduction in device programming and testing time",
         },
         {
           value: "100%",
           label: "Device Support",
-          description: "Compatible with all STM32 development boards"
+          description: "Compatible with all STM32 development boards",
         },
         {
           value: "99.9%",
           label: "System Uptime",
-          description: "High availability for laboratory operations"
-        }
+          description: "High availability for laboratory operations",
+        },
       ],
-      impact: "This project has significantly improved STM32 development workflow in educational and professional settings. The system has reduced device programming and testing time by 80%, supports multiple concurrent users, and maintains 99.9% uptime for critical laboratory operations.",
+      impact:
+        "This project has significantly improved STM32 development workflow in educational and professional settings. The system has reduced device programming and testing time by 80%, supports multiple concurrent users, and maintains 99.9% uptime for critical laboratory operations.",
       lessonsLearned: [
         "Importance of real-time communication in device management systems",
         "Benefits of containerized architecture for deployment flexibility",
         "Critical role of user access control in shared laboratory environments",
-        "Value of automated testing in embedded systems development"
-      ]
+        "Value of automated testing in embedded systems development",
+      ],
     },
     {
       id: 2,
       title: "Modern Portfolio Website",
-      description: "A responsive and interactive portfolio website built with React, Vite, and Tailwind CSS, featuring modern design principles and seamless user experience.",
+      description:
+        "A responsive and interactive portfolio website built with React, Vite, and Tailwind CSS, featuring modern design principles and seamless user experience.",
       fullDescription: `A modern, responsive portfolio website showcasing professional projects and skills. Built with React and Vite for optimal performance, the site features a clean, intuitive design with interactive elements and smooth animations. The project emphasizes modern web development practices, responsive design, and user experience.\n\nThe website includes advanced features such as dynamic project filtering, interactive skill visualization, and real-time GitHub integration for showcasing current projects and contributions.`,
-      image: "https://images.unsplash.com/photo-1522542550221-31fd19575a2d?w=800&h=600&fit=crop",
+      image:
+        "https://images.unsplash.com/photo-1522542550221-31fd19575a2d?w=800&h=600&fit=crop",
       industry: "Web Development",
       difficulty: "Intermediate",
       technologies: ["React", "Vite", "Tailwind CSS", "JavaScript", "Git"],
@@ -179,35 +202,41 @@ class DeviceManager(AsyncWebsocketConsumer):
         "Dynamic skill visualization",
         "Real-time GitHub integration",
         "Optimized performance and loading times",
-        "Smooth page transitions and animations"
+        "Smooth page transitions and animations",
       ],
       challenges: [
         {
           title: "Performance Optimization",
-          description: "Ensuring fast load times and smooth performance while maintaining rich interactive features."
+          description:
+            "Ensuring fast load times and smooth performance while maintaining rich interactive features.",
         },
         {
           title: "Responsive Design",
-          description: "Creating a consistent and appealing layout across all device sizes and orientations."
+          description:
+            "Creating a consistent and appealing layout across all device sizes and orientations.",
         },
         {
           title: "State Management",
-          description: "Managing complex state and data flow across multiple interactive components."
-        }
+          description:
+            "Managing complex state and data flow across multiple interactive components.",
+        },
       ],
       solutions: [
         {
           title: "Modern Build Tools",
-          description: "Utilized Vite for fast development and optimized production builds with code splitting."
+          description:
+            "Utilized Vite for fast development and optimized production builds with code splitting.",
         },
         {
           title: "Mobile-First Approach",
-          description: "Implemented responsive design using Tailwind CSS utility classes and custom breakpoints."
+          description:
+            "Implemented responsive design using Tailwind CSS utility classes and custom breakpoints.",
         },
         {
           title: "Component Architecture",
-          description: "Developed reusable React components with proper state management and prop drilling prevention."
-        }
+          description:
+            "Developed reusable React components with proper state management and prop drilling prevention.",
+        },
       ],
       codeLanguage: "JavaScript",
       codeSnippet: `// Interactive Project Showcase Component
@@ -260,611 +289,729 @@ const ProjectShowcase = () => {
         {
           name: "Frontend Framework",
           description: "React components and hooks for interactive UI elements",
-          technology: "React/Vite"
+          technology: "React/Vite",
         },
         {
           name: "Styling System",
           description: "Utility-first CSS framework for responsive design",
-          technology: "Tailwind CSS"
+          technology: "Tailwind CSS",
         },
         {
           name: "State Management",
-          description: "Efficient state management using React hooks and context",
-          technology: "React Hooks"
+          description:
+            "Efficient state management using React hooks and context",
+          technology: "React Hooks",
         },
         {
           name: "Build System",
           description: "Modern build tooling for optimal performance",
-          technology: "Vite/ESBuild"
-        }
+          technology: "Vite/ESBuild",
+        },
       ],
       metrics: [
         {
           value: "95%",
           label: "Performance Score",
-          description: "Lighthouse performance optimization score"
+          description: "Lighthouse performance optimization score",
         },
         {
           value: "100%",
           label: "Responsiveness",
-          description: "Perfect adaptation across all device sizes"
+          description: "Perfect adaptation across all device sizes",
         },
         {
           value: "<1s",
           label: "Load Time",
-          description: "Initial page load time on fast connections"
-        }
+          description: "Initial page load time on fast connections",
+        },
       ],
-      impact: "The portfolio website has successfully showcased professional projects and skills with a modern, performant interface. The site achieves a 95% Lighthouse performance score and maintains sub-second load times, providing an optimal user experience across all devices.",
+      impact:
+        "The portfolio website has successfully showcased professional projects and skills with a modern, performant interface. The site achieves a 95% Lighthouse performance score and maintains sub-second load times, providing an optimal user experience across all devices.",
       lessonsLearned: [
         "Importance of performance optimization in modern web development",
         "Benefits of component-based architecture for maintainability",
         "Value of responsive design principles for user experience",
-        "Critical role of modern build tools in web development"
-      ]
+        "Critical role of modern build tools in web development",
+      ],
     },
     {
       id: 3,
-      title: "Industrial Process Control System",
-      description: "High-precision manufacturing automation controller with machine learning optimization and predictive maintenance capabilities.",
-      fullDescription: `An advanced industrial automation system designed for precision manufacturing processes. The system integrates multiple control loops, sensor fusion, and machine learning algorithms to optimize production quality and efficiency.\n\nThe controller manages complex manufacturing processes with sub-millisecond response times while continuously learning from production data to improve performance. Predictive maintenance algorithms analyze equipment health to prevent costly downtime.`,
-      image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&h=600&fit=crop",
-      industry: "Industrial",
+      title: "X-Cube STM32 Control Application",
+      description:
+        "A comprehensive Qt-based desktop application for controlling STM32 microcontroller peripherals with an intuitive user interface.",
+      fullDescription: `A sophisticated desktop application developed in Qt C++ that provides complete control over STM32H723 microcontroller peripherals. The application features a modern interface for configuring and managing various microcontroller functionalities including UART, SPI, I2C, ADC, DAC, timers, and GPIO operations.\n\nThe system implements efficient UART communication protocol for reliable data exchange with the STM32H723 microcontroller. The codebase is designed to be generic and reconfigurable, allowing easy customization of device behavior to meet specific application requirements.`,
+      image:
+        "https://images.unsplash.com/photo-1557853197-aefb550b6fdc?w=800&h=600&fit=crop",
+      industry: "Embedded Systems",
       difficulty: "Advanced",
-      technologies: ["ARM Cortex-M7", "Modbus", "EtherCAT", "Python", "TensorFlow"],
-      duration: "15 months",
-      teamSize: 5,
-      linesOfCode: "38K",
-      rating: 4.9,
-      improvement: "35% Throughput",
+      technologies: [
+        "Qt C++",
+        "STM32H723",
+        "UART",
+        "SPI",
+        "I2C",
+        "ADC/DAC",
+        "GPIO",
+      ],
+      duration: "4 months",
+      teamSize: 1,
+      linesOfCode: "15K",
+      rating: 4.8,
+      improvement: "90% Efficiency",
       features: [
-        "Sub-millisecond control loop response time",
-        "Machine learning-based process optimization",
-        "Predictive maintenance and fault detection",
-        "Multi-protocol industrial communication",
-        "Real-time quality control and inspection",
-        "Remote monitoring and control dashboard"
+        "Comprehensive STM32 peripheral control",
+        "Real-time UART communication interface",
+        "Dynamic peripheral configuration",
+        "Multi-protocol support (SPI, I2C)",
+        "Advanced ADC/DAC management",
+        "Customizable GPIO control",
       ],
       challenges: [
         {
-          title: "Real-time Performance",
-          description: "Achieving sub-millisecond response times while running complex control algorithms."
+          title: "Protocol Integration",
+          description:
+            "Implementing seamless communication between multiple peripheral protocols while maintaining performance.",
         },
         {
-          title: "System Integration",
-          description: "Integrating with legacy industrial equipment using various communication protocols."
+          title: "User Interface Design",
+          description:
+            "Creating an intuitive interface for complex microcontroller operations and configurations.",
         },
         {
-          title: "Predictive Analytics",
-          description: "Implementing machine learning algorithms on resource-constrained embedded hardware."
-        }
+          title: "Code Flexibility",
+          description:
+            "Developing a generic and reconfigurable codebase that can adapt to various application needs.",
+        },
       ],
       solutions: [
         {
-          title: "Optimized Control Architecture",
-          description: "Implemented deterministic real-time control with dedicated hardware acceleration for critical loops."
+          title: "Modular Architecture",
+          description:
+            "Implemented a flexible, component-based architecture allowing easy addition of new features and protocols.",
         },
         {
-          title: "Protocol Gateway",
-          description: "Developed universal communication interface supporting Modbus, EtherCAT, and Profinet protocols."
+          title: "Custom Protocol Handler",
+          description:
+            "Developed an efficient UART communication protocol handler with error checking and recovery.",
         },
         {
-          title: "Edge ML Implementation",
-          description: "Optimized TensorFlow Lite models for embedded deployment with quantization and pruning techniques."
-        }
+          title: "Dynamic Configuration System",
+          description:
+            "Created a flexible configuration system for easy customization of peripheral behaviors.",
+        },
       ],
       codeLanguage: "C++",
-      codeSnippet: `// High-Speed Control Loop Implementation
-void HighSpeedControlISR(void) {
-    static uint32_t cycleCount = 0;
-    
-    // Read process variables (< 50µs)
-    ProcessData_t currentState = ReadProcessSensors();
-    
-    // Calculate control output using PID + feedforward
-    ControlOutput_t output = CalculateControlOutput(&currentState, &setpoint);
-    
-    // Apply machine learning optimization (every 100 cycles)
-    if(++cycleCount >= 100) {
-        MLOptimization_t mlOutput = RunMLOptimization(&currentState);
-        ApplyMLCorrection(&output, &mlOutput);
-        cycleCount = 0;
+      codeSnippet: `// STM32 Peripheral Manager Class
+class PeripheralManager : public QObject {
+    Q_OBJECT
+public:
+    explicit PeripheralManager(QObject *parent = nullptr);
+
+    bool initializeUART(const QString &portName, int baudRate) {
+        try {
+            serialPort.setPortName(portName);
+            serialPort.setBaudRate(baudRate);
+            return serialPort.open(QIODevice::ReadWrite);
+        } catch (const std::exception &e) {
+            emit errorOccurred(QString("UART Init Error: %1").arg(e.what()));
+            return false;
+        }
     }
-    
-    // Update actuators (< 30µs)
-    UpdateActuators(&output);
-    
-    // Log data for predictive maintenance
-    LogProcessData(&currentState, &output);
-    
-    // Clear interrupt flag
-    ClearTimerInterrupt();
-}`,
+
+    bool configureGPIO(uint8_t pin, GPIO_Mode mode) {
+        QByteArray command;
+        command.append(COMMAND_GPIO_CONFIG);
+        command.append(pin);
+        command.append(static_cast<char>(mode));
+        
+        return sendCommand(command);
+    }
+
+    bool configureSPI(const SPIConfig &config) {
+        QByteArray command;
+        command.append(COMMAND_SPI_CONFIG);
+        command.append(QByteArray::fromRawData(
+            reinterpret_cast<const char*>(&config), 
+            sizeof(SPIConfig)
+        ));
+        
+        return sendCommand(command);
+    }
+
+private slots:
+    void handleResponse() {
+        QByteArray response = serialPort.readAll();
+        processResponse(response);
+    }
+
+private:
+    QSerialPort serialPort;
+    QMap<uint8_t, PeripheralState> peripheralStates;
+};`,
       architectureComponents: [
         {
-          name: "Control Processor",
-          description: "High-performance ARM processor running real-time control algorithms",
-          technology: "ARM Cortex-M7"
+          name: "Qt GUI Framework",
+          description:
+            "Modern desktop interface for microcontroller control and monitoring",
+          technology: "Qt C++",
         },
         {
-          name: "I/O Interface",
-          description: "High-speed analog and digital I/O for sensor and actuator connections",
-          technology: "24-bit ADC"
+          name: "Communication Layer",
+          description:
+            "UART protocol implementation for reliable data exchange",
+          technology: "QSerialPort",
         },
         {
-          name: "Communication Module",
-          description: "Industrial protocol support for equipment integration",
-          technology: "EtherCAT Master"
+          name: "Peripheral Controllers",
+          description:
+            "Individual controllers for each supported peripheral type",
+          technology: "STM32H723 HAL",
         },
         {
-          name: "ML Accelerator",
-          description: "Dedicated hardware for machine learning inference",
-          technology: "Neural Processing Unit"
-        }
+          name: "Configuration Manager",
+          description:
+            "Dynamic configuration system for peripheral customization",
+          technology: "Qt Config System",
+        },
       ],
       metrics: [
         {
-          value: "±0.1%",
-          label: "Control Precision",
-          description: "Exceptional accuracy in process control"
+          value: "100%",
+          label: "Protocol Coverage",
+          description: "Complete implementation of required protocols",
         },
         {
-          value: "35%",
-          label: "Throughput Increase",
-          description: "Improved production efficiency and speed"
+          value: "<5ms",
+          label: "Response Time",
+          description: "Average command execution latency",
         },
         {
-          value: "60%",
-          label: "Downtime Reduction",
-          description: "Predictive maintenance preventing failures"
-        }
+          value: "90%",
+          label: "Code Reusability",
+          description: "Percentage of reusable components",
+        },
       ],
-      impact: "The industrial control system has revolutionized manufacturing efficiency, achieving 35% increase in throughput while maintaining exceptional quality standards. Predictive maintenance capabilities have reduced unplanned downtime by 60%, saving millions in production costs.",
+      impact:
+        "The X-Cube application has significantly improved STM32 development efficiency by providing a user-friendly interface for peripheral control. The application's modular design and comprehensive protocol support have reduced development time and improved code reliability across multiple projects.",
       lessonsLearned: [
-        "Importance of deterministic real-time performance in industrial applications",
-        "Benefits of machine learning integration in process optimization",
-        "Critical role of predictive maintenance in modern manufacturing",
-        "Value of modular architecture for industrial system scalability"
-      ]
+        "Importance of modular design in embedded systems applications",
+        "Benefits of standardized communication protocols",
+        "Value of user-friendly interfaces for complex hardware control",
+        "Critical role of error handling in embedded communications",
+      ],
     },
     {
       id: 4,
-      title: "Wireless Medical Device Network",
-      description: "FDA-compliant medical device communication system for patient monitoring with end-to-end encryption and real-time alerts.",
-      fullDescription: `A comprehensive medical device networking solution designed for hospital environments, enabling seamless communication between patient monitoring devices, infusion pumps, and central monitoring stations.\n\nThe system ensures FDA compliance with medical device regulations while providing secure, reliable communication for critical patient care applications. Real-time data processing enables immediate alerts for patient safety.`,
-      image: "https://images.pexels.com/photos/3786157/pexels-photo-3786157.jpeg?w=800&h=600&fit=crop",
-      industry: "IoT",
-      difficulty: "Advanced",
-      technologies: ["STM32L4", "Zigbee", "AES-256", "FreeRTOS", "HL7 FHIR"],
-      duration: "20 months",
-      teamSize: 7,
-      linesOfCode: "42K",
-      rating: 4.9,
-      improvement: "50% Response Time",
+      title: "Embedded Systems with FreeRTOS",
+      description:
+        "Hands-on project exploring real-time operating system concepts using FreeRTOS for task management, synchronization, and communication.",
+      fullDescription: `This project introduces FreeRTOS as a lightweight real-time operating system kernel for embedded devices. It demonstrates how FreeRTOS enables multitasking by managing multiple concurrent operations, essential for responsive and efficient embedded applications.\n\nThe implementation covers key RTOS concepts such as task creation, scheduling, stack management, and inter-task communication using queues and semaphores. It also explores timing analysis, task prioritization, and synchronization strategies for real-world embedded systems.`,
+      image: "/assets/images/stm32.jpg",
+      industry: "Embedded Systems",
+      difficulty: "Intermediate",
+      technologies: ["FreeRTOS", "STM32", "C", "Semaphores", "Queues"],
+      duration: "6 months",
+      teamSize: 3,
+      linesOfCode: "8K",
+      rating: 4.7,
+      improvement: "Enhanced Task Efficiency",
       features: [
-        "FDA 510(k) compliant medical device communication",
-        "End-to-end AES-256 encryption for patient data",
-        "Real-time patient monitoring and alert system",
-        "Interoperability with existing hospital systems",
-        "Battery life optimization for portable devices",
-        "Comprehensive audit logging and compliance reporting"
+        "Multitasking with FreeRTOS kernel",
+        "Task switching, suspension, and termination",
+        "Task grouping and prioritization",
+        "Inter-task communication using queues",
+        "Synchronization using semaphores",
+        "Timing analysis and stack optimization",
       ],
       challenges: [
         {
-          title: "Regulatory Compliance",
-          description: "Meeting strict FDA requirements for medical device software and communication protocols."
+          title: "Task Synchronization",
+          description:
+            "Ensuring reliable communication and coordination between concurrent tasks using semaphores and queues.",
         },
         {
-          title: "Security Requirements",
-          description: "Implementing robust encryption while maintaining real-time performance for critical alerts."
+          title: "Stack Management",
+          description:
+            "Optimizing stack usage to prevent overflow and ensure system stability.",
         },
         {
-          title: "Interoperability",
-          description: "Ensuring compatibility with diverse medical equipment from multiple manufacturers."
-        }
+          title: "Timing Accuracy",
+          description:
+            "Achieving precise task scheduling and timing analysis for real-time responsiveness.",
+        },
       ],
       solutions: [
         {
-          title: "Compliance Framework",
-          description: "Implemented comprehensive quality management system following ISO 13485 and FDA guidelines."
+          title: "Semaphore-Based Synchronization",
+          description:
+            "Used binary and counting semaphores to manage task access to shared resources.",
         },
         {
-          title: "Hardware Security Module",
-          description: "Dedicated cryptographic processor for secure key management and encryption operations."
+          title: "Queue-Based Communication",
+          description:
+            "Implemented message queues for safe and efficient data transfer between tasks.",
         },
         {
-          title: "HL7 FHIR Integration",
-          description: "Standardized healthcare data exchange protocol for seamless interoperability."
-        }
+          title: "Dynamic Task Prioritization",
+          description:
+            "Assigned priorities based on task criticality and timing constraints.",
+        },
       ],
       codeLanguage: "C",
-      codeSnippet: `// Secure Medical Data Transmission
-typedef struct {
-    uint32_t patientId;
-    uint32_t deviceId;
-    uint64_t timestamp;
-    uint8_t vitalSigns[32];
-    uint8_t alertLevel;
-    uint8_t checksum;
-} MedicalDataPacket_t;
-
-HAL_StatusTypeDef TransmitSecureData(MedicalDataPacket_t *data) {
-    uint8_t encryptedData[64];
-    uint8_t authTag[16];
-    
-    // Validate data integrity
-    if(ValidateDataIntegrity(data) != HAL_OK) {
-        LogSecurityEvent(SECURITY_DATA_INTEGRITY_FAIL);
-        return HAL_ERROR;
-    }
-    
-    // Encrypt patient data using AES-256-GCM
-    if(AES_GCM_Encrypt((uint8_t*)data, sizeof(MedicalDataPacket_t),
-                       encryptedData, authTag) != HAL_OK) {
-        LogSecurityEvent(SECURITY_ENCRYPTION_FAIL);
-        return HAL_ERROR;
-    }
-    
-    // Transmit encrypted data with authentication tag
-    return TransmitEncryptedPacket(encryptedData, authTag);
-}`,
-      architectureComponents: [
-        {
-          name: "Medical Device Nodes",
-          description: "Patient monitoring devices with secure communication capabilities",
-          technology: "STM32L4"
-        },
-        {
-          name: "Security Gateway",
-          description: "Centralized security management and key distribution",
-          technology: "Hardware Security Module"
-        },
-        {
-          name: "Central Monitoring",
-          description: "Hospital-wide patient monitoring and alert management system",
-          technology: "Linux Server"
-        },
-        {
-          name: "EMR Integration",
-          description: "Electronic medical record system integration interface",
-          technology: "HL7 FHIR API"
-        }
-      ],
-      metrics: [
-        {
-          value: "50%",
-          label: "Faster Response",
-          description: "Reduced alert response time for critical patient events"
-        },
-        {
-          value: "99.99%",
-          label: "System Reliability",
-          description: "Mission-critical uptime for patient safety"
-        },
-        {
-          value: "100%",
-          label: "FDA Compliance",
-          description: "Full regulatory compliance and certification"
-        }
-      ],
-      impact: "The medical device network has improved patient safety outcomes by enabling 50% faster response to critical events. The system has been deployed in 15 hospitals, monitoring over 10,000 patients with zero security incidents and full FDA compliance.",
-      lessonsLearned: [
-        "Critical importance of regulatory compliance in medical device development",
-        "Benefits of hardware security modules for medical data protection",
-        "Value of standardized protocols like HL7 FHIR for healthcare interoperability",
-        "Importance of comprehensive testing and validation in safety-critical systems"
-      ]
-    },
-    {
-      id: 5,
-      title: "Autonomous Drone Flight Controller",
-      description: "Advanced flight control system with computer vision, obstacle avoidance, and autonomous navigation for commercial applications.",
-      fullDescription: `A sophisticated flight control system designed for commercial autonomous drones, featuring advanced navigation algorithms, real-time obstacle avoidance, and computer vision capabilities for various applications including inspection, delivery, and surveillance.\n\nThe system integrates multiple sensors including IMU, GPS, LiDAR, and cameras to provide robust autonomous flight capabilities in challenging environments. Machine learning algorithms enable adaptive flight behavior and improved safety.`,
-      image: "https://images.pexels.com/photos/442587/pexels-photo-442587.jpeg?w=800&h=600&fit=crop",
-      industry: "Automotive",
-      difficulty: "Advanced",
-      technologies: ["STM32H7", "OpenCV", "ROS2", "SLAM", "TensorFlow Lite"],
-      duration: "16 months",
-      teamSize: 9,
-      linesOfCode: "55K",
-      rating: 4.8,
-      improvement: "90% Autonomy",
-      features: [
-        "Fully autonomous flight with GPS-denied navigation",
-        "Real-time obstacle detection and avoidance",
-        "Computer vision for object recognition and tracking",
-        "SLAM (Simultaneous Localization and Mapping)",
-        "Adaptive flight control for various weather conditions",
-        "Mission planning and waypoint navigation"
-      ],
-      challenges: [
-        {
-          title: "Real-time Processing",
-          description: "Processing multiple sensor streams and computer vision algorithms within strict timing constraints."
-        },
-        {
-          title: "Safety Assurance",
-          description: "Ensuring safe autonomous operation in dynamic environments with moving obstacles."
-        },
-        {
-          title: "Power Efficiency",
-          description: "Optimizing computational performance while maintaining acceptable flight time."
-        }
-      ],
-      solutions: [
-        {
-          title: "Multi-core Architecture",
-          description: "Distributed processing across multiple cores with dedicated tasks for sensor fusion and control."
-        },
-        {
-          title: "Redundant Safety Systems",
-          description: "Multiple independent safety layers including emergency landing and fail-safe mechanisms."
-        },
-        {
-          title: "Optimized Algorithms",
-          description: "Custom-optimized computer vision and control algorithms for embedded deployment."
-        }
-      ],
-      codeLanguage: "C++",
-      codeSnippet: `// Autonomous Flight Control Loop
-void FlightControlTask(void *pvParameters) {
-    FlightState_t currentState;
-    ControlCommands_t commands;
-    ObstacleMap_t obstacles;
-    
+      codeSnippet: `// FreeRTOS Task Communication Example
+void vSensorTask(void *pvParameters) {
+    SensorData_t data;
     while(1) {
-        // Sensor fusion for state estimation
-        currentState = FuseSensorData();
-        
-        // Computer vision processing
-        ProcessCameraData(&currentState);
-        
-        // Obstacle detection and mapping
-        obstacles = DetectObstacles(&currentState);
-        
-        // Path planning with obstacle avoidance
-        Waypoint_t nextWaypoint = PlanPath(&currentState, &obstacles);
-        
-        // Calculate control commands
-        commands = CalculateFlightCommands(&currentState, &nextWaypoint);
-        
-        // Safety checks
-        if(SafetyCheck(&commands, &obstacles) == SAFETY_OK) {
-            // Apply control commands
-            UpdateMotorCommands(&commands);
-        } else {
-            // Emergency procedures
-            ExecuteEmergencyLanding();
+        data = ReadSensor();
+        xQueueSend(sensorQueue, &data, portMAX_DELAY);
+        vTaskDelay(pdMS_TO_TICKS(100));
+    }
+}
+
+void vProcessingTask(void *pvParameters) {
+    SensorData_t receivedData;
+    while(1) {
+        if(xQueueReceive(sensorQueue, &receivedData, portMAX_DELAY)) {
+            ProcessData(receivedData);
         }
-        
-        // Telemetry and logging
-        SendTelemetryData(&currentState, &commands);
-        
-        vTaskDelay(pdMS_TO_TICKS(10)); // 100Hz control loop
     }
 }`,
       architectureComponents: [
         {
-          name: "Flight Controller",
-          description: "High-performance processor running flight control algorithms",
-          technology: "STM32H7"
+          name: "Sensor Task",
+          description: "Reads data from sensors and sends to queue",
+          technology: "FreeRTOS Task",
         },
         {
-          name: "Sensor Suite",
-          description: "IMU, GPS, barometer, and magnetometer for state estimation",
-          technology: "9-DOF IMU"
+          name: "Processing Task",
+          description: "Receives sensor data and performs computation",
+          technology: "FreeRTOS Task",
         },
         {
-          name: "Vision System",
-          description: "Stereo cameras and LiDAR for obstacle detection and navigation",
-          technology: "OpenCV"
+          name: "Communication Queue",
+          description: "Transfers data between tasks safely",
+          technology: "FreeRTOS Queue",
         },
         {
-          name: "Communication Module",
-          description: "Long-range telemetry and control link",
-          technology: "LoRa Radio"
-        }
-      ],
-      metrics: [
-        {
-          value: "90%",
-          label: "Autonomous Operation",
-          description: "Fully autonomous flight without human intervention"
+          name: "Synchronization Mechanism",
+          description: "Controls access to shared resources",
+          technology: "FreeRTOS Semaphore",
         },
-        {
-          value: "100%",
-          label: "Obstacle Avoidance",
-          description: "Perfect safety record in obstacle detection tests"
-        },
-        {
-          value: "45min",
-          label: "Flight Time",
-          description: "Extended flight duration with full sensor suite"
-        }
-      ],
-      impact: "The autonomous drone system has enabled new commercial applications in inspection and delivery, achieving 90% autonomous operation with perfect safety record. The technology has been licensed to three major drone manufacturers and deployed in over 500 commercial drones.",
-      lessonsLearned: [
-        "Importance of sensor fusion for robust state estimation",
-        "Critical role of safety systems in autonomous vehicles",
-        "Benefits of modular software architecture for complex systems",
-        "Value of extensive simulation and testing in autonomous system development"
-      ]
-    },
-    {
-      id: 6,
-      title: "Smart Grid Energy Management",
-      description: "Distributed energy management system for smart grid applications with renewable energy integration and demand response.",
-      fullDescription: `A comprehensive smart grid energy management solution designed to optimize power distribution and integrate renewable energy sources. The system manages energy flow, demand response, and grid stability across distributed generation and storage systems.\n\nThe platform enables utilities to efficiently manage renewable energy integration while maintaining grid stability and optimizing energy costs for consumers. Advanced algorithms predict energy demand and automatically balance supply and demand.`,
-      image: "https://images.pixabay.com/photo/2017/09/12/13/21/photovoltaic-system-2742304_1280.jpg?w=800&h=600&fit=crop",
-      industry: "Industrial",
-      difficulty: "Intermediate",
-      technologies: ["ARM Cortex-A53", "Modbus TCP", "MQTT", "Linux RT", "Python"],
-      duration: "14 months",
-      teamSize: 6,
-      linesOfCode: "35K",
-      rating: 4.7,
-      improvement: "30% Efficiency",
-      features: [
-        "Real-time energy monitoring and control",
-        "Renewable energy source integration",
-        "Demand response and load balancing",
-        "Grid stability monitoring and protection",
-        "Energy storage system management",
-        "Consumer energy optimization dashboard"
-      ],
-      challenges: [
-        {
-          title: "Grid Stability",
-          description: "Maintaining power quality and stability with variable renewable energy sources."
-        },
-        {
-          title: "Real-time Optimization",
-          description: "Optimizing energy distribution in real-time across complex grid topology."
-        },
-        {
-          title: "Scalability",
-          description: "Supporting thousands of distributed energy resources and consumers."
-        }
-      ],
-      solutions: [
-        {
-          title: "Advanced Control Algorithms",
-          description: "Implemented model predictive control for optimal energy distribution and grid stability."
-        },
-        {
-          title: "Distributed Architecture",
-          description: "Scalable microservices architecture supporting thousands of connected devices."
-        },
-        {
-          title: "Machine Learning Integration",
-          description: "Predictive algorithms for energy demand forecasting and renewable generation prediction."
-        }
-      ],
-      codeLanguage: "Python",
-      codeSnippet: `# Smart Grid Energy Optimization
-class EnergyManager:
-    def __init__(self):
-        self.grid_state = GridState()
-        self.renewable_sources = RenewableSources()
-        self.energy_storage = EnergyStorage()
-        self.demand_predictor = DemandPredictor()
-    
-    def optimize_energy_distribution(self):
-        # Get current grid state
-        current_demand = self.grid_state.get_total_demand()
-        available_renewable = self.renewable_sources.get_available_power()
-        storage_capacity = self.energy_storage.get_available_capacity()
-        
-        # Predict future demand
-        predicted_demand = self.demand_predictor.predict_next_hour()
-        
-        # Optimize energy distribution
-        optimization_result = self.solve_optimization_problem(
-            current_demand, available_renewable, 
-            storage_capacity, predicted_demand
-        )
-        
-        # Apply control commands
-        self.apply_control_commands(optimization_result)
-        
-        return optimization_result
-    
-    def solve_optimization_problem(self, demand, renewable, storage, prediction):
-        # Linear programming optimization for energy distribution
-        # Minimize cost while maintaining grid stability
-        pass`,
-      architectureComponents: [
-        {
-          name: "Grid Controller",
-          description: "Central control unit managing energy distribution and grid stability",
-          technology: "ARM Cortex-A53"
-        },
-        {
-          name: "Smart Meters",
-          description: "Distributed energy monitoring and control devices",
-          technology: "Zigbee Mesh"
-        },
-        {
-          name: "Renewable Interface",
-          description: "Integration modules for solar, wind, and other renewable sources",
-          technology: "Modbus TCP"
-        },
-        {
-          name: "Energy Storage",
-          description: "Battery management system for grid-scale energy storage",
-          technology: "CAN Bus"
-        }
       ],
       metrics: [
         {
           value: "30%",
-          label: "Efficiency Gain",
-          description: "Improved energy distribution efficiency and reduced waste"
+          label: "Improved Efficiency",
+          description:
+            "Reduced CPU idle time through optimized task scheduling",
         },
+        {
+          value: "100%",
+          label: "Task Isolation",
+          description: "No interference between concurrent tasks",
+        },
+        {
+          value: "0%",
+          label: "Stack Overflow",
+          description: "Validated stack usage across all tasks",
+        },
+      ],
+      impact:
+        "This FreeRTOS-based project has enhanced understanding of embedded multitasking and real-time system design. It serves as a foundational model for building scalable and responsive embedded applications in industrial and academic settings.",
+      lessonsLearned: [
+        "Importance of task prioritization in real-time systems",
+        "Effective use of semaphores and queues for synchronization",
+        "Stack sizing and timing analysis are critical for stability",
+        "Modular task design improves scalability and maintainability",
+      ],
+    },
+    {
+      id: 5,
+      title: "Smart Lane Detection Car System",
+      description:
+        "An intelligent lane detection system using Raspberry Pi, computer vision, and Android mobile control for autonomous vehicle guidance.",
+      fullDescription: `A comprehensive lane detection and vehicle control system that combines Raspberry Pi's processing capabilities with computer vision algorithms and mobile application control. The system features real-time lane detection, steering assistance, and remote monitoring through a custom Android application.\n\nThe project integrates various sensors including a Pi Camera for visual input, ultrasonic sensors for obstacle detection, and motor controllers for precise vehicle movement. The Android application provides real-time video feed and vehicle telemetry data.`,
+      image:
+        "https://images.pexels.com/photos/1205651/pexels-photo-1205651.jpeg?w=800&h=600&fit=crop",
+      industry: "Automotive",
+      difficulty: "Intermediate",
+      technologies: [
+        "Python",
+        "OpenCV",
+        "Android Java",
+        "Raspberry Pi",
+        "SQLite",
+        "GPIO",
+      ],
+      duration: "3 months",
+      teamSize: 2,
+      linesOfCode: "8K",
+      rating: 4.7,
+      improvement: "85% Accuracy",
+      features: [
+        "Real-time lane detection and tracking",
+        "Android app for remote vehicle control",
+        "Live video streaming to mobile device",
+        "Obstacle detection and avoidance",
+        "Data logging and performance analytics",
+        "Automated steering assistance",
+      ],
+      challenges: [
+        {
+          title: "Image Processing",
+          description:
+            "Implementing reliable lane detection under varying lighting and road conditions.",
+        },
+        {
+          title: "Real-time Communication",
+          description:
+            "Establishing stable video streaming and control communication between Raspberry Pi and Android app.",
+        },
+        {
+          title: "System Integration",
+          description:
+            "Coordinating multiple sensors and actuators for smooth vehicle operation.",
+        },
+      ],
+      solutions: [
+        {
+          title: "Advanced CV Algorithms",
+          description:
+            "Implemented robust lane detection using Hough transform and adaptive thresholding techniques.",
+        },
+        {
+          title: "WebSocket Implementation",
+          description:
+            "Developed efficient WebSocket communication for real-time data and video streaming.",
+        },
+        {
+          title: "Sensor Fusion",
+          description:
+            "Created a unified control system integrating camera input with ultrasonic sensor data.",
+        },
+      ],
+      codeLanguage: "Python",
+      codeSnippet: `# Lane Detection and Vehicle Control System
+class LaneDetectionSystem:
+    def __init__(self):
+        self.camera = PiCamera()
+        self.motor_controller = MotorController()
+        self.socket_server = WebSocketServer()
+        
+    def process_frame(self, frame):
+        # Convert to grayscale and apply Gaussian blur
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        blur = cv2.GaussianBlur(gray, (5, 5), 0)
+        
+        # Edge detection and ROI selection
+        edges = cv2.Canny(blur, 50, 150)
+        roi = self.get_region_of_interest(edges)
+        
+        # Detect lane lines using Hough transform
+        lines = cv2.HoughLinesP(roi, 1, np.pi/180, 50,
+                               minLineLength=100, maxLineGap=50)
+        
+        # Calculate steering angle
+        steering_angle = self.calculate_steering_angle(lines)
+        
+        # Apply control commands
+        self.motor_controller.adjust_steering(steering_angle)
+        
+        # Send telemetry to Android app
+        self.socket_server.send_telemetry({
+            'steering_angle': steering_angle,
+            'speed': self.motor_controller.current_speed,
+            'lane_confidence': self.calculate_confidence(lines)
+        })
+        
+    def run(self):
+        while True:
+            frame = self.camera.capture_frame()
+            self.process_frame(frame)
+            
+            # Check for mobile app commands
+            commands = self.socket_server.get_commands()
+            if commands:
+                self.handle_app_commands(commands)`,
+      architectureComponents: [
+        {
+          name: "Vision Processing Unit",
+          description:
+            "Raspberry Pi handling image processing and vehicle control",
+          technology: "Raspberry Pi 4",
+        },
+        {
+          name: "Mobile Interface",
+          description: "Android application for remote monitoring and control",
+          technology: "Android Java",
+        },
+        {
+          name: "Sensor Array",
+          description:
+            "Camera and ultrasonic sensors for environment perception",
+          technology: "Pi Camera V2",
+        },
+        {
+          name: "Control System",
+          description:
+            "Motor controllers and steering mechanisms for vehicle control",
+          technology: "L298N Motor Driver",
+        },
+      ],
+      metrics: [
         {
           value: "85%",
-          label: "Renewable Integration",
-          description: "Percentage of renewable energy successfully integrated"
+          label: "Detection Accuracy",
+          description: "Accurate lane detection in various conditions",
         },
         {
-          value: "99.9%",
-          label: "Grid Stability",
-          description: "Maintained power quality and system reliability"
-        }
+          value: "50ms",
+          label: "Processing Time",
+          description: "Average frame processing and decision time",
+        },
+        {
+          value: "95%",
+          label: "Control Reliability",
+          description: "Successful steering and navigation rate",
+        },
       ],
-      impact: "The smart grid system has transformed energy management for a regional utility, achieving 30% improvement in distribution efficiency and 85% renewable energy integration. The system manages over 100,000 smart meters and has reduced carbon emissions by 40%.",
+      impact:
+        "The lane detection system has demonstrated high reliability in autonomous vehicle guidance, achieving 85% accuracy in various road conditions. The project has been successfully implemented in educational robotics programs and serves as a foundation for advanced driver assistance systems.",
       lessonsLearned: [
-        "Importance of predictive algorithms in energy management",
-        "Benefits of distributed architecture for scalable grid systems",
-        "Critical role of real-time optimization in renewable integration",
-        "Value of consumer engagement in demand response programs"
-      ]
+        "Importance of robust computer vision algorithms in autonomous systems",
+        "Benefits of real-time mobile monitoring and control",
+        "Critical role of sensor fusion in reliable vehicle control",
+        "Value of modular design in complex embedded systems",
+      ],
+    },
+    {
+      id: 6,
+      title: "Smart House Management System",
+      description:
+        "A comprehensive home automation system with integrated security features, environmental monitoring, and intelligent device control.",
+      fullDescription: `An advanced smart home management system that provides centralized control over home security, climate control, lighting, and appliance automation. The system utilizes modern IoT technologies and secure protocols to create a seamless and safe home environment.\n\nKey features include real-time security monitoring, automated environmental controls, energy usage optimization, and a user-friendly mobile interface for remote management. The system employs machine learning algorithms to learn user preferences and optimize home comfort while minimizing energy consumption.`,
+      image:
+        "https://images.unsplash.com/photo-1558002038-1055907df827?w=800&h=600&fit=crop",
+      industry: "IoT/Home Automation",
+      difficulty: "Intermediate",
+      technologies: [
+        "React",
+        "Django",
+        "MQTT",
+        "PostgreSQL",
+        "STM32F407",
+        "DHT11 sensor",
+        "Pyserial library",
+      ],
+      duration: "4 months",
+      teamSize: 2,
+      linesOfCode: "12K",
+      rating: 4.8,
+      improvement: "45% Energy Savings",
+      features: [
+        "Real-time security monitoring and alerts",
+        "Automated climate control and optimization",
+        "Smart lighting and appliance control",
+        "Mobile app for remote management",
+        "Energy usage tracking and optimization",
+        "Voice control integration",
+      ],
+      challenges: [
+        {
+          title: "Device Integration",
+          description:
+            "Integrating various IoT devices with different protocols and communication standards.",
+        },
+        {
+          title: "Security Implementation",
+          description:
+            "Ensuring robust security measures for sensitive home automation controls and data.",
+        },
+        {
+          title: "User Experience",
+          description:
+            "Creating an intuitive interface for users to manage complex home automation features.",
+        },
+      ],
+      solutions: [
+        {
+          title: "Protocol Bridge",
+          description:
+            "Developed a unified protocol bridge to handle multiple IoT device communications seamlessly.",
+        },
+        {
+          title: "Secure Architecture",
+          description:
+            "Implemented end-to-end encryption and secure authentication for all system components.",
+        },
+        {
+          title: "Intelligent UI/UX",
+          description:
+            "Created a responsive web interface with intuitive controls and automated scheduling.",
+        },
+      ],
+      codeLanguage: "JavaScript",
+      codeSnippet: `// Smart Home Device Controller
+class HomeController {
+  constructor() {
+    this.devices = new Map();
+    this.mqtt = new MQTTClient();
+    this.scheduler = new AutomationScheduler();
+  }
+
+  async connectDevice(deviceId, type) {
+    try {
+      // Initialize device connection
+      const device = await DeviceFactory.create(type);
+      await device.connect();
+      
+      // Set up event listeners
+      device.on('stateChange', (state) => {
+        this.handleDeviceStateChange(deviceId, state);
+      });
+      
+      // Register device
+      this.devices.set(deviceId, device);
+      
+      // Apply saved automation rules
+      const rules = await this.scheduler.getRulesForDevice(deviceId);
+      rules.forEach(rule => this.scheduler.applyRule(device, rule));
+      
+      return true;
+    } catch (error) {
+      console.error(\`Device connection failed: \${error.message}\`);
+      return false;
     }
+  }
+
+  async setDeviceState(deviceId, state) {
+    const device = this.devices.get(deviceId);
+    if (!device) throw new Error('Device not found');
+    
+    // Update device state
+    await device.setState(state);
+    
+    // Log state change
+    await this.logStateChange(deviceId, state);
+    
+    // Check automation rules
+    await this.scheduler.checkTriggers(deviceId, state);
+  }
+}`,
+      architectureComponents: [
+        {
+          name: "Central Hub",
+          description:
+            "Main control unit managing device communication and automation",
+          technology: "Node.js/Express",
+        },
+        {
+          name: "IoT Devices",
+          description:
+            "Network of smart devices and sensors throughout the home",
+          technology: "ESP32/Raspberry Pi",
+        },
+        {
+          name: "Frontend Interface",
+          description: "User interface for system control and monitoring",
+          technology: "React/Material-UI",
+        },
+        {
+          name: "Data Storage",
+          description:
+            "Database for device states, user preferences, and automation rules",
+          technology: "MongoDB",
+        },
+      ],
+      metrics: [
+        {
+          value: "45%",
+          label: "Energy Savings",
+          description:
+            "Reduction in household energy consumption through smart automation",
+        },
+        {
+          value: "98%",
+          label: "System Uptime",
+          description: "Reliable system operation and device connectivity",
+        },
+        {
+          value: "<2s",
+          label: "Response Time",
+          description: "Average response time for device control commands",
+        },
+      ],
+      impact:
+        "The smart home system has significantly improved home efficiency and comfort, achieving 45% reduction in energy costs through intelligent automation. The system has been successfully deployed in over 200 homes, with an average user satisfaction rating of 4.8/5 and consistent uptime of 98%.",
+      lessonsLearned: [
+        "Importance of user-friendly interfaces in home automation",
+        "Benefits of modular system design for easy device integration",
+        "Critical role of reliable communication protocols in IoT",
+        "Value of automated scheduling in energy optimization",
+      ],
+    },
   ];
 
   // Filter configuration
   const filters = {
-    industries: [...new Set(projects.map(p => p.industry))],
-    technologies: [...new Set(projects.flatMap(p => p.technologies))],
-    difficulties: [...new Set(projects.map(p => p.difficulty))]
+    industries: [...new Set(projects.map((p) => p.industry))],
+    technologies: [...new Set(projects.flatMap((p) => p.technologies))],
+    difficulties: [...new Set(projects.map((p) => p.difficulty))],
   };
 
   // Filter and sort projects
   useEffect(() => {
-    let filtered = projects?.filter(project => {
+    let filtered = projects?.filter((project) => {
       // Search filter
-      const matchesSearch = searchQuery === '' || 
+      const matchesSearch =
+        searchQuery === "" ||
         project?.title?.toLowerCase()?.includes(searchQuery?.toLowerCase()) ||
-        project?.description?.toLowerCase()?.includes(searchQuery?.toLowerCase()) ||
-        project?.technologies?.some(tech => tech?.toLowerCase()?.includes(searchQuery?.toLowerCase()));
+        project?.description
+          ?.toLowerCase()
+          ?.includes(searchQuery?.toLowerCase()) ||
+        project?.technologies?.some((tech) =>
+          tech?.toLowerCase()?.includes(searchQuery?.toLowerCase())
+        );
 
       // Industry filter
-      const matchesIndustry = activeFilters?.industry?.length === 0 || 
+      const matchesIndustry =
+        activeFilters?.industry?.length === 0 ||
         activeFilters?.industry?.includes(project?.industry);
 
       // Technology filter
-      const matchesTechnology = activeFilters?.technology?.length === 0 || 
-        activeFilters?.technology?.some(tech => project?.technologies?.includes(tech));
+      const matchesTechnology =
+        activeFilters?.technology?.length === 0 ||
+        activeFilters?.technology?.some((tech) =>
+          project?.technologies?.includes(tech)
+        );
 
       // Difficulty filter
-      const matchesDifficulty = activeFilters?.difficulty?.length === 0 || 
+      const matchesDifficulty =
+        activeFilters?.difficulty?.length === 0 ||
         activeFilters?.difficulty?.includes(project?.difficulty);
 
-      return matchesSearch && matchesIndustry && matchesTechnology && matchesDifficulty;
+      return (
+        matchesSearch &&
+        matchesIndustry &&
+        matchesTechnology &&
+        matchesDifficulty
+      );
     });
 
     // Sort projects
     filtered?.sort((a, b) => {
       switch (sortBy) {
-        case 'newest':
+        case "newest":
           return b?.id - a?.id;
-        case 'oldest':
+        case "oldest":
           return a?.id - b?.id;
-        case 'rating':
+        case "rating":
           return b?.rating - a?.rating;
-        case 'complexity':
-          const complexityOrder = { 'Advanced': 3, 'Intermediate': 2, 'Beginner': 1 };
-          return complexityOrder?.[b?.difficulty] - complexityOrder?.[a?.difficulty];
+        case "complexity":
+          const complexityOrder = { Advanced: 3, Intermediate: 2, Beginner: 1 };
+          return (
+            complexityOrder?.[b?.difficulty] - complexityOrder?.[a?.difficulty]
+          );
         default:
           return 0;
       }
@@ -874,9 +1021,9 @@ class EnergyManager:
   }, [activeFilters, searchQuery, sortBy]);
 
   const handleFilterChange = (category, values) => {
-    setActiveFilters(prev => ({
+    setActiveFilters((prev) => ({
       ...prev,
-      [category]: values
+      [category]: values,
     }));
   };
 
@@ -884,9 +1031,9 @@ class EnergyManager:
     setActiveFilters({
       industry: [],
       technology: [],
-      difficulty: []
+      difficulty: [],
     });
-    setSearchQuery('');
+    setSearchQuery("");
   };
 
   const handleViewProject = (project) => {
@@ -914,16 +1061,22 @@ class EnergyManager:
               Project Laboratory
             </h1>
             <p className="text-xl text-text-secondary max-w-3xl mx-auto leading-relaxed">
-              Comprehensive showcase of embedded systems expertise across automotive, IoT, and industrial applications. 
-              Each project demonstrates technical mastery, innovative problem-solving, and measurable impact.
+              Comprehensive showcase of embedded systems expertise across
+              automotive, IoT, and industrial applications. Each project
+              demonstrates technical mastery, innovative problem-solving, and
+              measurable impact.
             </p>
           </div>
 
           {/* Quick Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
             <div className="text-center">
-              <div className="text-3xl font-bold text-brand-primary">{projects?.length}</div>
-              <div className="text-sm text-text-secondary">Projects Completed</div>
+              <div className="text-3xl font-bold text-brand-primary">
+                {projects?.length}
+              </div>
+              <div className="text-sm text-text-secondary">
+                Projects Completed
+              </div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-brand-primary">200K+</div>
@@ -966,7 +1119,8 @@ class EnergyManager:
               All Projects
             </h2>
             <span className="px-3 py-1 bg-brand-primary text-white text-sm font-medium rounded-full">
-              {filteredProjects?.length} {filteredProjects?.length === 1 ? 'project' : 'projects'}
+              {filteredProjects?.length}{" "}
+              {filteredProjects?.length === 1 ? "project" : "projects"}
             </span>
           </div>
           <div className="flex items-center space-x-2 text-text-secondary">
@@ -990,10 +1144,17 @@ class EnergyManager:
           </div>
         ) : (
           <div className="text-center py-16">
-            <Icon name="Search" size={48} className="mx-auto text-gray-400 mb-4" />
-            <h3 className="text-xl font-semibold text-text-primary mb-2">No projects found</h3>
+            <Icon
+              name="Search"
+              size={48}
+              className="mx-auto text-gray-400 mb-4"
+            />
+            <h3 className="text-xl font-semibold text-text-primary mb-2">
+              No projects found
+            </h3>
             <p className="text-text-secondary mb-6">
-              Try adjusting your filters or search terms to find relevant projects.
+              Try adjusting your filters or search terms to find relevant
+              projects.
             </p>
             <Button
               variant="outline"
@@ -1009,7 +1170,7 @@ class EnergyManager:
         {/* Load More Projects Button */}
         {filteredProjects?.length > 0 && (
           <div className="text-center mt-12">
-            <a 
+            <a
               href="https://github.com/Nourreddine1920?tab=repositories"
               target="_blank"
               rel="noopener noreferrer"
@@ -1039,29 +1200,67 @@ class EnergyManager:
                 </div>
                 <div>
                   <h3 className="text-xl font-bold">NoureddineCode</h3>
-                  <p className="text-gray-400 text-sm">Embedded Systems Excellence</p>
+                  <p className="text-gray-400 text-sm">
+                    Embedded Systems Excellence
+                  </p>
                 </div>
               </div>
               <p className="text-gray-300 mb-4">
-                Transforming ideas into robust embedded solutions across automotive, IoT, and industrial domains.
+                Transforming ideas into robust embedded solutions across
+                automotive, IoT, and industrial domains.
               </p>
               <div className="flex items-center space-x-4">
-                <Button variant="ghost" size="sm" iconName="Github" className="text-gray-300 hover:text-white" />
-                <Button variant="ghost" size="sm" iconName="Linkedin" className="text-gray-300 hover:text-white" />
-                <Button variant="ghost" size="sm" iconName="Mail" className="text-gray-300 hover:text-white" />
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  iconName="Github"
+                  className="text-gray-300 hover:text-white"
+                />
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  iconName="Linkedin"
+                  className="text-gray-300 hover:text-white"
+                />
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  iconName="Mail"
+                  className="text-gray-300 hover:text-white"
+                />
               </div>
             </div>
-            
+
             <div>
               <h4 className="font-semibold mb-4">Quick Links</h4>
               <div className="space-y-2">
-                <a href="/interactive-landing-experience" className="block text-gray-300 hover:text-white transition-colors">Home</a>
-                <a href="/professional-journey-timeline" className="block text-gray-300 hover:text-white transition-colors">Journey</a>
-                <a href="/skills-expertise-observatory" className="block text-gray-300 hover:text-white transition-colors">Skills</a>
-                <a href="/collaboration-gateway" className="block text-gray-300 hover:text-white transition-colors">Contact</a>
+                <a
+                  href="/interactive-landing-experience"
+                  className="block text-gray-300 hover:text-white transition-colors"
+                >
+                  Home
+                </a>
+                <a
+                  href="/professional-journey-timeline"
+                  className="block text-gray-300 hover:text-white transition-colors"
+                >
+                  Journey
+                </a>
+                <a
+                  href="/skills-expertise-observatory"
+                  className="block text-gray-300 hover:text-white transition-colors"
+                >
+                  Skills
+                </a>
+                <a
+                  href="/collaboration-gateway"
+                  className="block text-gray-300 hover:text-white transition-colors"
+                >
+                  Contact
+                </a>
               </div>
             </div>
-            
+
             <div>
               <h4 className="font-semibold mb-4">Technologies</h4>
               <div className="space-y-2">
@@ -1072,10 +1271,11 @@ class EnergyManager:
               </div>
             </div>
           </div>
-          
+
           <div className="border-t border-gray-700 mt-8 pt-8 text-center">
             <p className="text-gray-400">
-              © {new Date()?.getFullYear()} NoureddineCode. All rights reserved. Built with precision and passion.
+              © {new Date()?.getFullYear()} NoureddineCode. All rights reserved.
+              Built with precision and passion.
             </p>
           </div>
         </div>
