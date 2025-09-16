@@ -9,8 +9,8 @@ const ContactMethods = () => {
       title: 'Email',
       subtitle: 'Direct Communication',
       description: 'Best for detailed technical discussions and project documentation',
-      value: 'noureddine.embedded@gmail.com',
-      action: 'mailto:noureddine.embedded@gmail.com',
+      value: 'noureddine.awledbrahim@gmail.com',
+      action: 'mailto:noureddine.awledbrahim@gmail.com',
       icon: 'Mail',
       color: 'bg-blue-500',
       responseTime: 'Response within 24 hours',
@@ -22,7 +22,7 @@ const ContactMethods = () => {
       subtitle: 'Professional Networking',
       description: 'Connect for professional opportunities and industry discussions',
       value: 'linkedin.com/in/noureddine-embedded',
-      action: 'https://linkedin.com/in/noureddine-embedded',
+      action: 'https://www.linkedin.com/in/nourreddine-awled-brahim',
       icon: 'Linkedin',
       color: 'bg-blue-600',
       responseTime: 'Response within 12 hours',
@@ -34,7 +34,7 @@ const ContactMethods = () => {
       subtitle: 'Open Source Collaboration',
       description: 'Collaborate on embedded systems projects and code reviews',
       value: 'github.com/noureddine-embedded',
-      action: 'https://github.com/noureddine-embedded',
+      action: 'https://github.com/Nourreddine1920',
       icon: 'Github',
       color: 'bg-gray-800',
       responseTime: 'Response within 48 hours',
@@ -45,8 +45,8 @@ const ContactMethods = () => {
       title: 'Phone',
       subtitle: 'Urgent Technical Support',
       description: 'For urgent project discussions and immediate technical consultation',
-      value: '+1 (555) 123-4567',
-      action: 'tel:+15551234567',
+      value: '+(216) 98 790 520',
+      action: 'tel:+21698790520',
       icon: 'Phone',
       color: 'bg-green-500',
       responseTime: 'Immediate response',
@@ -55,12 +55,10 @@ const ContactMethods = () => {
   ];
 
   const handleContactClick = (method) => {
-    if (method?.id === 'email') {
-      window.location.href = method?.action;
-    } else if (method?.id === 'phone') {
-      window.location.href = method?.action;
+    if (method.id === 'email' || method.id === 'phone') {
+      window.location.href = method.action;
     } else {
-      window.open(method?.action, '_blank', 'noopener,noreferrer');
+      window.open(method.action, '_blank', 'noopener,noreferrer');
     }
   };
 
@@ -73,42 +71,42 @@ const ContactMethods = () => {
         </p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {contactMethods?.map((method) => (
+        {contactMethods.map((method) => (
           <div
-            key={method?.id}
+            key={method.id}
             className="bg-white rounded-xl shadow-card border border-border p-6 hover:shadow-elevated transition-all duration-300 group"
           >
             <div className="flex items-start space-x-4">
-              <div className={`w-12 h-12 ${method?.color} rounded-lg flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300`}>
-                <Icon name={method?.icon} size={24} className="text-white" />
+              <div className={`w-12 h-12 ${method.color} rounded-lg flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300`}>
+                <Icon name={method.icon} size={24} className="text-white" />
               </div>
               
               <div className="flex-1 min-w-0">
                 <div className="flex items-center justify-between mb-2">
-                  <h4 className="text-lg font-semibold text-text-primary">{method?.title}</h4>
+                  <h4 className="text-lg font-semibold text-text-primary">{method.title}</h4>
                   <span className="text-xs text-text-secondary bg-brand-surface px-2 py-1 rounded-full">
-                    {method?.subtitle}
+                    {method.subtitle}
                   </span>
                 </div>
                 
                 <p className="text-sm text-text-secondary mb-3 leading-relaxed">
-                  {method?.description}
+                  {method.description}
                 </p>
                 
                 <div className="space-y-2 mb-4">
                   <div className="flex items-center text-sm">
                     <Icon name="Clock" size={14} className="text-text-secondary mr-2" />
-                    <span className="text-text-secondary">{method?.responseTime}</span>
+                    <span className="text-text-secondary">{method.responseTime}</span>
                   </div>
                   <div className="flex items-center text-sm">
                     <Icon name="Calendar" size={14} className="text-text-secondary mr-2" />
-                    <span className="text-text-secondary">{method?.availability}</span>
+                    <span className="text-text-secondary">{method.availability}</span>
                   </div>
                 </div>
                 
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-mono text-text-primary bg-brand-surface px-3 py-1 rounded-md truncate flex-1 mr-3">
-                    {method?.value}
+                    {method.value}
                   </span>
                   <Button
                     variant="outline"
@@ -139,7 +137,7 @@ const ContactMethods = () => {
             <Button
               variant="outline"
               size="sm"
-              onClick={() => window.location.href = 'tel:+15551234567'}
+              onClick={() => window.location.href = 'tel:+21699790520'}
               iconName="Phone"
               iconPosition="left"
               className="bg-white/10 border-white/20 text-white hover:bg-white/20"
@@ -149,7 +147,7 @@ const ContactMethods = () => {
             <Button
               variant="outline"
               size="sm"
-              onClick={() => window.location.href = 'mailto:noureddine.embedded@gmail.com?subject=Urgent Technical Support'}
+              onClick={() => window.location.href = 'mailto:noureddine.awledbrahim@gmail.com?subject=Urgent Technical Support'}
               iconName="Mail"
               iconPosition="left"
               className="bg-white/10 border-white/20 text-white hover:bg-white/20"

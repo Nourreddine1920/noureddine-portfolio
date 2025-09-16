@@ -18,20 +18,21 @@ const ContactForm = () => {
     urgency: '',
     preferredContact: '',
     newsletter: false,
-    terms: false
+    terms: false,
   });
 
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
+  // ===== OPTIONS =====
   const inquiryTypes = [
     { value: 'recruitment', label: 'Technical Recruitment' },
     { value: 'client-project', label: 'Client Project Inquiry' },
     { value: 'collaboration', label: 'Peer Collaboration' },
     { value: 'consultation', label: 'Technical Consultation' },
     { value: 'networking', label: 'Professional Networking' },
-    { value: 'other', label: 'Other' }
+    { value: 'other', label: 'Other' },
   ];
 
   const projectTypes = [
@@ -42,7 +43,7 @@ const ContactForm = () => {
     { value: 'firmware', label: 'Firmware Development' },
     { value: 'consulting', label: 'Technical Consulting' },
     { value: 'code-review', label: 'Code Review & Optimization' },
-    { value: 'training', label: 'Technical Training' }
+    { value: 'training', label: 'Technical Training' },
   ];
 
   const timelineOptions = [
@@ -50,7 +51,7 @@ const ContactForm = () => {
     { value: 'short-term', label: 'Short-term (1-4 weeks)' },
     { value: 'medium-term', label: 'Medium-term (1-3 months)' },
     { value: 'long-term', label: 'Long-term (3+ months)' },
-    { value: 'flexible', label: 'Flexible Timeline' }
+    { value: 'flexible', label: 'Flexible Timeline' },
   ];
 
   const budgetRanges = [
@@ -59,98 +60,138 @@ const ContactForm = () => {
     { value: '15k-50k', label: '$15,000 - $50,000' },
     { value: '50k-plus', label: '$50,000+' },
     { value: 'hourly', label: 'Hourly Rate Discussion' },
-    { value: 'discuss', label: 'Prefer to Discuss' }
+    { value: 'discuss', label: 'Prefer to Discuss' },
   ];
 
   const urgencyLevels = [
     { value: 'low', label: 'Low - Response within 48 hours' },
     { value: 'medium', label: 'Medium - Response within 24 hours' },
     { value: 'high', label: 'High - Response within 12 hours' },
-    { value: 'urgent', label: 'Urgent - Response within 4 hours' }
+    { value: 'urgent', label: 'Urgent - Response within 4 hours' },
   ];
 
   const contactMethods = [
     { value: 'email', label: 'Email' },
     { value: 'phone', label: 'Phone Call' },
     { value: 'video', label: 'Video Call' },
-    { value: 'linkedin', label: 'LinkedIn Message' }
+    { value: 'linkedin', label: 'LinkedIn Message' },
   ];
 
+  // ===== HANDLERS =====
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e?.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: type === 'checkbox' ? checked : value,
     }));
-    
-    // Clear error when user starts typing
+
     if (errors?.[name]) {
-      setErrors(prev => ({ ...prev, [name]: '' }));
+      setErrors((prev) => ({ ...prev, [name]: '' }));
     }
   };
 
   const handleSelectChange = (name, value) => {
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
     if (errors?.[name]) {
-      setErrors(prev => ({ ...prev, [name]: '' }));
+      setErrors((prev) => ({ ...prev, [name]: '' }));
     }
   };
 
   const validateForm = () => {
     const newErrors = {};
-
     if (!formData?.name?.trim()) newErrors.name = 'Name is required';
     if (!formData?.email?.trim()) newErrors.email = 'Email is required';
-    else if (!/\S+@\S+\.\S+/?.test(formData?.email)) newErrors.email = 'Invalid email format';
-    if (!formData?.inquiryType) newErrors.inquiryType = 'Please select inquiry type';
-    if (!formData?.message?.trim()) newErrors.message = 'Message is required';
-    if (!formData?.terms) newErrors.terms = 'Please accept the terms';
+    else if (!/\S+@\S+\.\S+/.test(formData?.email))
+      newErrors.email = 'Invalid email format';
+    if (!formData?.inquiryType)
+      newErrors.inquiryType = 'Please select inquiry type';
+    if (!formData?.message?.trim())
+      newErrors.message = 'Message is required';
+    if (!formData?.terms)
+      newErrors.terms = 'Please accept the terms';
 
     setErrors(newErrors);
     return Object.keys(newErrors)?.length === 0;
   };
 
+  // ===== SUBMIT HANDLER (EmailJS via fetch) =====
   const handleSubmit = async (e) => {
     e?.preventDefault();
-    
     if (!validateForm()) return;
 
     setIsSubmitting(true);
-    
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    setIsSubmitting(false);
-    setIsSubmitted(true);
+
+    try {
+      const response = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          service_id: import.meta.env.VITE_EMAILJS_SERVICE_ID,
+          template_id: import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+          user_id: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
+          template_params: {
+            ...formData,
+          },
+        }),
+      });
+
+      if (response.ok) {
+        setIsSubmitted(true);
+      } else {
+        console.error("EmailJS failed:", await response.text());
+        alert("Failed to send message. Try again later.");
+      }
+    } catch (err) {
+      console.error("EmailJS error:", err);
+      alert("Error sending message. Check console for details.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
+  // ===== SUCCESS MESSAGE =====
   if (isSubmitted) {
     return (
       <div className="bg-white rounded-2xl shadow-card border border-border p-8 text-center">
         <div className="w-16 h-16 bg-success/10 rounded-full flex items-center justify-center mx-auto mb-6">
           <Icon name="CheckCircle" size={32} className="text-success" />
         </div>
-        <h3 className="text-2xl font-bold text-text-primary mb-4">Message Sent Successfully!</h3>
+        <h3 className="text-2xl font-bold text-text-primary mb-4">
+          Message Sent Successfully!
+        </h3>
         <p className="text-text-secondary mb-6">
-          Thank you for reaching out. I'll review your inquiry and respond within the timeframe you specified.
+          Thank you for reaching out. I'll review your inquiry and respond
+          within the timeframe you specified.
         </p>
         <div className="bg-brand-surface rounded-lg p-4 mb-6">
           <p className="text-sm text-text-secondary">
-            <strong>Expected Response Time:</strong> {
-              formData?.urgency === 'urgent' ? 'Within 4 hours' :
-              formData?.urgency === 'high' ? 'Within 12 hours' :
-              formData?.urgency === 'medium'? 'Within 24 hours' : 'Within 48 hours'
-            }
+            <strong>Expected Response Time:</strong>{" "}
+            {formData?.urgency === "urgent"
+              ? "Within 4 hours"
+              : formData?.urgency === "high"
+              ? "Within 12 hours"
+              : formData?.urgency === "medium"
+              ? "Within 24 hours"
+              : "Within 48 hours"}
           </p>
         </div>
-        <Button 
-          variant="outline" 
+        <Button
+          variant="outline"
           onClick={() => {
             setIsSubmitted(false);
             setFormData({
-              name: '', email: '', company: '', inquiryType: '', projectType: '',
-              timeline: '', budget: '', message: '', urgency: '', preferredContact: '',
-              newsletter: false, terms: false
+              name: '',
+              email: '',
+              company: '',
+              inquiryType: '',
+              projectType: '',
+              timeline: '',
+              budget: '',
+              message: '',
+              urgency: '',
+              preferredContact: '',
+              newsletter: false,
+              terms: false,
             });
           }}
         >
@@ -160,16 +201,20 @@ const ContactForm = () => {
     );
   }
 
+  // ===== FORM UI =====
   return (
     <div className="bg-white rounded-2xl shadow-card border border-border p-8">
       <div className="mb-8">
-        <h3 className="text-2xl font-bold text-text-primary mb-2">Start a Conversation</h3>
+        <h3 className="text-2xl font-bold text-text-primary mb-2">
+          Start a Conversation
+        </h3>
         <p className="text-text-secondary">
           Let's discuss your project requirements and explore how we can collaborate.
         </p>
       </div>
+
       <form onSubmit={handleSubmit} className="space-y-6">
-        {/* Basic Information */}
+        {/* --- Basic Info --- */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Input
             label="Full Name"
@@ -203,7 +248,7 @@ const ContactForm = () => {
           description="Help me understand your organizational context"
         />
 
-        {/* Inquiry Details */}
+        {/* --- Inquiry --- */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Select
             label="Inquiry Type"
@@ -224,7 +269,7 @@ const ContactForm = () => {
           />
         </div>
 
-        {/* Project Parameters */}
+        {/* --- Project Params --- */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Select
             label="Timeline"
@@ -244,7 +289,7 @@ const ContactForm = () => {
           />
         </div>
 
-        {/* Communication Preferences */}
+        {/* --- Communication --- */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Select
             label="Response Urgency"
@@ -264,7 +309,7 @@ const ContactForm = () => {
           />
         </div>
 
-        {/* Message */}
+        {/* --- Message --- */}
         <div>
           <label className="block text-sm font-medium text-text-primary mb-2">
             Project Details & Requirements *
@@ -272,7 +317,7 @@ const ContactForm = () => {
           <textarea
             name="message"
             rows={6}
-            placeholder="Please describe your project requirements, technical challenges, or questions. Include any specific technologies, constraints, or goals you have in mind."
+            placeholder="Please describe your project requirements..."
             value={formData?.message}
             onChange={handleInputChange}
             className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent resize-none"
@@ -281,31 +326,31 @@ const ContactForm = () => {
             <p className="mt-1 text-sm text-error">{errors?.message}</p>
           )}
           <p className="mt-2 text-xs text-text-secondary">
-            The more details you provide, the better I can understand your needs and provide a relevant response.
+            The more details you provide, the better I can respond.
           </p>
         </div>
 
-        {/* Checkboxes */}
+        {/* --- Checkboxes --- */}
         <div className="space-y-4">
           <Checkbox
             label="Subscribe to technical insights newsletter"
-            description="Receive monthly updates on embedded systems trends and project insights"
+            description="Receive monthly updates on embedded systems trends"
             checked={formData?.newsletter}
-            onChange={(e) => handleInputChange(e)}
+            onChange={handleInputChange}
             name="newsletter"
           />
           <Checkbox
             label="I agree to the terms and privacy policy"
-            description="Your information will be used solely for responding to your inquiry"
+            description="Your information will be used solely for responding"
             checked={formData?.terms}
-            onChange={(e) => handleInputChange(e)}
+            onChange={handleInputChange}
             name="terms"
             error={errors?.terms}
             required
           />
         </div>
 
-        {/* Submit Button */}
+        {/* --- Submit --- */}
         <div className="pt-4">
           <Button
             type="submit"
