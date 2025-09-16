@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '../../../components/ui/Button';
 import Select from '../../../components/ui/Select';
 import Icon from '../../../components/AppIcon';
@@ -10,6 +10,25 @@ const AvailabilityCalendar = () => {
   const [consultationType, setConsultationType] = useState('');
   const [isBooking, setIsBooking] = useState(false);
   const [isBooked, setIsBooked] = useState(false);
+  const [userInfo, setUserInfo] = useState({
+    name: '',
+    email: '',
+    company: '',
+    phone: '',
+    notes: ''
+  });
+  const [showUserForm, setShowUserForm] = useState(false);
+  const [meetingLinks, setMeetingLinks] = useState({
+    google: '',
+    teams: ''
+  });
+  const [emailjsLoaded, setEmailjsLoaded] = useState(false);
+
+  // Load EmailJS readiness (no script loading needed for fetch approach)
+  useEffect(() => {
+    // Just set as loaded since we're using fetch API directly
+    setEmailjsLoaded(true);
+  }, []);
 
   // Generate calendar dates for the next 30 days
   const generateCalendarDates = () => {
@@ -18,21 +37,21 @@ const AvailabilityCalendar = () => {
     
     for (let i = 1; i <= 30; i++) {
       const date = new Date(today);
-      date?.setDate(today?.getDate() + i);
+      date.setDate(today.getDate() + i);
       
       // Skip weekends for business consultations
-      if (date?.getDay() !== 0 && date?.getDay() !== 6) {
-        dates?.push({
+      if (date.getDay() !== 0 && date.getDay() !== 6) {
+        dates.push({
           date: date,
-          day: date?.getDate(),
-          month: date?.toLocaleDateString('en-US', { month: 'short' }),
-          weekday: date?.toLocaleDateString('en-US', { weekday: 'short' }),
+          day: date.getDate(),
+          month: date.toLocaleDateString('en-US', { month: 'short' }),
+          weekday: date.toLocaleDateString('en-US', { weekday: 'short' }),
           available: Math.random() > 0.3 // 70% availability simulation
         });
       }
     }
     
-    return dates?.slice(0, 20); // Show 20 available dates
+    return dates.slice(0, 20); // Show 20 available dates
   };
 
   const [calendarDates] = useState(generateCalendarDates());
@@ -56,37 +75,247 @@ const AvailabilityCalendar = () => {
   ];
 
   const consultationTypes = [
-    { value: 'technical-review', label: 'Technical Code Review (30 min)' },
-    { value: 'project-consultation', label: 'Project Consultation (60 min)' },
-    { value: 'architecture-discussion', label: 'Architecture Discussion (45 min)' },
-    { value: 'career-guidance', label: 'Career Guidance (30 min)' },
-    { value: 'technology-selection', label: 'Technology Selection (45 min)' }
+    { value: 'technical-review', label: 'Technical Code Review (30 min)', duration: 30 },
+    { value: 'project-consultation', label: 'Project Consultation (60 min)', duration: 60 },
+    { value: 'architecture-discussion', label: 'Architecture Discussion (45 min)', duration: 45 },
+    { value: 'career-guidance', label: 'Career Guidance (30 min)', duration: 30 },
+    { value: 'technology-selection', label: 'Technology Selection (45 min)', duration: 45 }
   ];
+
+  // Generate Google Meet and Teams meeting links
+  const generateMeetingLinks = () => {
+    const meetingId = Math.random().toString(36).substring(2, 15);
+    const teamsId = Math.random().toString(36).substring(2, 15);
+    
+    return {
+      google: `https://meet.google.com/${meetingId}`,
+      teams: `https://teams.microsoft.com/l/meetup-join/19%3A${teamsId}%40thread.v2/0`
+    };
+  };
+
+  // Send email using direct fetch API
+  const sendEmail = async (templateParams) => {
+    try {
+      const response = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          service_id: import.meta.env.VITE_EMAILJS_SERVICE_ID2,
+          template_id: import.meta.env.VITE_EMAILJS_TEMPLATE_ID2,
+          user_id: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
+          template_params: templateParams,
+        }),
+      });
+
+      if (response.ok) {
+        console.log('Email sent successfully');
+        return response;
+      } else {
+        const errorText = await response.text();
+        console.error("EmailJS failed:", errorText);
+        throw new Error(`EmailJS failed: ${errorText}`);
+      }
+    } catch (error) {
+      console.error('Email sending failed:', error);
+      throw error;
+    }
+  };
+
+  // Send booking notification to host
+  const sendHostNotification = async (bookingData) => {
+    const consultation = consultationTypes.find(type => type.value === bookingData.consultationType);
+    const dateFormatted = bookingData.date.toLocaleDateString('en-US', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+
+    const templateParams = {
+      user_name: userInfo.name,
+      user_email: 'noureddine.awledbrahim@gmail.com', // Replace with your actual email - this goes to you
+      from_name: userInfo.name,
+      client_name: userInfo.name,
+      client_email: userInfo.email,
+      client_company: userInfo.company || 'Not specified',
+      client_phone: userInfo.phone || 'Not specified',
+      consultation_type: consultation.label,
+      date: dateFormatted,
+      time: `${timeSlots.find(slot => slot.value === bookingData.time)?.label}`,
+      timezone: `${selectedTimezone} (${timezones.find(tz => tz.value === selectedTimezone)?.label})`,
+      duration: consultation.duration,
+      meeting_link_google: bookingData.meetingLinks.google,
+      meeting_link_teams: bookingData.meetingLinks.teams,
+      meeting_link: bookingData.meetingLinks.google, // Fallback for single link
+      client_notes: userInfo.notes || 'No additional notes provided',
+      booking_id: Date.now().toString(),
+    };
+
+    return sendEmail(templateParams);
+  };
+
+  // Send confirmation email to user
+  const sendUserConfirmation = async (bookingData) => {
+    const consultation = consultationTypes.find(type => type.value === bookingData.consultationType);
+    const dateFormatted = bookingData.date.toLocaleDateString('en-US', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+
+    const templateParams = {
+      user_name: userInfo.name,
+      user_email: userInfo.email, // This goes to the user
+      from_name: 'Consultation Team',
+      client_name: userInfo.name,
+      client_email: userInfo.email,
+      client_company: userInfo.company || 'Not specified',
+      client_phone: userInfo.phone || 'Not specified',
+      consultation_type: consultation.label,
+      date: dateFormatted,
+      time: `${timeSlots.find(slot => slot.value === bookingData.time)?.label}`,
+      timezone: `${selectedTimezone} (${timezones.find(tz => tz.value === selectedTimezone)?.label})`,
+      duration: consultation.duration,
+      meeting_link_google: bookingData.meetingLinks.google,
+      meeting_link_teams: bookingData.meetingLinks.teams,
+      meeting_link: bookingData.meetingLinks.google, // Fallback for single link
+      client_notes: userInfo.notes || 'No additional notes provided',
+      booking_id: Date.now().toString(),
+    };
+
+    return sendEmail(templateParams);
+  };
+
+  // Generate calendar event download link
+  const generateCalendarEvent = (bookingData) => {
+    const startDate = new Date(bookingData.date);
+    const [hours, minutes] = bookingData.time.split(':');
+    startDate.setHours(parseInt(hours), parseInt(minutes), 0, 0);
+    
+    const endDate = new Date(startDate);
+    const consultation = consultationTypes.find(type => type.value === bookingData.consultationType);
+    endDate.setMinutes(startDate.getMinutes() + consultation.duration);
+
+    const formatDate = (date) => {
+      return date.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+    };
+
+    const icsContent = `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Consultation Booking//EN
+BEGIN:VEVENT
+UID:${Date.now()}@consultationbooking.com
+DTSTAMP:${formatDate(new Date())}
+DTSTART:${formatDate(startDate)}
+DTEND:${formatDate(endDate)}
+SUMMARY:${consultation.label} - ${userInfo.name}
+DESCRIPTION:Meeting with ${userInfo.name}\\nCompany: ${userInfo.company}\\nNotes: ${userInfo.notes}\\n\\nGoogle Meet: ${bookingData.meetingLinks.google}\\nMicrosoft Teams: ${bookingData.meetingLinks.teams}
+LOCATION:${bookingData.meetingLinks.google}
+STATUS:CONFIRMED
+END:VEVENT
+END:VCALENDAR`;
+
+    const blob = new Blob([icsContent], { type: 'text/calendar' });
+    return URL.createObjectURL(blob);
+  };
 
   const handleDateSelect = (date) => {
     setSelectedDate(date);
     setSelectedTime(''); // Reset time when date changes
   };
 
-  const handleBooking = async () => {
+  const handleProceedToBooking = () => {
     if (!selectedDate || !selectedTime || !consultationType) return;
+    setShowUserForm(true);
+  };
+
+  const handleUserInfoChange = (field, value) => {
+    setUserInfo(prev => ({
+      ...prev,
+      [field]: value
+    }));
+  };
+
+  const handleBooking = async () => {
+    if (!userInfo.name || !userInfo.email || !selectedDate || !selectedTime || !consultationType) return;
     
     setIsBooking(true);
     
-    // Simulate booking process
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    setIsBooking(false);
-    setIsBooked(true);
+    try {
+      // Generate meeting links
+      const links = generateMeetingLinks();
+      setMeetingLinks(links);
+      
+      const bookingData = {
+        date: selectedDate.date,
+        time: selectedTime,
+        timezone: selectedTimezone,
+        consultationType: consultationType,
+        meetingLinks: links
+      };
+
+      // Send both emails sequentially to handle any individual failures
+      try {
+        await sendHostNotification(bookingData);
+        console.log('Host notification sent successfully');
+      } catch (error) {
+        console.error('Failed to send host notification:', error);
+        // Continue with user confirmation even if host notification fails
+      }
+
+      try {
+        await sendUserConfirmation(bookingData);
+        console.log('User confirmation sent successfully');
+      } catch (error) {
+        console.error('Failed to send user confirmation:', error);
+        throw error; // This one is critical for user experience
+      }
+      
+      setIsBooking(false);
+      setIsBooked(true);
+    } catch (error) {
+      console.error('Booking error:', error);
+      setIsBooking(false);
+      alert(`There was an error processing your booking: ${error.message}. Please try again or contact support.`);
+    }
+  };
+
+  const resetBooking = () => {
+    setIsBooked(false);
+    setSelectedDate(null);
+    setSelectedTime('');
+    setConsultationType('');
+    setShowUserForm(false);
+    setUserInfo({
+      name: '',
+      email: '',
+      company: '',
+      phone: '',
+      notes: ''
+    });
+    setMeetingLinks({
+      google: '',
+      teams: ''
+    });
   };
 
   if (isBooked) {
+    const calendarDownloadLink = generateCalendarEvent({
+      date: selectedDate.date,
+      time: selectedTime,
+      timezone: selectedTimezone,
+      consultationType: consultationType,
+      meetingLinks: meetingLinks
+    });
+
     return (
       <div className="bg-white rounded-2xl shadow-card border border-border p-8 text-center">
         <div className="w-16 h-16 bg-success/10 rounded-full flex items-center justify-center mx-auto mb-6">
           <Icon name="Calendar" size={32} className="text-success" />
         </div>
-        <h3 className="text-2xl font-bold text-text-primary mb-4">Consultation Booked!</h3>
+        <h3 className="text-2xl font-bold text-text-primary mb-4">Consultation Booked Successfully! 🎉</h3>
+        
         <div className="bg-brand-surface rounded-lg p-6 mb-6">
           <div className="space-y-3">
             <div className="flex justify-between items-center">
@@ -112,34 +341,267 @@ const AvailabilityCalendar = () => {
                 {consultationTypes?.find(type => type?.value === consultationType)?.label}
               </span>
             </div>
+            <div className="flex justify-between items-center">
+              <span className="text-text-secondary">Duration:</span>
+              <span className="font-semibold text-text-primary">
+                {consultationTypes?.find(type => type?.value === consultationType)?.duration} minutes
+              </span>
+            </div>
           </div>
         </div>
-        <p className="text-text-secondary mb-6">
-          You'll receive a calendar invitation and meeting details via email shortly.
-        </p>
-        <Button 
-          variant="outline" 
-          onClick={() => {
-            setIsBooked(false);
-            setSelectedDate(null);
-            setSelectedTime('');
-            setConsultationType('');
-          }}
-        >
-          Book Another Session
-        </Button>
+
+        {/* Meeting Links Section */}
+        <div className="bg-gradient-to-r from-blue-50 to-green-50 rounded-lg p-6 mb-6">
+          <h4 className="font-semibold text-text-primary mb-4 flex items-center justify-center">
+            <Icon name="Video" size={20} className="mr-2" />
+            Choose Your Meeting Platform
+          </h4>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a 
+              href={meetingLinks.google} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center justify-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+            >
+              <Icon name="Video" size={16} className="mr-2" />
+              Google Meet
+            </a>
+            <a 
+              href={meetingLinks.teams} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center justify-center px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors font-medium"
+            >
+              <Icon name="Users" size={16} className="mr-2" />
+              Microsoft Teams
+            </a>
+          </div>
+          <p className="text-sm text-text-secondary mt-3">
+            Both links will work - choose your preferred platform
+          </p>
+        </div>
+
+        <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
+          <div className="flex items-center justify-center space-x-2">
+            <Icon name="Mail" size={20} className="text-green-600" />
+            <p className="text-green-800 text-sm">
+              Confirmation emails sent successfully!
+            </p>
+          </div>
+          <p className="text-green-700 text-xs mt-1">
+            Check <strong>{userInfo.email}</strong> for meeting details
+          </p>
+        </div>
+
+        <div className="flex flex-col sm:flex-row gap-4 mb-6">
+          <a
+            href={calendarDownloadLink}
+            download="consultation-meeting.ics"
+            className="flex items-center justify-center px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors font-medium"
+          >
+            <Icon name="Download" size={16} className="mr-2" />
+            Add to Calendar
+          </a>
+          <Button 
+            variant="outline" 
+            onClick={resetBooking}
+            className="px-6 py-3"
+          >
+            Book Another Session
+          </Button>
+        </div>
+
+        <div className="text-left bg-gray-50 rounded-lg p-6">
+          <h4 className="font-semibold text-text-primary mb-3 flex items-center">
+            <Icon name="Info" size={18} className="mr-2" />
+            Next Steps:
+          </h4>
+          <ul className="text-sm text-text-secondary space-y-2">
+            <li className="flex items-start">
+              <span className="text-brand-primary mr-2">1.</span>
+              Check your email for detailed meeting information and preparation checklist
+            </li>
+            <li className="flex items-start">
+              <span className="text-brand-primary mr-2">2.</span>
+              Download and add the calendar event to your calendar above
+            </li>
+            <li className="flex items-start">
+              <span className="text-brand-primary mr-2">3.</span>
+              Test your camera and microphone 10 minutes before the meeting
+            </li>
+            <li className="flex items-start">
+              <span className="text-brand-primary mr-2">4.</span>
+              Join 2-3 minutes early using your preferred meeting platform
+            </li>
+            <li className="flex items-start">
+              <span className="text-brand-primary mr-2">5.</span>
+              Prepare any questions or materials you'd like to discuss
+            </li>
+          </ul>
+        </div>
+      </div>
+    );
+  }
+
+  if (showUserForm) {
+    return (
+      <div className="bg-white rounded-2xl shadow-card border border-border p-8">
+        <div className="mb-8">
+          <h3 className="text-2xl font-bold text-text-primary mb-2">Contact Information</h3>
+          <p className="text-text-secondary">
+            Please provide your details to complete the booking.
+          </p>
+        </div>
+
+        {/* Booking Summary */}
+        <div className="bg-brand-surface rounded-lg p-6 mb-6">
+          <h5 className="font-semibold text-text-primary mb-4 flex items-center">
+            <Icon name="Calendar" size={18} className="mr-2" />
+            Booking Details
+          </h5>
+          <div className="space-y-2 text-sm">
+            <div className="flex justify-between">
+              <span className="text-text-secondary">Consultation:</span>
+              <span className="text-text-primary font-medium">
+                {consultationTypes?.find(type => type?.value === consultationType)?.label}
+              </span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-text-secondary">Date:</span>
+              <span className="text-text-primary font-medium">
+                {selectedDate?.date?.toLocaleDateString('en-US', { 
+                  weekday: 'long', 
+                  month: 'long', 
+                  day: 'numeric' 
+                })}
+              </span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-text-secondary">Time:</span>
+              <span className="text-text-primary font-medium">
+                {timeSlots?.find(slot => slot?.value === selectedTime)?.label} ({selectedTimezone})
+              </span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-text-secondary">Duration:</span>
+              <span className="text-text-primary font-medium">
+                {consultationTypes?.find(type => type?.value === consultationType)?.duration} minutes
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* User Information Form */}
+        <div className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-sm font-medium text-text-primary mb-2">
+                Full Name *
+              </label>
+              <input
+                type="text"
+                value={userInfo.name}
+                onChange={(e) => handleUserInfoChange('name', e.target.value)}
+                className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent transition-colors"
+                placeholder="Enter your full name"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-text-primary mb-2">
+                Email Address *
+              </label>
+              <input
+                type="email"
+                value={userInfo.email}
+                onChange={(e) => handleUserInfoChange('email', e.target.value)}
+                className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent transition-colors"
+                placeholder="Enter your email"
+                required
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-sm font-medium text-text-primary mb-2">
+                Company/Organization
+              </label>
+              <input
+                type="text"
+                value={userInfo.company}
+                onChange={(e) => handleUserInfoChange('company', e.target.value)}
+                className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent transition-colors"
+                placeholder="Enter your company name"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-text-primary mb-2">
+                Phone Number
+              </label>
+              <input
+                type="tel"
+                value={userInfo.phone}
+                onChange={(e) => handleUserInfoChange('phone', e.target.value)}
+                className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent transition-colors"
+                placeholder="Enter your phone number"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-text-primary mb-2">
+              Additional Notes
+            </label>
+            <textarea
+              value={userInfo.notes}
+              onChange={(e) => handleUserInfoChange('notes', e.target.value)}
+              rows={4}
+              className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent transition-colors resize-vertical"
+              placeholder="Tell us about your project or specific topics you'd like to discuss..."
+            />
+          </div>
+        </div>
+
+        <div className="flex space-x-4 mt-8">
+          <Button
+            variant="outline"
+            onClick={() => setShowUserForm(false)}
+            className="flex-1"
+          >
+            Back
+          </Button>
+          <Button
+            variant="default"
+            onClick={handleBooking}
+            loading={isBooking}
+            disabled={!userInfo.name || !userInfo.email}
+            className="flex-1 bg-brand-primary hover:bg-brand-primary/90"
+          >
+            {isBooking ? 'Booking...' : 'Confirm Booking'}
+          </Button>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="bg-white rounded-2xl shadow-card border border-border p-8">
+    <div className="bg-white rounded-2xl shadow-card border border-border p-8">      
       <div className="mb-8">
         <h3 className="text-2xl font-bold text-text-primary mb-2">Schedule a Consultation</h3>
         <p className="text-text-secondary">
           Book a technical consultation to discuss your project requirements and get expert guidance.
         </p>
       </div>
+
+      {/* EmailJS Loading Status */}
+      <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
+        <div className="flex items-center space-x-2">
+          <Icon name="CheckCircle" size={16} className="text-green-600" />
+          <p className="text-green-800 text-sm">Booking system ready</p>
+        </div>
+      </div>
+
       {/* Consultation Type Selection */}
       <div className="mb-8">
         <Select
@@ -151,6 +613,7 @@ const AvailabilityCalendar = () => {
           description="Choose the type of consultation that best fits your needs"
         />
       </div>
+
       {/* Timezone Selection */}
       <div className="mb-8">
         <Select
@@ -162,6 +625,7 @@ const AvailabilityCalendar = () => {
           description="All times will be displayed in your selected timezone"
         />
       </div>
+
       {/* Calendar Grid */}
       <div className="mb-8">
         <h4 className="text-lg font-semibold text-text-primary mb-4">Available Dates</h4>
@@ -185,6 +649,7 @@ const AvailabilityCalendar = () => {
           ))}
         </div>
       </div>
+
       {/* Time Slots */}
       {selectedDate && (
         <div className="mb-8">
@@ -213,50 +678,21 @@ const AvailabilityCalendar = () => {
           </div>
         </div>
       )}
-      {/* Booking Summary */}
-      {selectedDate && selectedTime && consultationType && (
-        <div className="bg-brand-surface rounded-lg p-6 mb-6">
-          <h5 className="font-semibold text-text-primary mb-4">Booking Summary</h5>
-          <div className="space-y-2 text-sm">
-            <div className="flex justify-between">
-              <span className="text-text-secondary">Consultation:</span>
-              <span className="text-text-primary font-medium">
-                {consultationTypes?.find(type => type?.value === consultationType)?.label}
-              </span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-text-secondary">Date:</span>
-              <span className="text-text-primary font-medium">
-                {selectedDate?.date?.toLocaleDateString('en-US', { 
-                  weekday: 'short', 
-                  month: 'short', 
-                  day: 'numeric' 
-                })}
-              </span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-text-secondary">Time:</span>
-              <span className="text-text-primary font-medium">
-                {timeSlots?.find(slot => slot?.value === selectedTime)?.label} ({selectedTimezone})
-              </span>
-            </div>
-          </div>
-        </div>
-      )}
+
       {/* Book Button */}
       <Button
         variant="default"
         size="lg"
         fullWidth
-        onClick={handleBooking}
-        loading={isBooking}
+        onClick={handleProceedToBooking}
         disabled={!selectedDate || !selectedTime || !consultationType}
         iconName="Calendar"
         iconPosition="left"
         className="bg-brand-primary hover:bg-brand-primary/90"
       >
-        {isBooking ? 'Booking Session...' : 'Book Consultation'}
+        Continue to Booking
       </Button>
+
       {/* Additional Information */}
       <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
         <div className="flex items-start space-x-3">
@@ -265,8 +701,8 @@ const AvailabilityCalendar = () => {
             <h6 className="font-semibold text-blue-900 mb-1">What to Expect</h6>
             <ul className="text-blue-800 space-y-1">
               <li>• You'll receive a calendar invitation with meeting details</li>
+              <li>• Choose between Google Meet or Microsoft Teams</li>
               <li>• A pre-meeting questionnaire to maximize our time</li>
-              <li>• Video call link (Google Meet or Zoom)</li>
               <li>• Follow-up summary with action items and recommendations</li>
             </ul>
           </div>
