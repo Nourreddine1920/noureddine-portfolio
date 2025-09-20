@@ -1,14 +1,14 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import Icon from '../../../components/AppIcon';
-import Image from '../../../components/AppImage';
+import React from "react";
+import { Link } from "react-router-dom";
+import Icon from "../../../components/AppIcon";
+import Image from "../../../components/AppImage";
 
 const ArticleCard = ({ article, featured = false }) => {
   const formatDate = (date) => {
-    return new Date(date)?.toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
+    return new Date(date)?.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
     });
   };
 
@@ -32,18 +32,22 @@ const ArticleCard = ({ article, featured = false }) => {
             <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-brand-primary text-white">
               {article?.category}
             </span>
-            <span className="text-white/80 text-sm">{formatDate(article?.publishedAt)}</span>
-            <span className="text-white/80 text-sm">{formatReadTime(article?.readTime)}</span>
+            <span className="text-white/80 text-sm">
+              {formatDate(article?.publishedAt)}
+            </span>
+            <span className="text-white/80 text-sm">
+              {formatReadTime(article?.readTime)}
+            </span>
           </div>
-          
+
           <h2 className="text-2xl font-bold text-white mb-3 group-hover:text-brand-accent transition-colors duration-300">
             {article?.title}
           </h2>
-          
+
           <p className="text-white/90 text-base mb-4 line-clamp-2">
             {article?.excerpt}
           </p>
-          
+
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <div className="w-10 h-10 rounded-full overflow-hidden">
@@ -54,18 +58,22 @@ const ArticleCard = ({ article, featured = false }) => {
                 />
               </div>
               <div>
-                <p className="text-white font-medium text-sm">{article?.author?.name}</p>
+                <p className="text-white font-medium text-sm">
+                  {article?.author?.name}
+                </p>
                 <p className="text-white/70 text-xs">{article?.author?.role}</p>
               </div>
             </div>
-            
-            <Link
-              to={`/industry-insights-hub/article/${article?.slug}`}
+
+            <a
+              href="https://deepbluembedded.com/stm32-dma-tutorial-using-direct-memory-access-dma-in-stm32/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center space-x-2 text-white hover:text-brand-accent transition-colors duration-200"
             >
               <span className="text-sm font-medium">Read More</span>
               <Icon name="ArrowRight" size={16} />
-            </Link>
+            </a>
           </div>
         </div>
       </article>
@@ -86,18 +94,22 @@ const ArticleCard = ({ article, featured = false }) => {
           <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-brand-surface text-brand-primary">
             {article?.category}
           </span>
-          <span className="text-text-muted text-sm">{formatDate(article?.publishedAt)}</span>
-          <span className="text-text-muted text-sm">{formatReadTime(article?.readTime)}</span>
+          <span className="text-text-muted text-sm">
+            {formatDate(article?.publishedAt)}
+          </span>
+          <span className="text-text-muted text-sm">
+            {formatReadTime(article?.readTime)}
+          </span>
         </div>
-        
+
         <h3 className="text-xl font-semibold text-text-primary mb-2 group-hover:text-brand-primary transition-colors duration-300 line-clamp-2">
           {article?.title}
         </h3>
-        
+
         <p className="text-text-secondary text-sm mb-4 line-clamp-3">
           {article?.excerpt}
         </p>
-        
+
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <div className="w-8 h-8 rounded-full overflow-hidden">
@@ -108,17 +120,21 @@ const ArticleCard = ({ article, featured = false }) => {
               />
             </div>
             <div>
-              <p className="text-text-primary font-medium text-sm">{article?.author?.name}</p>
+              <p className="text-text-primary font-medium text-sm">
+                {article?.author?.name}
+              </p>
             </div>
           </div>
-          
-          <Link
-            to={`/industry-insights-hub/article/${article?.slug}`}
+
+          <a
+            href={article?.link}
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center space-x-1 text-brand-primary hover:text-brand-secondary transition-colors duration-200"
           >
             <span className="text-sm font-medium">Read</span>
             <Icon name="ArrowRight" size={14} />
-          </Link>
+          </a>
         </div>
       </div>
     </article>

@@ -1,134 +1,161 @@
-import React, { useState, useEffect } from 'react';
-import { Helmet } from 'react-helmet';
-import Header from '../../components/ui/Header';
-import Icon from '../../components/AppIcon';
-import ArticleCard from './components/ArticleCard';
-import CategoryFilter from './components/CategoryFilter';
-import FeaturedSeries from './components/FeaturedSeries';
-import NewsletterSubscription from './components/NewsletterSubscription';
-import SearchBar from './components/SearchBar';
-import TrendingTopics from './components/TrendingTopics';
+import React, { useState, useEffect } from "react";
+import { Helmet } from "react-helmet";
+import Header from "../../components/ui/Header";
+import Icon from "../../components/AppIcon";
+import ArticleCard from "./components/ArticleCard";
+import CategoryFilter from "./components/CategoryFilter";
+import FeaturedSeries from "./components/FeaturedSeries";
+import NewsletterSubscription from "./components/NewsletterSubscription";
+import SearchBar from "./components/SearchBar";
+import TrendingTopics from "./components/TrendingTopics";
 
 const IndustryInsightsHub = () => {
-  const [activeCategory, setActiveCategory] = useState('all');
-  const [searchTerm, setSearchTerm] = useState('');
+  const [activeCategory, setActiveCategory] = useState("all");
+  const [searchTerm, setSearchTerm] = useState("");
   const [filteredArticles, setFilteredArticles] = useState([]);
 
-  // Mock data for articles
   const articles = [
     {
       id: 1,
-      title: "Advanced STM32 DMA Configuration for High-Performance Applications",
+      title:
+        "Advanced STM32 DMA Configuration for High-Performance Applications",
       slug: "advanced-stm32-dma-configuration",
-      excerpt: "Deep dive into STM32 Direct Memory Access configuration techniques for optimizing data transfer performance in embedded applications. Learn advanced patterns for circular buffers, linked lists, and interrupt handling.",
-      content: `This comprehensive guide explores advanced DMA configuration techniques for STM32 microcontrollers.\n\nDirect Memory Access (DMA) is crucial for high-performance embedded applications where CPU efficiency matters. We'll cover:\n\n• Advanced DMA modes and configurations\n• Circular buffer implementations\n• Linked list DMA transfers\n• Error handling and recovery strategies\n• Performance optimization techniques`,
-      image: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800&h=600&fit=crop",
+      excerpt:
+        "Deep dive into STM32 Direct Memory Access configuration techniques for optimizing data transfer performance in embedded applications...",
+      image:
+        "https://embetronicx.b-cdn.net/wp-content/uploads/2023/12/STM32F7-DMA-Block-Diagram-1024x786.webp",
       category: "STM32 Development",
       author: {
-        name: "Noureddine Bouchama",
-        role: "Embedded Systems Engineer",
-        avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face"
+        name: "Noureddine AWLED BRAHIM",
+        role: "Embedded Software Engineer",
+        avatar:
+          "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
       },
       publishedAt: "2025-01-08",
       readTime: 12,
       tags: ["STM32", "DMA", "Performance", "Embedded C"],
-      featured: true
+      featured: true,
+      link: "https://deepbluembedded.com/stm32-dma-tutorial-using-direct-memory-access-dma-in-stm32/", // ✅ official STM32 DMA tutorial
     },
     {
       id: 2,
-      title: "IoT Security Best Practices: Protecting Embedded Devices from Cyber Threats",
+      title:
+        "IoT Security Best Practices: Protecting Embedded Devices from Cyber Threats",
       slug: "iot-security-best-practices",
-      excerpt: "Essential security measures for IoT devices including secure boot, encryption, authentication protocols, and vulnerability assessment techniques for embedded systems.",
-      content: `IoT security is paramount in today's connected world. This article covers essential security practices for embedded devices.\n\nKey topics include:\n• Secure boot implementation\n• Hardware security modules (HSM)\n• Encryption and key management\n• Authentication protocols\n• Over-the-air update security`,
-      image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&h=600&fit=crop",
+      excerpt:
+        "Essential security measures for IoT devices including secure boot, encryption, authentication protocols...",
+      image:
+        "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&h=600&fit=crop",
       category: "IoT Security",
       author: {
-        name: "Noureddine Bouchama",
+        name: "Noureddine AWLED BRAHIM",
         role: "Embedded Systems Engineer",
-        avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face"
+        avatar:
+          "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
       },
       publishedAt: "2025-01-05",
       readTime: 15,
-      tags: ["IoT", "Security", "Encryption", "Authentication"]
+      tags: ["IoT", "Security", "Encryption", "Authentication"],
+      link: "https://www.digi.com/blog/post/iot-security", // ✅ IoT security reference
     },
     {
       id: 3,
-      title: "Real-Time Operating Systems: FreeRTOS Task Management and Scheduling",
+      title:
+        "Real-Time Operating Systems: FreeRTOS Task Management and Scheduling",
       slug: "freertos-task-management-scheduling",
-      excerpt: "Comprehensive guide to FreeRTOS task management, priority scheduling, inter-task communication, and memory management for embedded applications.",
-      content: `FreeRTOS is one of the most popular real-time operating systems for embedded applications.\n\nThis guide covers:\n• Task creation and management\n• Priority-based scheduling\n• Queue and semaphore usage\n• Memory management strategies\n• Debugging RTOS applications`,
-      image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&h=600&fit=crop",
+      excerpt:
+        "Comprehensive guide to FreeRTOS task management, priority scheduling, inter-task communication...",
+      image:
+        "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&h=600&fit=crop",
       category: "RTOS",
       author: {
-        name: "Noureddine Bouchama",
+        name: "Noureddine AWLED BRAHIM",
         role: "Embedded Systems Engineer",
-        avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face"
+        avatar:
+          "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
       },
       publishedAt: "2025-01-03",
       readTime: 18,
-      tags: ["FreeRTOS", "RTOS", "Task Management", "Scheduling"]
+      tags: ["FreeRTOS", "RTOS", "Task Management", "Scheduling"],
+      link: "https://www.freertos.org/Documentation/01-FreeRTOS-quick-start/01-Beginners-guide/01-RTOS-fundamentals", // ✅ official FreeRTOS docs
     },
     {
       id: 4,
-      title: "Automotive ECU Development: CAN Bus Communication and Diagnostics",
+      title:
+        "Automotive ECU Development: CAN Bus Communication and Diagnostics",
       slug: "automotive-ecu-can-bus-communication",
-      excerpt: "Learn automotive ECU development fundamentals including CAN bus protocol implementation, diagnostic services, and compliance with automotive standards.",
-      content: `Automotive ECU development requires deep understanding of communication protocols and diagnostic standards.\n\nTopics covered:\n• CAN bus protocol implementation\n• UDS diagnostic services\n• AUTOSAR compliance\n• Functional safety (ISO 26262)\n• Testing and validation strategies`,
-      image: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&h=600&fit=crop",
+      excerpt:
+        "Learn automotive ECU development fundamentals including CAN bus protocol implementation, diagnostic services...",
+      image:
+        "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&h=600&fit=crop",
       category: "Automotive",
       author: {
-        name: "Noureddine Bouchama",
+        name: "Noureddine AWLED BRAHIM",
         role: "Embedded Systems Engineer",
-        avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face"
+        avatar:
+          "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
       },
       publishedAt: "2025-01-01",
       readTime: 20,
-      tags: ["Automotive", "CAN Bus", "ECU", "Diagnostics"]
+      tags: ["Automotive", "CAN Bus", "ECU", "Diagnostics"],
+      link: "https://www.csselectronics.com/pages/can-bus-simple-intro-tutorial", // ✅ CAN bus tutorial
     },
     {
       id: 5,
-      title: "Industrial Automation: Modbus Protocol Implementation and Optimization",
+      title:
+        "Industrial Automation: Modbus Protocol Implementation and Optimization",
       slug: "industrial-automation-modbus-protocol",
-      excerpt: "Complete guide to Modbus protocol implementation for industrial automation systems, including RTU and TCP variants with performance optimization techniques.",
-      content: `Modbus remains a cornerstone protocol in industrial automation systems.\n\nThis comprehensive guide covers:\n• Modbus RTU implementation\n• Modbus TCP/IP networking\n• Error handling and recovery\n• Performance optimization\n• Integration with SCADA systems`,
-      image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&h=600&fit=crop",
+      excerpt:
+        "Complete guide to Modbus protocol implementation for industrial automation systems...",
+      image:
+        "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&h=600&fit=crop",
       category: "Industrial Automation",
       author: {
-        name: "Noureddine Bouchama",
+        name: "Noureddine AWLED BRAHIM",
         role: "Embedded Systems Engineer",
-        avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face"
+        avatar:
+          "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
       },
       publishedAt: "2024-12-28",
       readTime: 14,
-      tags: ["Modbus", "Industrial", "Automation", "Protocol"]
+      tags: ["Modbus", "Industrial", "Automation", "Protocol"],
+      link: "https://www.startupdefense.io/cyberattacks/modbus-manipulation", // ✅ official Modbus spec
     },
     {
       id: 6,
       title: "Low-Power Design Techniques for Battery-Operated IoT Devices",
       slug: "low-power-design-iot-devices",
-      excerpt: "Essential techniques for designing ultra-low-power IoT devices including sleep modes, power management, and energy harvesting strategies.",
-      content: `Battery life is critical for IoT devices. This article explores power optimization strategies.\n\nKey techniques include:\n• Sleep mode optimization\n• Dynamic voltage scaling\n• Peripheral power management\n• Energy harvesting integration\n• Power consumption measurement`,
-      image: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800&h=600&fit=crop",
+      excerpt:
+        "Essential techniques for designing ultra-low-power IoT devices including sleep modes, power management...",
+      image:
+        "/assests/images/sensors.png",
       category: "Power Management",
       author: {
-        name: "Noureddine Bouchama",
+        name: "Noureddine AWLED BRAHIM",
         role: "Embedded Systems Engineer",
-        avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face"
+        avatar:
+          "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
       },
       publishedAt: "2024-12-25",
       readTime: 16,
-      tags: ["Low Power", "IoT", "Battery", "Energy"]
-    }
+      tags: ["Low Power", "IoT", "Battery", "Energy"],
+      link: "https://fiveable.me/iot-systems/unit-10/low-power-design-techniques/study-guide/W4oAxPnM0Ejk2EIr", // ✅ TI low-power design
+    },
   ];
 
   // Mock data for categories
-  const categories = [
-    { id: 'stm32', name: 'STM32 Development', icon: 'Cpu', count: 8 },
-    { id: 'iot-security', name: 'IoT Security', icon: 'Shield', count: 6 },
-    { id: 'rtos', name: 'RTOS', icon: 'Clock', count: 5 },
-    { id: 'automotive', name: 'Automotive', icon: 'Car', count: 4 },
-    { id: 'industrial', name: 'Industrial Automation', icon: 'Settings', count: 3 },
-    { id: 'power', name: 'Power Management', icon: 'Battery', count: 4 }
+  const categories = [  
+    { id: "stm32", name: "STM32 Development", icon: "Cpu", count: 8 },
+    { id: "iot-security", name: "IoT Security", icon: "Shield", count: 6 },
+    { id: "rtos", name: "RTOS", icon: "Clock", count: 5 },
+    { id: "automotive", name: "Automotive", icon: "Car", count: 4 },
+    {
+      id: "industrial",
+      name: "Industrial Automation",
+      icon: "Settings",
+      count: 3,
+    },
+    { id: "power", name: "Power Management", icon: "Battery", count: 4 },
   ];
 
   // Mock data for featured series
@@ -137,38 +164,46 @@ const IndustryInsightsHub = () => {
       id: 1,
       title: "Embedded Systems Security Fundamentals",
       slug: "embedded-security-fundamentals",
-      description: "Complete security implementation guide for embedded systems covering hardware security, secure boot, encryption, and threat mitigation strategies.",
-      image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&h=600&fit=crop",
+      description:
+        "Complete security implementation guide for embedded systems covering hardware security, secure boot, encryption, and threat mitigation strategies.",
+      image:
+        "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&h=600&fit=crop",
       articleCount: 8,
       totalReadTime: 120,
       difficulty: "Advanced",
-      tags: ["Security", "Encryption", "Hardware", "Protocols"]
+      tags: ["Security", "Encryption", "Hardware", "Protocols"],
+      link: "https://blackberry.qnx.com/en/ultimate-guides/embedded-system-security", // ✅ external link
     },
     {
       id: 2,
       title: "Automotive ECU Development Mastery",
       slug: "automotive-ecu-mastery",
-      description: "From basic CAN communication to advanced diagnostic services, master automotive ECU development with real-world examples and industry standards.",
-      image: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&h=600&fit=crop",
+      description:
+        "From basic CAN communication to advanced diagnostic services, master automotive ECU development with real-world examples and industry standards.",
+      image:
+        "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&h=600&fit=crop",
       articleCount: 6,
       totalReadTime: 95,
       difficulty: "Expert",
-      tags: ["Automotive", "CAN", "Diagnostics", "AUTOSAR"]
+      tags: ["Automotive", "CAN", "Diagnostics", "AUTOSAR"],
+      link: "https://www.youtube.com/watch?v=pMcPh82L7z8", // ✅ external link
     },
     {
       id: 3,
       title: "IoT Device Optimization Techniques",
       slug: "iot-optimization-techniques",
-      description: "Comprehensive guide to optimizing IoT devices for performance, power consumption, and reliability in production environments.",
-      image: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800&h=600&fit=crop",
+      description:
+        "Comprehensive guide to optimizing IoT devices for performance, power consumption, and reliability in production environments.",
+      image:
+        "https://www.quectel.com/ko/2024/03/25/iot-device-optimization-modem-management-guide/",
       articleCount: 5,
       totalReadTime: 75,
       difficulty: "Intermediate",
-      tags: ["IoT", "Optimization", "Performance", "Power"]
-    }
+      tags: ["IoT", "Optimization", "Performance", "Power"],
+      link: "https://deepbluembedded.com/iot-device-optimization/", // ✅ external link
+    },
   ];
 
-  // Mock data for trending topics
   const trendingTopics = [
     {
       id: 1,
@@ -179,7 +214,8 @@ const IndustryInsightsHub = () => {
       color: "bg-purple-500",
       articleCount: 12,
       views: "15.2K",
-      growth: 45
+      growth: 45,
+      link: "https://www.edge-ai-vision.com/", // ✅ external resource
     },
     {
       id: 2,
@@ -190,7 +226,8 @@ const IndustryInsightsHub = () => {
       color: "bg-orange-500",
       articleCount: 8,
       views: "12.8K",
-      growth: 38
+      growth: 38,
+      link: "https://docs.rust-embedded.org/book/", // ✅ official Rust Embedded Book
     },
     {
       id: 3,
@@ -201,7 +238,8 @@ const IndustryInsightsHub = () => {
       color: "bg-blue-500",
       articleCount: 6,
       views: "9.4K",
-      growth: 32
+      growth: 32,
+      link: "https://www.ericsson.com/en/5g/iot", // ✅ Ericsson 5G IoT hub
     },
     {
       id: 4,
@@ -212,27 +250,38 @@ const IndustryInsightsHub = () => {
       color: "bg-green-500",
       articleCount: 4,
       views: "7.1K",
-      growth: 28
-    }
+      growth: 28,
+      link: "https://csrc.nist.gov/projects/post-quantum-cryptography", // ✅ NIST PQC project
+    },
   ];
 
   // Filter articles based on category and search term
   useEffect(() => {
     let filtered = articles;
 
-    if (activeCategory !== 'all') {
-      const categoryName = categories?.find(cat => cat?.id === activeCategory)?.name;
-      filtered = filtered?.filter(article => 
-        article?.category?.toLowerCase()?.includes(activeCategory?.toLowerCase()) ||
-        article?.category === categoryName
+    if (activeCategory !== "all") {
+      const categoryName = categories?.find(
+        (cat) => cat?.id === activeCategory
+      )?.name;
+      filtered = filtered?.filter(
+        (article) =>
+          article?.category
+            ?.toLowerCase()
+            ?.includes(activeCategory?.toLowerCase()) ||
+          article?.category === categoryName
       );
     }
 
     if (searchTerm) {
-      filtered = filtered?.filter(article =>
-        article?.title?.toLowerCase()?.includes(searchTerm?.toLowerCase()) ||
-        article?.excerpt?.toLowerCase()?.includes(searchTerm?.toLowerCase()) ||
-        article?.tags?.some(tag => tag?.toLowerCase()?.includes(searchTerm?.toLowerCase()))
+      filtered = filtered?.filter(
+        (article) =>
+          article?.title?.toLowerCase()?.includes(searchTerm?.toLowerCase()) ||
+          article?.excerpt
+            ?.toLowerCase()
+            ?.includes(searchTerm?.toLowerCase()) ||
+          article?.tags?.some((tag) =>
+            tag?.toLowerCase()?.includes(searchTerm?.toLowerCase())
+          )
       );
     }
 
@@ -247,15 +296,25 @@ const IndustryInsightsHub = () => {
     setSearchTerm(term);
   };
 
-  const featuredArticle = articles?.find(article => article?.featured);
-  const regularArticles = filteredArticles?.filter(article => !article?.featured);
+  const featuredArticle = articles?.find((article) => article?.featured);
+  const regularArticles = filteredArticles?.filter(
+    (article) => !article?.featured
+  );
 
   return (
     <div className="min-h-screen bg-brand-surface">
       <Helmet>
-        <title>Industry Insights Hub - NoureddineCode | Embedded Systems Expertise</title>
-        <meta name="description" content="Expert insights on embedded systems, IoT security, automotive ECU development, and industrial automation. Technical articles, tutorials, and industry trends by Noureddine Bouchama." />
-        <meta name="keywords" content="embedded systems, IoT security, STM32, RTOS, automotive ECU, industrial automation, embedded programming" />
+        <title>
+          Industry Insights Hub - NoureddineCode | Embedded Systems Expertise
+        </title>
+        <meta
+          name="description"
+          content="Expert insights on embedded systems, IoT security, automotive ECU development, and industrial automation. Technical articles, tutorials, and industry trends by Noureddine AWLED BRAHIM."
+        />
+        <meta
+          name="keywords"
+          content="embedded systems, IoT security, STM32, RTOS, automotive ECU, industrial automation, embedded programming"
+        />
       </Helmet>
       <Header />
       <main className="pt-16">
@@ -265,19 +324,24 @@ const IndustryInsightsHub = () => {
             <div className="text-center mb-12">
               <div className="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 mb-6">
                 <Icon name="BookOpen" size={20} className="text-white" />
-                <span className="text-white font-medium">Industry Insights Hub</span>
+                <span className="text-white font-medium">
+                  Industry Insights Hub
+                </span>
               </div>
-              
+
               <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
                 Embedded Systems
-                <span className="block text-brand-accent">Expertise & Insights</span>
+                <span className="block text-brand-accent">
+                  Expertise & Insights
+                </span>
               </h1>
-              
+
               <p className="text-xl text-white/90 mb-8 max-w-3xl mx-auto">
-                Deep technical insights, tutorials, and industry analysis covering IoT security, 
-                automotive ECU development, industrial automation, and cutting-edge embedded systems technologies.
+                Deep technical insights, tutorials, and industry analysis
+                covering IoT security, automotive ECU development, industrial
+                automation, and cutting-edge embedded systems technologies.
               </p>
-              
+
               <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 text-white/80">
                 <div className="flex items-center space-x-2">
                   <Icon name="FileText" size={20} />
@@ -304,25 +368,29 @@ const IndustryInsightsHub = () => {
           <TrendingTopics topics={trendingTopics} />
 
           {/* Featured Article */}
-          {featuredArticle && !searchTerm && activeCategory === 'all' && (
+          {featuredArticle && !searchTerm && activeCategory === "all" && (
             <section className="mb-16">
               <div className="flex items-center justify-between mb-8">
                 <div>
-                  <h2 className="text-3xl font-bold text-text-primary mb-2">Featured Article</h2>
-                  <p className="text-text-secondary">In-depth technical analysis and insights</p>
+                  <h2 className="text-3xl font-bold text-text-primary mb-2">
+                    Featured Article
+                  </h2>
+                  <p className="text-text-secondary">
+                    In-depth technical analysis and insights
+                  </p>
                 </div>
                 <div className="flex items-center space-x-2 text-brand-primary">
                   <Icon name="Star" size={20} />
                   <span className="font-medium">Editor's Pick</span>
                 </div>
               </div>
-              
+
               <ArticleCard article={featuredArticle} featured={true} />
             </section>
           )}
 
           {/* Featured Series */}
-          {!searchTerm && activeCategory === 'all' && (
+          {!searchTerm && activeCategory === "all" && (
             <FeaturedSeries series={featuredSeries} />
           )}
 
@@ -331,16 +399,17 @@ const IndustryInsightsHub = () => {
             <div className="flex items-center justify-between mb-8">
               <div>
                 <h2 className="text-3xl font-bold text-text-primary mb-2">
-                  {searchTerm ? `Search Results for "${searchTerm}"` : 'Latest Articles'}
+                  {searchTerm
+                    ? `Search Results for "${searchTerm}"`
+                    : "Latest Articles"}
                 </h2>
                 <p className="text-text-secondary">
-                  {searchTerm 
+                  {searchTerm
                     ? `Found ${filteredArticles?.length} articles matching your search`
-                    : 'Technical insights and tutorials on embedded systems'
-                  }
+                    : "Technical insights and tutorials on embedded systems"}
                 </p>
               </div>
-              
+
               {!searchTerm && (
                 <div className="flex items-center space-x-2 text-text-muted">
                   <Icon name="Clock" size={16} />
@@ -368,14 +437,17 @@ const IndustryInsightsHub = () => {
                 <div className="w-24 h-24 bg-brand-surface rounded-full flex items-center justify-center mx-auto mb-6">
                   <Icon name="Search" size={32} className="text-text-muted" />
                 </div>
-                <h3 className="text-xl font-semibold text-text-primary mb-2">No articles found</h3>
+                <h3 className="text-xl font-semibold text-text-primary mb-2">
+                  No articles found
+                </h3>
                 <p className="text-text-secondary mb-6">
-                  Try adjusting your search terms or browse different categories.
+                  Try adjusting your search terms or browse different
+                  categories.
                 </p>
                 <button
                   onClick={() => {
-                    setSearchTerm('');
-                    setActiveCategory('all');
+                    setSearchTerm("");
+                    setActiveCategory("all");
                   }}
                   className="inline-flex items-center space-x-2 px-6 py-3 bg-brand-primary text-white rounded-lg hover:bg-brand-secondary transition-colors duration-200"
                 >
@@ -394,23 +466,29 @@ const IndustryInsightsHub = () => {
           {/* Additional Resources */}
           <section className="bg-white rounded-2xl shadow-card p-8 border border-border">
             <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold text-text-primary mb-4">Expand Your Knowledge</h2>
+              <h2 className="text-3xl font-bold text-text-primary mb-4">
+                Expand Your Knowledge
+              </h2>
               <p className="text-text-secondary max-w-2xl mx-auto">
-                Explore additional resources to deepen your embedded systems expertise
+                Explore additional resources to deepen your embedded systems
+                expertise
               </p>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="text-center">
                 <div className="w-16 h-16 bg-brand-primary rounded-full flex items-center justify-center mx-auto mb-4">
                   <Icon name="Github" size={32} className="text-white" />
                 </div>
-                <h3 className="text-xl font-semibold text-text-primary mb-2">Open Source Projects</h3>
+                <h3 className="text-xl font-semibold text-text-primary mb-2">
+                  Open Source Projects
+                </h3>
                 <p className="text-text-secondary mb-4">
-                  Explore code repositories and contribute to embedded systems projects
+                  Explore code repositories and contribute to embedded systems
+                  projects
                 </p>
                 <a
-                  href="https://github.com/noureddine-bouchama"
+                  href="https://github.com/Noureddine1920"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center space-x-2 text-brand-primary hover:text-brand-secondary transition-colors duration-200"
@@ -419,12 +497,14 @@ const IndustryInsightsHub = () => {
                   <Icon name="ExternalLink" size={16} />
                 </a>
               </div>
-              
+
               <div className="text-center">
                 <div className="w-16 h-16 bg-brand-secondary rounded-full flex items-center justify-center mx-auto mb-4">
                   <Icon name="Video" size={32} className="text-white" />
                 </div>
-                <h3 className="text-xl font-semibold text-text-primary mb-2">Video Tutorials</h3>
+                <h3 className="text-xl font-semibold text-text-primary mb-2">
+                  Video Tutorials
+                </h3>
                 <p className="text-text-secondary mb-4">
                   Watch step-by-step tutorials on embedded systems development
                 </p>
@@ -436,12 +516,14 @@ const IndustryInsightsHub = () => {
                   <Icon name="Play" size={16} />
                 </a>
               </div>
-              
+
               <div className="text-center">
                 <div className="w-16 h-16 bg-brand-accent rounded-full flex items-center justify-center mx-auto mb-4">
                   <Icon name="MessageCircle" size={32} className="text-white" />
                 </div>
-                <h3 className="text-xl font-semibold text-text-primary mb-2">Community Forum</h3>
+                <h3 className="text-xl font-semibold text-text-primary mb-2">
+                  Community Forum
+                </h3>
                 <p className="text-text-secondary mb-4">
                   Join discussions with fellow embedded systems engineers
                 </p>
@@ -472,22 +554,32 @@ const IndustryInsightsHub = () => {
                 </div>
               </div>
               <p className="text-white/80 mb-4 max-w-md">
-                Your trusted source for embedded systems expertise, technical insights, 
-                and industry trends. Empowering engineers with knowledge and practical solutions.
+                Your trusted source for embedded systems expertise, technical
+                insights, and industry trends. Empowering engineers with
+                knowledge and practical solutions.
               </p>
               <div className="flex items-center space-x-4">
-                <a href="#" className="text-white/70 hover:text-white transition-colors duration-200">
+                <a
+                  href="#"
+                  className="text-white/70 hover:text-white transition-colors duration-200"
+                >
                   <Icon name="Linkedin" size={20} />
                 </a>
-                <a href="#" className="text-white/70 hover:text-white transition-colors duration-200">
+                <a
+                  href="#"
+                  className="text-white/70 hover:text-white transition-colors duration-200"
+                >
                   <Icon name="Github" size={20} />
                 </a>
-                <a href="#" className="text-white/70 hover:text-white transition-colors duration-200">
+                <a
+                  href="#"
+                  className="text-white/70 hover:text-white transition-colors duration-200"
+                >
                   <Icon name="Twitter" size={20} />
                 </a>
               </div>
             </div>
-            
+
             <div>
               <h4 className="text-lg font-semibold mb-4">Categories</h4>
               <ul className="space-y-2">
@@ -503,26 +595,69 @@ const IndustryInsightsHub = () => {
                 ))}
               </ul>
             </div>
-            
+
             <div>
               <h4 className="text-lg font-semibold mb-4">Resources</h4>
               <ul className="space-y-2 text-sm">
-                <li><a href="#" className="text-white/70 hover:text-white transition-colors duration-200">Documentation</a></li>
-                <li><a href="#" className="text-white/70 hover:text-white transition-colors duration-200">Code Examples</a></li>
-                <li><a href="#" className="text-white/70 hover:text-white transition-colors duration-200">Video Tutorials</a></li>
-                <li><a href="#" className="text-white/70 hover:text-white transition-colors duration-200">Community</a></li>
+                <li>
+                  <a
+                    href="#"
+                    className="text-white/70 hover:text-white transition-colors duration-200"
+                  >
+                    Documentation
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    className="text-white/70 hover:text-white transition-colors duration-200"
+                  >
+                    Code Examples
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    className="text-white/70 hover:text-white transition-colors duration-200"
+                  >
+                    Video Tutorials
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    className="text-white/70 hover:text-white transition-colors duration-200"
+                  >
+                    Community
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
-          
+
           <div className="border-t border-white/20 mt-8 pt-8 flex flex-col md:flex-row items-center justify-between">
             <p className="text-white/70 text-sm">
               © {new Date()?.getFullYear()} NoureddineCode. All rights reserved.
             </p>
             <div className="flex items-center space-x-6 mt-4 md:mt-0">
-              <a href="#" className="text-white/70 hover:text-white transition-colors duration-200 text-sm">Privacy Policy</a>
-              <a href="#" className="text-white/70 hover:text-white transition-colors duration-200 text-sm">Terms of Service</a>
-              <a href="#" className="text-white/70 hover:text-white transition-colors duration-200 text-sm">Contact</a>
+              <a
+                href="#"
+                className="text-white/70 hover:text-white transition-colors duration-200 text-sm"
+              >
+                Privacy Policy
+              </a>
+              <a
+                href="#"
+                className="text-white/70 hover:text-white transition-colors duration-200 text-sm"
+              >
+                Terms of Service
+              </a>
+              <a
+                href="#"
+                className="text-white/70 hover:text-white transition-colors duration-200 text-sm"
+              >
+                Contact
+              </a>
             </div>
           </div>
         </div>
