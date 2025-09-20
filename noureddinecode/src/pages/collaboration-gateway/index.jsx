@@ -216,8 +216,8 @@ const CollaborationGateway = () => {
                   <Icon name="Layers" size={24} className="text-white" />
                 </div>
                 <div>
-                  <div className="text-xl font-bold">NoureddineCode</div>
-                  <div className="text-sm text-white/70">Embedded Systems Excellence</div>
+                  <div className="text-xl font-bold">Noureddine AWLED BARHIM</div>
+                  <div className="text-sm text-white/70">Embedded Software Engineer</div>
                 </div>
               </div>
               <p className="text-white/80 mb-4">
@@ -225,13 +225,13 @@ const CollaborationGateway = () => {
                 Transforming innovative ideas into reliable, scalable embedded solutions.
               </p>
               <div className="flex space-x-4">
-                <a href="https://linkedin.com/in/noureddine-embedded" className="text-white/60 hover:text-white transition-colors">
+                <a href="https://linkedin.com/in/nourreddine-awled-brahim" className="text-white/60 hover:text-white transition-colors">
                   <Icon name="Linkedin" size={20} />
                 </a>
-                <a href="https://github.com/noureddine-embedded" className="text-white/60 hover:text-white transition-colors">
+                <a href="https://github.com/Nourreddine1920" className="text-white/60 hover:text-white transition-colors">
                   <Icon name="Github" size={20} />
                 </a>
-                <a href="mailto:noureddine.embedded@gmail.com" className="text-white/60 hover:text-white transition-colors">
+                <a href="mailto:noureddine.awledbrahim@gmail.com" className="text-white/60 hover:text-white transition-colors">
                   <Icon name="Mail" size={20} />
                 </a>
               </div>
@@ -250,8 +250,8 @@ const CollaborationGateway = () => {
             <div>
               <h4 className="font-semibold mb-4">Contact</h4>
               <ul className="space-y-2 text-sm text-white/80">
-                <li>noureddine.embedded@gmail.com</li>
-                <li>+1 (555) 123-4567</li>
+                <li>noureddine.awledbrahim@gmail.com</li>
+                <li>+ (216) 98 790 520</li>
                 <li>Available Mon-Fri, 9 AM - 6 PM EST</li>
                 <li>Response within 4-6 hours</li>
               </ul>
@@ -259,7 +259,7 @@ const CollaborationGateway = () => {
           </div>
           
           <div className="border-t border-white/20 mt-8 pt-8 text-center text-sm text-white/60">
-            <p>&copy; {new Date()?.getFullYear()} NoureddineCode. All rights reserved. Built with precision and passion for embedded systems excellence.</p>
+            <p>&copy; {new Date()?.getFullYear()} Noureddine AWLED BARHIM. All rights reserved. Built with precision and passion for embedded systems excellence.</p>
           </div>
         </div>
       </footer>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Icon from '../AppIcon';
 import Button from './Button';
 
@@ -7,6 +7,7 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const navigationItems = [
     { name: 'Home', path: '/interactive-landing-experience', icon: 'Home' },
@@ -19,6 +20,9 @@ const Header = () => {
   const secondaryItems = [
     { name: 'Collaboration', path: '/collaboration-gateway', icon: 'Users' }
   ];
+
+  // GitHub account URL
+  const githubUrl = "https://github.com/Nourreddine1920"; // Replace with your actual GitHub URL
 
   useEffect(() => {
     const handleScroll = () => {
@@ -39,6 +43,14 @@ const Header = () => {
 
   const isActivePath = (path) => {
     return location?.pathname === path;
+  };
+
+  const handleScheduleCall = () => {
+    navigate('/collaboration-gateway');
+  };
+
+  const handleGithubClick = () => {
+    window.open(githubUrl, '_blank');
   };
 
   const Logo = () => (
@@ -81,10 +93,10 @@ const Header = () => {
       </div>
       <div className="flex flex-col">
         <span className="text-xl font-bold text-text-primary tracking-tight">
-          NoureddineCode
+          Noureddine AWLED BRAHIM
         </span>
         <span className="text-xs text-text-secondary font-mono tracking-wider">
-          Embedded Systems
+          Embedded Software Engineer
         </span>
       </div>
     </Link>
@@ -152,6 +164,7 @@ const Header = () => {
               iconName="Github"
               iconPosition="left"
               className="text-text-secondary hover:text-text-primary"
+              onClick={handleGithubClick}
             >
               GitHub
             </Button>
@@ -161,6 +174,7 @@ const Header = () => {
               iconName="Calendar"
               iconPosition="left"
               className="bg-success hover:bg-success/90"
+              onClick={handleScheduleCall}
             >
               Schedule Call
             </Button>
@@ -208,6 +222,7 @@ const Header = () => {
                 iconName="Github"
                 iconPosition="left"
                 className="justify-center"
+                onClick={handleGithubClick}
               >
                 View GitHub
               </Button>
@@ -217,6 +232,7 @@ const Header = () => {
                 iconName="Calendar"
                 iconPosition="left"
                 className="justify-center bg-success hover:bg-success/90"
+                onClick={handleScheduleCall}
               >
                 Schedule Technical Consultation
               </Button>
