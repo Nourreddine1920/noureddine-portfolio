@@ -579,13 +579,13 @@ const ProfessionalJourneyTimeline = () => {
               <div className="w-8 h-8 bg-gradient-to-br from-brand-secondary to-accent rounded-lg flex items-center justify-center">
                 <Icon name="Code" size={16} color="white" />
               </div>
-              <span className="text-xl font-bold">NoureddineCode</span>
+              <span className="text-xl font-bold">Noureddine AWLED BRAHIM</span>
             </div>
             <p className="text-white/70 mb-4">
               Embedded Systems Engineer • IoT Specialist • Automotive Expert
             </p>
             <p className="text-white/50 text-sm">
-              © {new Date()?.getFullYear()} NoureddineCode. All rights reserved.
+              © {new Date()?.getFullYear()} Noureddine AWLED BRAHIM. All rights reserved.
             </p>
           </div>
         </div>

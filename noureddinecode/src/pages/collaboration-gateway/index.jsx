@@ -71,7 +71,7 @@ const CollaborationGateway = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-brand-surface via-white to-brand-surface">
       <Helmet>
-        <title>Collaboration Gateway - NoureddineCode | Professional Engagement Hub</title>
+        <title>Collaboration Gateway - Noureddine AWLED BRAHIM | Professional Engagement Hub</title>
         <meta name="description" content="Connect with Noureddine for embedded systems projects, technical consultations, and professional collaboration. Schedule meetings, download resources, and start meaningful technical conversations." />
         <meta name="keywords" content="embedded systems consultant, technical collaboration, project inquiry, embedded systems expert, IoT consultation" />
       </Helmet>
@@ -189,9 +189,9 @@ const CollaborationGateway = () => {
               iconName="Phone"
               iconPosition="left"
               className="bg-white/10 border-white/20 text-white hover:bg-white/20"
-              onClick={() => window.location.href = 'tel:+15551234567'}
+              onClick={() => window.location.href = 'tel:+21698790520'}
             >
-              Call Now: +1 (555) 123-4567
+              Call Now: + (216) 98 790 520
             </Button>
             <Button
               variant="outline"
@@ -199,9 +199,9 @@ const CollaborationGateway = () => {
               iconName="Mail"
               iconPosition="left"
               className="bg-white/10 border-white/20 text-white hover:bg-white/20"
-              onClick={() => window.location.href = 'mailto:noureddine.embedded@gmail.com'}
+              onClick={() => window.location.href = 'mailto:noureddine.awledbrahim@gmail.com'}
             >
-              Email: noureddine.embedded@gmail.com
+              Email: noureddine.awledbrahim@gmail.com
             </Button>
           </div>
         </div>

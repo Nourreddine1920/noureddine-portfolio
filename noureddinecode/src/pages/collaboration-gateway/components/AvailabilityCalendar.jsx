@@ -94,26 +94,62 @@ const AvailabilityCalendar = () => {
   };
 
   // Send email using direct fetch API
-  const sendEmail = async (templateParams) => {
+  const sendEmail = async (templateParams, recipientEmail) => {
     try {
+      // Validate environment variables
+      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID2;
+      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID2;
+      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+      if (!serviceId || !templateId || !publicKey) {
+        throw new Error('EmailJS configuration missing. Please check your environment variables.');
+      }
+
+      if (!recipientEmail) {
+        throw new Error('Recipient email address is required');
+      }
+
+      // Add recipient email to template params with multiple possible field names
+      const finalParams = {
+        ...templateParams,
+        to_email: recipientEmail,
+        user_email: recipientEmail,
+        reply_to: recipientEmail,
+        email: recipientEmail
+      };
+
+      console.log('Sending email with params:', {
+        service_id: serviceId,
+        template_id: templateId,
+        user_id: publicKey,
+        recipient_email: recipientEmail,
+        template_params: finalParams
+      });
+
+      const requestBody = {
+        service_id: serviceId,
+        template_id: templateId,
+        user_id: publicKey,
+        template_params: finalParams,
+      };
+
+      console.log('Full request body:', JSON.stringify(requestBody, null, 2));
+
       const response = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          service_id: import.meta.env.VITE_EMAILJS_SERVICE_ID2,
-          template_id: import.meta.env.VITE_EMAILJS_TEMPLATE_ID2,
-          user_id: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
-          template_params: templateParams,
-        }),
+        body: JSON.stringify(requestBody),
       });
+
+      const responseText = await response.text();
+      console.log('EmailJS response:', response.status, responseText);
 
       if (response.ok) {
         console.log('Email sent successfully');
         return response;
       } else {
-        const errorText = await response.text();
-        console.error("EmailJS failed:", errorText);
-        throw new Error(`EmailJS failed: ${errorText}`);
+        console.error("EmailJS failed:", responseText);
+        throw new Error(`EmailJS failed: ${responseText}`);
       }
     } catch (error) {
       console.error('Email sending failed:', error);
@@ -124,67 +160,77 @@ const AvailabilityCalendar = () => {
   // Send booking notification to host
   const sendHostNotification = async (bookingData) => {
     const consultation = consultationTypes.find(type => type.value === bookingData.consultationType);
-    const dateFormatted = bookingData.date.toLocaleDateString('en-US', {
+    
+    // Ensure we have a proper Date object
+    const bookingDate = bookingData.date instanceof Date ? bookingData.date : new Date(bookingData.date);
+    
+    // Format date properly
+    const dateFormatted = bookingDate.toLocaleDateString('en-US', {
       weekday: 'long',
       year: 'numeric',
       month: 'long',
       day: 'numeric',
     });
 
+    // Format time properly with timezone
+    const timeSlot = timeSlots.find(slot => slot.value === bookingData.time);
+    const timeFormatted = timeSlot ? `${timeSlot.label} (${bookingData.timezone})` : `${bookingData.time} (${bookingData.timezone})`;
+
     const templateParams = {
-      user_name: userInfo.name,
-      user_email: 'noureddine.awledbrahim@gmail.com', // Replace with your actual email - this goes to you
-      from_name: userInfo.name,
       client_name: userInfo.name,
       client_email: userInfo.email,
       client_company: userInfo.company || 'Not specified',
       client_phone: userInfo.phone || 'Not specified',
       consultation_type: consultation.label,
-      date: dateFormatted,
-      time: `${timeSlots.find(slot => slot.value === bookingData.time)?.label}`,
-      timezone: `${selectedTimezone} (${timezones.find(tz => tz.value === selectedTimezone)?.label})`,
-      duration: consultation.duration,
+      date: dateFormatted, // Use consistent field name
+      time: timeSlot ? timeSlot.label : bookingData.time, // Separate time field
+      timezone: bookingData.timezone, // Separate timezone field
+      meeting_link: bookingData.meetingLinks.google, // Primary meeting link
       meeting_link_google: bookingData.meetingLinks.google,
       meeting_link_teams: bookingData.meetingLinks.teams,
-      meeting_link: bookingData.meetingLinks.google, // Fallback for single link
       client_notes: userInfo.notes || 'No additional notes provided',
       booking_id: Date.now().toString(),
     };
 
-    return sendEmail(templateParams);
+    return sendEmail(templateParams, 'noureddine.awledbrahim@gmail.com');
   };
 
   // Send confirmation email to user
   const sendUserConfirmation = async (bookingData) => {
     const consultation = consultationTypes.find(type => type.value === bookingData.consultationType);
-    const dateFormatted = bookingData.date.toLocaleDateString('en-US', {
+    
+    // Ensure we have a proper Date object
+    const bookingDate = bookingData.date instanceof Date ? bookingData.date : new Date(bookingData.date);
+    
+    // Format date properly
+    const dateFormatted = bookingDate.toLocaleDateString('en-US', {
       weekday: 'long',
       year: 'numeric',
       month: 'long',
       day: 'numeric',
     });
 
+    // Format time properly with timezone
+    const timeSlot = timeSlots.find(slot => slot.value === bookingData.time);
+    const timeFormatted = timeSlot ? `${timeSlot.label} (${bookingData.timezone})` : `${bookingData.time} (${bookingData.timezone})`;
+
     const templateParams = {
-      user_name: userInfo.name,
-      user_email: userInfo.email, // This goes to the user
-      from_name: 'Consultation Team',
+      user_name: userInfo.name, // Template expects {{user_name}}
       client_name: userInfo.name,
       client_email: userInfo.email,
-      client_company: userInfo.company || 'Not specified',
-      client_phone: userInfo.phone || 'Not specified',
       consultation_type: consultation.label,
-      date: dateFormatted,
-      time: `${timeSlots.find(slot => slot.value === bookingData.time)?.label}`,
-      timezone: `${selectedTimezone} (${timezones.find(tz => tz.value === selectedTimezone)?.label})`,
-      duration: consultation.duration,
+      date: dateFormatted, // Template expects {{date}}
+      time: timeSlot ? timeSlot.label : bookingData.time, // Template expects {{time}}
+      timezone: bookingData.timezone, // Template expects {{timezone}}
+      meeting_link: bookingData.meetingLinks.google, // Primary meeting link
       meeting_link_google: bookingData.meetingLinks.google,
       meeting_link_teams: bookingData.meetingLinks.teams,
-      meeting_link: bookingData.meetingLinks.google, // Fallback for single link
-      client_notes: userInfo.notes || 'No additional notes provided',
+      duration: consultation.duration,
       booking_id: Date.now().toString(),
+      user_unsubscribe: 'https://your-website.com/unsubscribe', // Template expects {{user_unsubscribe}}
     };
 
-    return sendEmail(templateParams);
+    return sendEmail(templateParams, userInfo.email);
   };
 
   // Generate calendar event download link

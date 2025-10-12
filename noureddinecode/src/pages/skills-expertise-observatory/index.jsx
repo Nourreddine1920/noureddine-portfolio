@@ -43,10 +43,10 @@ const SkillsExpertiseObservatory = () => {
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
-        <title>Skills & Expertise Observatory - NoureddineCode</title>
+        <title>Skills & Expertise Observatory - Noureddine AWLED BRAHIM</title>
         <meta name="description" content="Interactive visualization of technical competencies, learning paths, and industry alignment for embedded systems engineering expertise." />
         <meta name="keywords" content="embedded systems skills, STM32 expertise, ARM programming, IoT development, automotive ECU, industrial automation, technical competencies" />
-        <meta property="og:title" content="Skills & Expertise Observatory - NoureddineCode" />
+        <meta property="og:title" content="Skills & Expertise Observatory - Noureddine AWLED BRAHIM" />
         <meta property="og:description" content="Explore technical skills matrix, certification tracking, and industry alignment analysis for embedded systems engineering." />
         <meta property="og:type" content="website" />
         <link rel="canonical" href="/skills-expertise-observatory" />
@@ -175,7 +175,7 @@ const SkillsExpertiseObservatory = () => {
                   <Icon name="Code" size={20} className="text-white" />
                 </div>
                 <div>
-                  <div className="text-xl font-bold">NoureddineCode</div>
+                  <div className="text-xl font-bold">Noureddine AWLED BRAHIM</div>
                   <div className="text-sm text-white/70">Embedded Systems Engineering</div>
                 </div>
               </div>
@@ -218,7 +218,7 @@ const SkillsExpertiseObservatory = () => {
           </div>
           
           <div className="border-t border-white/10 mt-8 pt-8 text-center text-sm text-white/70">
-            <p>&copy; {new Date()?.getFullYear()} NoureddineCode. All rights reserved. Built with precision and passion for embedded systems excellence.</p>
+            <p>&copy; {new Date()?.getFullYear()} Noureddine AWLED BRAHIM. All rights reserved. Built with precision and passion for embedded systems excellence.</p>
           </div>
         </div>
       </footer>

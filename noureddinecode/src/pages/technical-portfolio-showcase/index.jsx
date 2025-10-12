@@ -1199,9 +1199,9 @@ class HomeController {
                   <Icon name="Code2" size={24} className="text-white" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold">NoureddineCode</h3>
+                  <h3 className="text-xl font-bold">Noureddine AWLED BRAHIM</h3>
                   <p className="text-gray-400 text-sm">
-                    Embedded Systems Excellence
+                    Embedded Systems Engineer
                   </p>
                 </div>
               </div>
@@ -1274,7 +1274,7 @@ class HomeController {
 
           <div className="border-t border-gray-700 mt-8 pt-8 text-center">
             <p className="text-gray-400">
-              © {new Date()?.getFullYear()} NoureddineCode. All rights reserved.
+              © {new Date()?.getFullYear()} Noureddine AWLED BRAHIM. All rights reserved.
               Built with precision and passion.
             </p>
           </div>

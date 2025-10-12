@@ -305,7 +305,7 @@ const IndustryInsightsHub = () => {
     <div className="min-h-screen bg-brand-surface">
       <Helmet>
         <title>
-          Industry Insights Hub - NoureddineCode | Embedded Systems Expertise
+          Industry Insights Hub - Noureddine AWLED BRAHIM | Embedded Systems Expertise
         </title>
         <meta
           name="description"
@@ -550,7 +550,7 @@ const IndustryInsightsHub = () => {
                 </div>
                 <div>
                   <h3 className="text-xl font-bold">Industry Insights Hub</h3>
-                  <p className="text-white/70 text-sm">by NoureddineCode</p>
+                  <p className="text-white/70 text-sm">by Noureddine AWLED BRAHIM</p>
                 </div>
               </div>
               <p className="text-white/80 mb-4 max-w-md">
@@ -637,7 +637,7 @@ const IndustryInsightsHub = () => {
 
           <div className="border-t border-white/20 mt-8 pt-8 flex flex-col md:flex-row items-center justify-between">
             <p className="text-white/70 text-sm">
-              © {new Date()?.getFullYear()} NoureddineCode. All rights reserved.
+              © {new Date()?.getFullYear()} Noureddine AWLED BRAHIM. All rights reserved.
             </p>
             <div className="flex items-center space-x-6 mt-4 md:mt-0">
               <a

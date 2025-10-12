@@ -29,13 +29,13 @@ const InteractiveLandingExperience = () => {
                   <path d="M2 12L12 17L22 12" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
                 </svg>
               </div>
-              <span className="text-xl font-bold">NoureddineCode</span>
+              <span className="text-xl font-bold">Noureddine AWLED BRAHIM</span>
             </div>
             <p className="text-slate-400 mb-6">
               Engineering the invisible intelligence that powers tomorrow's connected world
             </p>
             <div className="text-sm text-slate-500">
-              © {new Date()?.getFullYear()} NoureddineCode. All rights reserved.
+              © {new Date()?.getFullYear()} Noureddine AWLED BRAHIM. All rights reserved.
             </div>
           </div>
         </div>
