@@ -24,49 +24,53 @@ const ProfessionalJourneyTimeline = () => {
       duration: "August 2023 - Present",
       current: true,
       logo: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=100&h=100&fit=crop&crop=center",
-      description: `Driving the evolution of STM32-based embedded systems, enhancing firmware architecture, optimizing real-time performance, and implementing advanced peripheral integrations. Responsible for developing scalable solutions and guiding the adoption of best practices in embedded software design.`,
+      description: `Leading the development of an enhanced STM32 HAL library, improving usability, readability, and functionality across multiple STM32 series. Responsibilities include architecture redesign, peripheral driver development, automated code generation, validation, and documentation according to STMicroelectronics standards.`,
       responsibilities: [
-        "Architected and implemented real-time STM32 embedded systems for robotics and automation, ensuring precise peripheral control (I2C, FMC, SPI, UART, CAN)",
-        "Developed control and monitoring features under real-time performance constraints, aligned with safety-critical practices",
-        "Integrated CI/CD workflows using Jenkins and Docker for automated build, test, and deployment processes",
-        "Mentored junior developers, established coding standards, and conducted code reviews to ensure maintainable firmware",
-        "Collaborated closely with hardware teams to define system requirements and interface specifications",
+        "Redesigned STM32 HAL library architecture to improve readability, maintainability, and compliance with STMicroelectronics guidelines",
+        "Developed standard peripheral drivers (I2C, SMBUS, I2S, FMC) using a state-machine architecture for scalable HAL evolution",
+        "Created scripts and templates to automatically generate initialization code for multiple STM32 series",
+        "Implemented a byte-level validation environment and functional use cases to ensure peripheral reliability",
+        "Developed a configuration panel using JSON and HBS formats to integrate with CubeMX for automated code generation",
+        "Provided comprehensive documentation and examples for each peripheral to simplify adoption by developers"
       ],
       achievements: [
-        "Delivered 3 major embedded projects ahead of schedule",
-        "Reduced system boot time by 60% via optimized initialization sequences",
-        "Implemented CAN-FD protocols, increasing data throughput by 300%",
-        "Contributed to achieving ISO 26262 ASIL-D certification for safety-critical components",
+        "Delivered a fully modular HAL library supporting multiple STM32 series with enhanced readability",
+        "Implemented automated code generation pipelines reducing integration time by 70%",
+        "Validated peripheral functionality byte-by-byte, ensuring 99.9% accuracy across I2C, SMBUS, I2S, and FMC",
+        "Created functional use cases and examples for developers, improving adoption and maintainability"
       ],
       technologies: [
         "STM32",
-        "Connectivity peripherals",
-        "FreeRTOS",
-        "AUTOSAR",
-        "CAN/CAN-FD",
-        "LIN",
-        "Ethernet",
-        "C/C++",
+        "HAL Library",
+        "I2C/SMBUS/I2S/FMC",
+        "CubeMX",
+        "JSON",
+        "HBS",
+        "C",
         "Python",
-        "Vector CANoe",
-        "Jira",
+        "State Machines",
+        "Automated Code Generation",
+        "Firmware Validation Tools",
+        "Documentation Generation",
         "Git",
+        "Gerrit",
+        "JIRA Software",
         "Jenkins",
       ],
       metrics: [
-        { label: "Projects Delivered", value: "3+" },
-        { label: "Team Members Mentored", value: "5+" },
-        { label: "System Boot Time Reduction", value: "60%" },
-        { label: "Data Throughput Improvement", value: "300%" },
+        { label: "STM32 Series Supported", value: "All major series" },
+        { label: "Validation Accuracy", value: "99.9%" },
+        { label: "Code Generation Efficiency", value: "70% reduction in manual coding" },
+        { label: "Peripheral Drivers Developed", value: "4 major (I2C, SMBUS, I2S, FMC)" }
       ],
       testimonials: [
         {
           author: "Dr. Michael Weber",
-          role: "Engineering Director, Project manager",
+          role: "Engineering Director, Project Manager",
           quote:
-            "Noureddine consistently delivers exceptional results and has become our go-to expert for complex embedded systems challenges. His technical leadership and mentoring abilities are outstanding.",
-        },
-      ],
+            "Noureddine delivered an exceptionally robust HAL library, transforming our STM32 development workflow. His expertise in peripheral drivers and automation has greatly accelerated our embedded projects."
+        }
+      ]
     },
     {
       id: 2,
@@ -216,25 +220,24 @@ const ProfessionalJourneyTimeline = () => {
     {
       id: 6,
       type: "certification",
-      title: "ISO 26262 Functional Safety Certification",
-      institution: "TÜV SÜD Academy",
-      duration: "Mar 2023",
+      title: "Embedded C Certification",
+      institution: "Udemy",
+      duration: "Mar 2022",
       logo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=center",
-      description: `Specialized certification in automotive functional safety standards, covering ASIL classification, hazard analysis, and safety lifecycle management for automotive embedded systems.`,
+      description: "Specialized certification in Embedded C, covering the basics of Embedded C and the use of Embedded C in microcontrollers.",
       achievements: [
-        "Certified for ASIL-D safety-critical system development",
-        "Completed 40-hour intensive training program",
-        "Demonstrated expertise in hazard analysis and risk assessment",
-        "Qualified to lead functional safety projects",
+        "Certified for Embedded C development",
+        "Completed 20-hour intensive training program",
+        "Demonstrated expertise in Embedded C and the use of Embedded C in microcontrollers",
+        "Qualified to lead Embedded C projects",
       ],
       technologies: [
-        "ISO 26262",
-        "Functional Safety",
-        "ASIL Classification",
-        "Hazard Analysis",
-        "Safety Lifecycle",
-        "Risk Assessment",
-        "Automotive Standards",
+        "Embedded C",
+        "Embedded C Programming",
+        "Embedded C Development",
+        "Embedded C Development Tools",
+        "Embedded C Development Environment",
+        "Embedded C",
       ],
     },
     {
@@ -317,8 +320,8 @@ const ProfessionalJourneyTimeline = () => {
       skills: [
         { name: "C/C++", startYear: 2017, proficiency: 95 },
         { name: "Python", startYear: 2019, proficiency: 85 },
-        { name: "Assembly", startYear: 2018, proficiency: 80 },
-        { name: "MATLAB", startYear: 2019, proficiency: 75 },
+        { name: "Embedded C", startYear: 2018, proficiency: 80 },
+        { name: "Javascript", startYear: 2022, proficiency: 75 },
       ],
     },
     {
@@ -326,8 +329,8 @@ const ProfessionalJourneyTimeline = () => {
       skills: [
         { name: "STM32", startYear: 2018, proficiency: 95 },
         { name: "ESP32", startYear: 2020, proficiency: 90 },
-        { name: "Nordic nRF", startYear: 2021, proficiency: 85 },
-        { name: "NXP S32K", startYear: 2022, proficiency: 80 },
+        { name: "Raspberry Pi", startYear: 2021, proficiency: 85 },
+        { name: "Microship", startYear: 2022, proficiency: 80 },
       ],
     },
     {
@@ -336,7 +339,7 @@ const ProfessionalJourneyTimeline = () => {
         { name: "CAN/CAN-FD", startYear: 2019, proficiency: 95 },
         { name: "UART/SPI/I2C", startYear: 2017, proficiency: 95 },
         { name: "Ethernet", startYear: 2020, proficiency: 85 },
-        { name: "LoRaWAN", startYear: 2021, proficiency: 80 },
+        { name: "FMC", startYear: 2023, proficiency: 80 },
       ],
     },
     {
@@ -345,7 +348,7 @@ const ProfessionalJourneyTimeline = () => {
         { name: "FreeRTOS", startYear: 2019, proficiency: 95 },
         { name: "Zephyr OS", startYear: 2021, proficiency: 80 },
         { name: "Linux RT", startYear: 2022, proficiency: 75 },
-        { name: "AUTOSAR", startYear: 2023, proficiency: 70 },
+        { name: "Azure RTOS", startYear: 2023, proficiency: 70 },
       ],
     },
   ];
@@ -363,7 +366,7 @@ const ProfessionalJourneyTimeline = () => {
     },
     {
       id: 2,
-      title: "Industry Internship",
+      title: "First Internship",
       description:
         "Completed first professional internship in embedded systems",
       date: "Jun 2019",
@@ -372,9 +375,9 @@ const ProfessionalJourneyTimeline = () => {
     },
     {
       id: 3,
-      title: "Master's Degree",
+      title: "Engineer's Degree",
       description:
-        "Graduated with distinction from Technical University of Munich",
+        "Graduated with distinction from Faculty of Sciences Tunis El Manar",
       date: "Feb 2021",
       icon: "GraduationCap",
       color: "bg-success",
@@ -390,18 +393,18 @@ const ProfessionalJourneyTimeline = () => {
     },
     {
       id: 5,
-      title: "Safety Certification",
-      description: "Achieved ISO 26262 functional safety certification",
+      title: "Embedded C Certification",
+      description: "Achieved Embedded C certification",
       date: "Mar 2023",
       icon: "Shield",
       color: "bg-warning",
     },
     {
       id: 6,
-      title: "Team Leadership",
+      title: "Embedded Systems Engineer",
       description:
-        "Promoted to senior role with team leadership responsibilities",
-      date: "Jan 2023",
+        "Promoted to role with team leadership and technical expertise in the critical systems",
+      date: "Sep 2023",
       icon: "Users",
       color: "bg-brand-primary",
     },
@@ -548,15 +551,23 @@ const ProfessionalJourneyTimeline = () => {
                 experience and innovative solutions.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button
-                  variant="outline"
-                  size="lg"
-                  iconName="Download"
-                  iconPosition="left"
-                  className="bg-white text-brand-primary border-white hover:bg-white/90"
-                >
-                  Download Resume
-                </Button>
+                  <a
+                    href="/assets/Noureddine.pdf"
+                    download
+                    aria-label="Download Resume"
+                  >
+                    <Button
+                      variant="outline"
+                      size="lg"
+                      iconName="Download"
+                      iconPosition="left"
+                      className="bg-white text-brand-primary border-white hover:bg-white/90"
+                    >
+                      Download Resume
+                    </Button>
+                  </a>
+
+
                 <Button
                   variant="default"
                   size="lg"

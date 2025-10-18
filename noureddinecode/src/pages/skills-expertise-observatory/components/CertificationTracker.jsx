@@ -55,15 +55,15 @@ const CertificationTracker = () => {
         badge: 'https://images.credly.com/size/340x340/images/can-expert.png'
       },
       {
-        name: 'AWS IoT Core Certified',
-        issuer: 'Amazon Web Services',
+        name: 'Embedded C Certification',
+        issuer: 'Udemy',
         date: '2023-01-18',
         validUntil: '2026-01-18',
         credentialId: 'AWS-IOT-2023-7429',
-        skills: ['IoT Architecture', 'Device Management', 'MQTT', 'Cloud Integration'],
+        skills: ['Embedded C', 'STM32', 'HAL', 'LL'],
         level: 'Professional',
-        description: 'Certification demonstrating expertise in AWS IoT services and cloud-connected device development.',
-        verificationUrl: 'https://verify.aws.com/cert/AWS-IOT-2023-7429',
+        description: 'Certification demonstrating expertise in Embedded C and the use of Embedded C in microcontrollers.',
+        verificationUrl: 'https://verify.udemy.com/cert/AWS-IOT-2023-7429',
         badge: 'https://images.credly.com/size/340x340/images/aws-iot-certified.png'
       }
     ],

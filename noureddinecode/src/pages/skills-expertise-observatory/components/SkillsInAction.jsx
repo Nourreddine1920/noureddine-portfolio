@@ -7,10 +7,10 @@ const SkillsInAction = () => {
   const skillProjects = [
     {
       id: 'automotive-ecu',
-      title: 'Automotive Engine Control Unit',
-      category: 'Automotive',
-      duration: '8 months',
-      team: '4 engineers',
+      title: 'Autonomous Car Control System',
+      category: 'Embedded Systems',
+      duration: '6 months',
+      team: '2 engineers',
       status: 'completed',
       impact: {
         performance: '+15% fuel efficiency',
@@ -19,7 +19,7 @@ const SkillsInAction = () => {
       },
       skillsApplied: [
         {
-          skill: 'STM32 Programming',
+          skill: 'Embedded C Programming',
           application: 'Real-time engine parameter monitoring and control algorithms',
           complexity: 'Expert',
           outcome: 'Achieved 1ms response time for critical control loops'
@@ -37,10 +37,10 @@ const SkillsInAction = () => {
           outcome: 'Optimized task scheduling reducing CPU usage by 25%'
         },
         {
-          skill: 'ISO 26262',
-          application: 'Safety-critical system design and validation',
-          complexity: 'Advanced',
-          outcome: 'Achieved ASIL-C compliance for safety functions'
+          skill: 'Embedded C',
+          application: 'Design and implementation of the autonomous car control system',
+          complexity: 'Expert',
+          outcome: 'Achieved 1ms response time for critical control loops'
         }
       ],
       technologies: ['STM32F4', 'CAN', 'FreeRTOS', 'MISRA C', 'Vector CANoe'],
@@ -63,58 +63,58 @@ const SkillsInAction = () => {
     },
     {
       id: 'iot-gateway',
-      title: 'Industrial IoT Gateway',
-      category: 'IoT',
+      title: 'eLAB Platform Web',
+      category: 'Embedded Systems / IoT',
       duration: '6 months',
-      team: '3 engineers',
+      team: '2 engineers',
       status: 'completed',
       impact: {
-        connectivity: '500+ devices supported',
-        efficiency: '+30% data processing',
-        scalability: '10x device capacity'
+        connectivity: 'Control multiple STM32 devices online simultaneously',
+        efficiency: 'Reduced programming and testing time by 80%',
+        scalability: 'Supports multiple concurrent users and devices'
       },
       skillsApplied: [
         {
-          skill: 'ESP32 Development',
-          application: 'Multi-protocol wireless communication hub',
+          skill: 'Django Backend',
+          application: 'Centralized management of STM32 devices and users',
+          complexity: 'Advanced',
+          outcome: 'High-performance REST API with secure authentication and role management'
+        },
+        {
+          skill: 'React.js Frontend',
+          application: 'Interactive web interface for real-time control',
+          complexity: 'Advanced',
+          outcome: 'Responsive dashboard displaying device status and control options'
+        },
+        {
+          skill: 'WebSockets',
+          application: 'Real-time bidirectional communication with STM32 devices',
           complexity: 'Expert',
-          outcome: 'Achieved simultaneous WiFi, Bluetooth, and LoRa connectivity'
+          outcome: 'Instant updates of device status and commands'
         },
         {
-          skill: 'MQTT Protocol',
-          application: 'Efficient device-to-cloud messaging system',
-          complexity: 'Advanced',
-          outcome: 'Reduced bandwidth usage by 40% with optimized message queuing'
-        },
-        {
-          skill: 'Modbus Integration',
-          application: 'Legacy industrial equipment connectivity',
-          complexity: 'Advanced',
-          outcome: 'Successfully integrated 50+ legacy devices to IoT network'
-        },
-        {
-          skill: 'Edge Computing',
-          application: 'Local data processing and analytics',
+          skill: 'Docker & Deployment',
+          application: 'Deploying the platform in a scalable environment',
           complexity: 'Intermediate',
-          outcome: 'Reduced cloud processing load by 60% with edge analytics'
+          outcome: 'Containerized application for rapid deployment and simplified maintenance'
         }
       ],
-      technologies: ['ESP32', 'MQTT', 'Modbus', 'LoRaWAN', 'TensorFlow Lite'],
+      technologies: ['Python', 'Django', 'React.js', 'WebSockets', 'PostgreSQL', 'Docker'],
       challenges: [
-        'Multi-protocol communication management',
-        'Real-time data processing with limited resources',
-        'Secure device authentication and data encryption'
+        'Managing real-time communication with multiple STM32 devices simultaneously',
+        'Securing connections and commands between users and devices',
+        'Maintaining stable performance with many users and microcontrollers'
       ],
       solutions: [
-        'Developed unified communication abstraction layer',
-        'Implemented efficient data buffering and compression',
-        'Created certificate-based device authentication system'
+        'Implemented a robust WebSocket server for bidirectional communication',
+        'JWT-based authentication system with role management for secure access',
+        'Containerized architecture to allow scalability and easier maintenance'
       ],
       metrics: {
-        throughput: '10,000 messages/second',
-        latency: '< 50ms average',
-        uptime: '99.5% availability',
-        security: 'AES-256 encryption'
+        throughput: 'Real-time updates < 100ms',
+        latency: 'Command execution < 200ms',
+        uptime: '99.9% availability',
+        security: 'Secure authentication with role-based permissions'
       }
     },
     {
@@ -175,58 +175,60 @@ const SkillsInAction = () => {
     },
     {
       id: 'sensor-network',
-      title: 'Wireless Sensor Network',
-      category: 'IoT',
+      title: 'Smart Home Automation System',
+      category: 'IoT / Embedded Systems',
       duration: '4 months',
       team: '3 engineers',
       status: 'in-progress',
       impact: {
-        coverage: '10km² monitoring area',
-        battery: '5+ years battery life',
-        accuracy: '±1% sensor precision'
+        coverage: 'Complete home automation control',
+        security: 'AI-enhanced intrusion detection',
+        efficiency: 'Optimized energy consumption and device management'
       },
       skillsApplied: [
         {
-          skill: 'LoRaWAN Development',
-          application: 'Long-range, low-power sensor communication',
+          skill: 'Django Backend',
+          application: 'Centralized device management and data processing',
           complexity: 'Advanced',
-          outcome: 'Achieved 15km communication range with 10-year battery life'
+          outcome: 'Secure REST API for controlling smart devices and monitoring sensors'
         },
         {
-          skill: 'Power Management',
-          application: 'Ultra-low power sensor node design',
+          skill: 'React.js Frontend',
+          application: 'User-friendly dashboard for home monitoring and control',
+          complexity: 'Advanced',
+          outcome: 'Interactive UI displaying device status, alerts, and automation rules'
+        },
+        {
+          skill: 'STM32F4920 Integration',
+          application: 'Embedded control of sensors and actuators',
           complexity: 'Expert',
-          outcome: 'Reduced power consumption to 2µA in sleep mode'
+          outcome: 'Reliable real-time sensor readings and device actuation'
         },
         {
-          skill: 'Sensor Calibration',
-          application: 'Multi-parameter environmental monitoring',
+          skill: 'Temperature Sensor & AI Security Model',
+          application: 'Environmental monitoring and automated security alerts',
           complexity: 'Advanced',
-          outcome: 'Achieved ±1% accuracy across temperature range'
-        },
-        {
-          skill: 'Mesh Networking',
-          application: 'Self-healing sensor network topology',
-          complexity: 'Intermediate',
-          outcome: 'Implemented automatic route discovery and healing'
+          outcome: 'Automated detection of anomalies and security breaches'
         }
       ],
-      technologies: ['STM32L4', 'LoRaWAN', 'I2C Sensors', 'Solar Harvesting'],
+      technologies: ['Python', 'Django', 'React.js', 'STM32F4920', 'Temperature Sensor', 'AI/ML', 'MQTT'],
       challenges: [
-        'Ultra-low power consumption requirements',
-        'Harsh environmental conditions',
-        'Network scalability and reliability'
+        'Real-time communication between STM32 devices and web interface',
+        'Secure handling of sensor data and user commands',
+        'Integrating AI for anomaly detection without latency',
+        'Energy-efficient sensor operation for continuous monitoring'
       ],
       solutions: [
-        'Implemented intelligent sleep/wake scheduling',
-        'Designed weatherproof enclosures with IP67 rating',
-        'Created adaptive mesh routing algorithms'
-      ],
+        'Implemented WebSocket-based real-time communication',
+        'Role-based authentication and encrypted data transmission',
+        'Deployed lightweight AI model for on-device security alerts',
+        'Optimized sensor duty cycles to reduce power consumption'
+      ],  
       metrics: {
-        range: '15km line-of-sight',
-        battery: '10+ years estimated',
-        nodes: '1000+ network capacity',
-        reliability: '99.2% uptime'
+        latency: '< 100ms real-time updates',
+        reliability: '99.9% uptime for device control',
+        coverage: 'Whole-home sensor integration',
+        security: 'AI detects intrusions with 95% accuracy'
       }
     }
   ];
@@ -276,9 +278,8 @@ const SkillsInAction = () => {
         {skillProjects?.map((project) => (
           <div
             key={project?.id}
-            className={`relative group cursor-pointer transition-all duration-300 ${
-              selectedProject === project?.id ? 'scale-105' : 'hover:scale-102'
-            }`}
+            className={`relative group cursor-pointer transition-all duration-300 ${selectedProject === project?.id ? 'scale-105' : 'hover:scale-102'
+              }`}
             onClick={() => setSelectedProject(selectedProject === project?.id ? null : project?.id)}
           >
             <div className="bg-brand-surface rounded-lg p-6 border border-border hover:border-brand-primary/30 hover:shadow-card">
@@ -345,10 +346,10 @@ const SkillsInAction = () => {
                 <span className="text-xs text-text-secondary">
                   {project?.skillsApplied?.length} skills demonstrated
                 </span>
-                <Icon 
-                  name={selectedProject === project?.id ? "ChevronUp" : "ChevronDown"} 
-                  size={16} 
-                  className="text-brand-primary" 
+                <Icon
+                  name={selectedProject === project?.id ? "ChevronUp" : "ChevronDown"}
+                  size={16}
+                  className="text-brand-primary"
                 />
               </div>
             </div>

@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import Icon from '../../../components/AppIcon';
-import Button from '../../../components/ui/Button';
-
+import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import Icon from "../../../components/AppIcon";
+import Button from "../../../components/ui/Button";
+import CollaborationGateway from "pages/collaboration-gateway";
 const HeroSection = () => {
   const [currentCodeIndex, setCurrentCodeIndex] = useState(0);
   const [isTyping, setIsTyping] = useState(true);
@@ -14,14 +14,14 @@ const HeroSection = () => {
     "Workflow Automation: Jenkins & Docker",
     "IoT, Automotive & Industrial Automation Enthusiast",
     "2+ Years Experience, 40+ Projects Delivered",
-    "Certified Embedded Systems Professional"
+    "Certified Embedded Systems Professional",
   ];
 
   // Scroll to Featured Projects section
   const handleExploreProjects = () => {
-    const section = document.getElementById('featured-projects');
+    const section = document.getElementById("featured-projects");
     if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
+      section.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -104,6 +104,7 @@ const HeroSection = () => {
                 iconName="Calendar"
                 iconPosition="left"
                 className="border-blue-200 text-blue-700 hover:bg-blue-50 px-8 py-4"
+                onClick={CollaborationGateway}
               >
                 Schedule Consultation
               </Button>

@@ -228,14 +228,6 @@ const FeaturedProjects = ({ onViewProject }) => {
               </div>
 
               <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-                <Button
-                  variant="primary"
-                  onClick={() => onViewProject(project)}
-                  className="flex items-center space-x-3 px-6 py-3 text-base"
-                >
-                  <span>View Details</span>
-                  <Icon name="ArrowRight" size={18} />
-                </Button>
                 {project.github && (
                   <a
                     href={project.github}

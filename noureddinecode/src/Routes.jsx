@@ -17,7 +17,7 @@ const Routes = () => {
       <ScrollToTop />
       <RouterRoutes>
         {/* Define your route here */}
-        <Route path="/" element={<CollaborationGateway />} />
+        <Route path="/" element={<InteractiveLandingExperience />} />
         <Route path="/collaboration-gateway" element={<CollaborationGateway />} />
         <Route path="/professional-journey-timeline" element={<ProfessionalJourneyTimeline />} />
         <Route path="/interactive-landing-experience" element={<InteractiveLandingExperience />} />
